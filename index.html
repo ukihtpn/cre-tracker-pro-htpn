@@ -84,6 +84,42 @@
             opacity:0.3;
         }
         .star-btn.selected, .star-btn:hover { opacity:1; transform:scale(1.15); }
+
+        /* Splash screen */
+        /* ── Splash Screen ── */
+        #splashScreen {
+            position:fixed; inset:0; z-index:9998;
+            background: radial-gradient(ellipse at 30% 40%, #0e2a5e 0%, #0C447C 40%, #071c3a 100%);
+            display:none; align-items:center; justify-content:center;
+            flex-direction:column;
+            transition:opacity 0.6s ease;
+            overflow:hidden;
+        }
+        #mainApp { transition:opacity 0.4s ease; }
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(20px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .splash-item { animation:fadeUp 0.55s ease forwards; opacity:0; }
+        @keyframes spinRect {
+            from { transform:translate(-50%,-50%) rotate(0deg); }
+            to   { transform:translate(-50%,-50%) rotate(360deg); }
+        }
+        @keyframes twinkle {
+            0%,100% { opacity:0.2; transform:scale(0.8); }
+            50%      { opacity:1;   transform:scale(1.2); }
+        }
+        @keyframes twinkle2 {
+            0%,100% { opacity:0.1; transform:scale(1); }
+            50%      { opacity:0.8; transform:scale(1.4); }
+        }
+        @keyframes pulse-ring {
+            0%   { transform:scale(0.95); box-shadow:0 0 0 0 rgba(239,159,39,0.45); }
+            70%  { transform:scale(1);    box-shadow:0 0 0 18px rgba(239,159,39,0); }
+            100% { transform:scale(0.95); box-shadow:0 0 0 0 rgba(239,159,39,0); }
+        }
+        .pulse-logo { animation:pulse-ring 1.8s ease infinite; }
+        .star { position:absolute; border-radius:50%; pointer-events:none; }
     </style>
 </head>
 <body class="min-h-screen pb-16">
@@ -91,20 +127,28 @@
 <!-- ════════════════════════════════════════════
      DISCLAIMER MODAL
 ════════════════════════════════════════════ -->
-<div id="disclaimerModal">
+<div id="disclaimerModal" style="display:none;">
     <div class="disclaimer-box">
 
         <!-- Header -->
         <div class="disclaimer-header">
-            <div class="flex items-center gap-3">
-                <div style="background:#EF9F27;border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                    </svg>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                <div class="flex items-center gap-3">
+                    <div style="background:#EF9F27;border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;opacity:0.8;">CRE Tracker Pro · HTPN</p>
+                        <h2 id="disc-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;"
+                            data-bm="Notis Kerahsiaan &amp; Syarat Penggunaan"
+                            data-en="Confidentiality Notice &amp; Terms of Use">Notis Kerahsiaan &amp; Syarat Penggunaan</h2>
+                    </div>
                 </div>
-                <div>
-                    <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;opacity:0.8;">CRE Tracker Pro · HTPN</p>
-                    <h2 style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;">Notis Kerahsiaan &amp; Syarat Penggunaan</h2>
+                <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(239,159,39,0.4);">
+                    <button id="discBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:#EF9F27;color:#0C447C;letter-spacing:0.08em;">BM</button>
+                    <button id="discBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:transparent;color:#EF9F27;letter-spacing:0.08em;">EN</button>
                 </div>
             </div>
         </div>
@@ -115,46 +159,59 @@
             <!-- Warning banner -->
             <div style="background:#fff3cd;border:2px solid #ffc107;border-radius:12px;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;">
                 <span style="font-size:20px;flex-shrink:0;">⚠️</span>
-                <p style="font-size:12px;font-weight:700;color:#856404;line-height:1.5;">
-                    Aplikasi ini mengandungi <strong>maklumat sulit pesakit</strong> — hanya untuk kegunaan kakitangan IPC yang diberi kuasa sahaja.
+                <p style="font-size:12px;font-weight:700;color:#856404;line-height:1.5;"
+                   data-bm="Aplikasi ini mengandungi <strong>maklumat sulit pesakit</strong> — hanya untuk kegunaan kakitangan hospital yang diberi kuasa sahaja."
+                   data-en="This application contains <strong>confidential patient information</strong> — for authorised hospital staff only.">
+                    Aplikasi ini mengandungi <strong>maklumat sulit pesakit</strong> — hanya untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.
                 </p>
             </div>
 
             <!-- Section 1 -->
             <div style="margin-bottom:14px;">
-                <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:6px;">1. Tujuan Aplikasi</p>
-                <p style="font-size:12px;color:#334155;line-height:1.6;">
+                <p style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:#0C447C;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:4px;"
+                   data-bm="1. Tujuan Aplikasi" data-en="1. Purpose of Application">1. Tujuan Aplikasi</p>
+                <p style="font-size:12px;color:#334155;line-height:1.6;"
+                   data-bm="Aplikasi <strong>CRE Tracker Pro</strong> dibangunkan oleh Unit Kawalan Pencegahan Infeksi (IPC), Hospital Tengku Permaisuri Norashikin (HTPN) untuk memudahkan semakan status CRE pesakit bagi tujuan <strong>kawalan infeksi dan keselamatan pesakit</strong> sahaja."
+                   data-en="<strong>CRE Tracker Pro</strong> was developed by the Infection Prevention and Control Unit (IPC), Hospital Tengku Permaisuri Norashikin (HTPN) to facilitate CRE patient status checks for <strong>infection control and patient safety</strong> purposes only.">
                     Aplikasi <strong>CRE Tracker Pro</strong> dibangunkan oleh Unit Kawalan Pencegahan Infeksi (IPC), Hospital Tengku Permaisuri Norashikin (HTPN) untuk memudahkan semakan status CRE pesakit bagi tujuan <strong>kawalan infeksi dan keselamatan pesakit</strong> sahaja.
                 </p>
             </div>
 
             <!-- Section 2 -->
             <div style="margin-bottom:14px;">
-                <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:6px;">2. Kerahsiaan Data Pesakit</p>
-                <ul style="font-size:12px;color:#334155;line-height:1.7;padding-left:0;list-style:none;">
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;">•</span>Semua maklumat yang dipaparkan adalah <strong>SULIT</strong> di bawah Akta Privasi Data Peribadi 2010 (PDPA) dan polisi KKM.</li>
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;">•</span>Adalah <strong>dilarang sama sekali</strong> untuk menyalin, mengambil tangkapan skrin, atau berkongsi maklumat pesakit kepada mana-mana pihak yang tidak berkaitan.</li>
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;">•</span>Capaian kepada aplikasi ini mestilah menggunakan <strong>peranti hospital yang diluluskan</strong> sahaja.</li>
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;">•</span>Jangan biarkan skrin terbuka tanpa pengawasan semasa menggunakan aplikasi ini.</li>
+                <p style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:#0C447C;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:4px;"
+                   data-bm="2. Kerahsiaan Data Pesakit" data-en="2. Patient Data Confidentiality">2. Kerahsiaan Data Pesakit</p>
+                <ul style="font-size:12px;color:#334155;padding-left:0;list-style:none;">
+                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Semua maklumat yang dipaparkan adalah <span style='font-weight:900;color:#dc2626;'>SULIT</span> di bawah Akta Privasi Data Peribadi 2010 (PDPA) dan polisi KKM."
+                        data-en="All information displayed is <span style='font-weight:900;color:#dc2626;'>CONFIDENTIAL</span> under the Personal Data Protection Act 2010 (PDPA) and MOH policy.">Semua maklumat yang dipaparkan adalah <span style="font-weight:900;color:#dc2626;">SULIT</span> di bawah Akta Privasi Data Peribadi 2010 (PDPA) dan polisi KKM.</span></li>
+                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Adalah <span style='font-weight:900;'>dilarang sama sekali</span> untuk menyalin, mengambil tangkapan skrin, atau berkongsi maklumat pesakit kepada mana-mana pihak yang tidak berkaitan."
+                        data-en="It is <span style='font-weight:900;'>strictly prohibited</span> to copy, screenshot, or share patient information with any unauthorised party.">Adalah <span style="font-weight:900;">dilarang sama sekali</span> untuk menyalin, mengambil tangkapan skrin, atau berkongsi maklumat pesakit kepada mana-mana pihak yang tidak berkaitan.</span></li>
+                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Capaian kepada aplikasi ini mestilah menggunakan <span style='font-weight:900;'>peranti hospital yang diluluskan</span> sahaja."
+                        data-en="Access to this application must only be via <span style='font-weight:900;'>approved hospital devices</span>.">Capaian kepada aplikasi ini mestilah menggunakan <span style="font-weight:900;">peranti hospital yang diluluskan</span> sahaja.</span></li>
+                    <li style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Jangan biarkan skrin terbuka tanpa pengawasan semasa menggunakan aplikasi ini."
+                        data-en="Do not leave the screen unattended while using this application.">Jangan biarkan skrin terbuka tanpa pengawasan semasa menggunakan aplikasi ini.</span></li>
                 </ul>
             </div>
 
             <!-- Section 3 -->
             <div style="margin-bottom:14px;">
-                <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:6px;">3. Tanggungjawab Pengguna</p>
-                <ul style="font-size:12px;color:#334155;line-height:1.7;padding-left:0;list-style:none;">
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;">•</span>Hanya kakitangan klinikal yang <strong>bertugas dan diberi kuasa</strong> boleh menggunakan aplikasi ini.</li>
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;">•</span>Sebarang penyalahgunaan data boleh dikenakan <strong>tindakan tatatertib dan undang-undang</strong>.</li>
-                    <li style="display:flex;gap:8px;margin-bottom:4px;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;">•</span>Maklumat dalam aplikasi ini adalah untuk <strong>rujukan klinikal</strong> sahaja dan bukan rekod rasmi hospital.</li>
+                <p style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:#0C447C;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:4px;"
+                   data-bm="3. Tanggungjawab Pengguna" data-en="3. User Responsibility">3. Tanggungjawab Pengguna</p>
+                <ul style="font-size:12px;color:#334155;padding-left:0;list-style:none;">
+                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Hanya <span style='font-weight:900;'>kakitangan hospital</span> yang bertugas dan diberi kuasa boleh menggunakan aplikasi ini."
+                        data-en="Only <span style='font-weight:900;'>hospital staff</span> who are on duty and authorised may use this application.">Hanya <span style="font-weight:900;">kakitangan hospital</span> yang bertugas dan diberi kuasa boleh menggunakan aplikasi ini.</span></li>
+                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Sebarang penyalahgunaan data boleh dikenakan <span style='font-weight:900;'>tindakan tatatertib dan undang-undang</span>."
+                        data-en="Any misuse of data may result in <span style='font-weight:900;'>disciplinary and legal action</span>.">Sebarang penyalahgunaan data boleh dikenakan <span style="font-weight:900;">tindakan tatatertib dan undang-undang</span>.</span></li>
+                    <li style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
+                        data-bm="Maklumat dalam aplikasi ini adalah untuk <span style='font-weight:900;'>rujukan klinikal</span> sahaja dan bukan rekod rasmi hospital."
+                        data-en="Information in this application is for <span style='font-weight:900;'>clinical reference</span> only and is not an official hospital record.">Maklumat dalam aplikasi ini adalah untuk <span style="font-weight:900;">rujukan klinikal</span> sahaja dan bukan rekod rasmi hospital.</span></li>
                 </ul>
-            </div>
-
-            <!-- Section 4 -->
-            <div style="margin-bottom:6px;">
-                <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:6px;">4. Penafian (Disclaimer)</p>
-                <p style="font-size:12px;color:#334155;line-height:1.6;">
-                    Unit IPC HTPN tidak bertanggungjawab atas sebarang keputusan klinikal yang dibuat semata-mata berdasarkan maklumat dalam aplikasi ini. Sentiasa rujuk rekod rasmi hospital dan berunding dengan pasukan IPC jika terdapat keraguan.
-                </p>
             </div>
 
         </div>
@@ -166,7 +223,7 @@
                 <div id="checkboxCustom" onclick="toggleAck()" style="width:22px;height:22px;border:2.5px solid #cbd5e1;border-radius:6px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;background:#f8fafc;">
                 </div>
                 <p style="font-size:12px;font-weight:700;color:#334155;line-height:1.5;user-select:none;" onclick="toggleAck()">
-                    Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.
+                    <span id="ack-text">Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.</span>
                 </p>
             </label>
             <!-- Button -->
@@ -182,6 +239,148 @@
 <!-- ════════════════════════════════════════════
      MAIN APP (hidden until disclaimer agreed)
 ════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════
+     SPLASH / WELCOME SCREEN
+════════════════════════════════════════════ -->
+<div id="splashScreen" style="display:flex;">
+    <!-- ── GLITTER LAYER ── -->
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+
+        <!-- Radial glow centre -->
+        <div style="position:absolute;top:50%;left:50%;width:480px;height:480px;background:radial-gradient(circle,rgba(239,159,39,0.07) 0%,transparent 65%);transform:translate(-50%,-50%);border-radius:50%;"></div>
+        <!-- Corner glows -->
+        <div style="position:absolute;top:-60px;left:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(239,159,39,0.09) 0%,transparent 60%);border-radius:50%;"></div>
+        <div style="position:absolute;bottom:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(239,159,39,0.06) 0%,transparent 60%);border-radius:50%;"></div>
+        <div style="position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(239,159,39,0.07) 0%,transparent 60%);border-radius:50%;"></div>
+        <div style="position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(239,159,39,0.05) 0%,transparent 60%);border-radius:50%;"></div>
+
+        <!-- ★ GOLD 4-point stars — dense scatter across all zones ★ -->
+        <svg style="position:absolute;top:2%;left:2%;opacity:0.9;animation:twinkle 2.2s ease infinite;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:5%;left:22%;opacity:0.7;animation:twinkle 1.8s ease infinite 0.6s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <svg style="position:absolute;top:3%;left:45%;opacity:0.6;animation:twinkle 2.9s ease infinite 1.1s;" width="8" height="8" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:1%;left:68%;opacity:0.95;animation:twinkle 2.5s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:4%;left:85%;opacity:0.8;animation:twinkle 3.1s ease infinite 0.8s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <svg style="position:absolute;top:8%;left:94%;opacity:0.85;animation:twinkle 2.0s ease infinite 0.4s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:13%;left:6%;opacity:0.75;animation:twinkle 3.3s ease infinite 1.4s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:15%;left:35%;opacity:0.5;animation:twinkle 2.7s ease infinite 0.9s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <svg style="position:absolute;top:11%;left:78%;opacity:0.7;animation:twinkle 1.9s ease infinite 0.2s;" width="11" height="11" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:20%;left:92%;opacity:0.85;animation:twinkle 2.4s ease infinite 1.2s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <!-- Left edge -->
+        <svg style="position:absolute;top:30%;left:1%;opacity:0.8;animation:twinkle 2.6s ease infinite 0.5s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:45%;left:3%;opacity:0.65;animation:twinkle 3.0s ease infinite 1.0s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <svg style="position:absolute;top:58%;left:1%;opacity:0.75;animation:twinkle 2.3s ease infinite 0.7s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <!-- Right edge -->
+        <svg style="position:absolute;top:35%;left:95%;opacity:0.9;animation:twinkle 2.1s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:50%;left:97%;opacity:0.7;animation:twinkle 3.2s ease infinite 1.5s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <svg style="position:absolute;top:63%;left:94%;opacity:0.8;animation:twinkle 2.8s ease infinite 0.6s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <!-- Bottom zone -->
+        <svg style="position:absolute;top:78%;left:4%;opacity:0.85;animation:twinkle 2.5s ease infinite 0.8s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:82%;left:22%;opacity:0.65;animation:twinkle 1.7s ease infinite 0.4s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <svg style="position:absolute;top:87%;left:48%;opacity:0.7;animation:twinkle 2.9s ease infinite 1.3s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:91%;left:70%;opacity:0.9;animation:twinkle 2.2s ease infinite 0.2s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
+        <svg style="position:absolute;top:95%;left:88%;opacity:0.8;animation:twinkle 3.4s ease infinite 1.0s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
+        <!-- White sparse stars -->
+        <svg style="position:absolute;top:25%;left:15%;opacity:0.3;animation:twinkle 3.5s ease infinite 1.2s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#fff"/></svg>
+        <svg style="position:absolute;top:70%;left:55%;opacity:0.25;animation:twinkle 2.8s ease infinite 0.9s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#fff"/></svg>
+        <svg style="position:absolute;top:40%;left:80%;opacity:0.28;animation:twinkle 3.1s ease infinite 0.5s;" width="8" height="8" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#fff"/></svg>
+
+        <!-- Tiny glitter dot clusters — very dense -->
+        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:6%;left:14%;animation:twinkle2 2.0s ease infinite;"></div>
+        <div class="star" style="width:2px;height:2px;background:#FAC775;top:9%;left:32%;animation:twinkle2 2.7s ease infinite 0.4s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:12%;left:58%;animation:twinkle2 1.8s ease infinite 0.9s;"></div>
+        <div class="star" style="width:4px;height:4px;background:#FAC775;top:17%;left:75%;animation:twinkle2 3.0s ease infinite 0.3s;"></div>
+        <div class="star" style="width:2px;height:2px;background:#EF9F27;top:23%;left:48%;animation:twinkle2 2.4s ease infinite 1.4s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:28%;left:62%;animation:twinkle2 2.2s ease infinite 0.7s;"></div>
+        <div class="star" style="width:2px;height:2px;background:#FAC775;top:33%;left:28%;animation:twinkle2 3.2s ease infinite 0.5s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:38%;left:42%;animation:twinkle2 1.9s ease infinite 1.1s;"></div>
+        <div class="star" style="width:4px;height:4px;background:#EF9F27;top:52%;left:18%;animation:twinkle2 2.5s ease infinite 0.2s;"></div>
+        <div class="star" style="width:2px;height:2px;background:#FAC775;top:57%;left:72%;animation:twinkle2 2.9s ease infinite 1.3s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:62%;left:38%;animation:twinkle2 1.7s ease infinite 0.6s;"></div>
+        <div class="star" style="width:2px;height:2px;background:#EF9F27;top:67%;left:85%;animation:twinkle2 3.1s ease infinite 0.8s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#FAC775;top:73%;left:52%;animation:twinkle2 2.3s ease infinite 1.5s;"></div>
+        <div class="star" style="width:4px;height:4px;background:#EF9F27;top:79%;left:15%;animation:twinkle2 2.0s ease infinite 0.3s;"></div>
+        <div class="star" style="width:2px;height:2px;background:#FAC775;top:84%;left:35%;animation:twinkle2 2.6s ease infinite 1.0s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:89%;left:62%;animation:twinkle2 1.8s ease infinite 0.5s;"></div>
+        <div class="star" style="width:2px;height:2px;background:#EF9F27;top:94%;left:8%;animation:twinkle2 3.3s ease infinite 0.7s;"></div>
+        <div class="star" style="width:3px;height:3px;background:#FAC775;top:97%;left:28%;animation:twinkle2 2.1s ease infinite 1.2s;"></div>
+        <!-- white dots sparse -->
+        <div class="star" style="width:2px;height:2px;background:#fff;top:42%;left:55%;animation:twinkle 3.4s ease infinite 0.6s;opacity:0.3;"></div>
+        <div class="star" style="width:3px;height:3px;background:#fff;top:55%;left:30%;animation:twinkle 2.6s ease infinite 1.3s;opacity:0.2;"></div>
+        <div class="star" style="width:2px;height:2px;background:#fff;top:70%;left:45%;animation:twinkle 3.0s ease infinite 0.4s;opacity:0.25;"></div>
+    </div>
+
+    <!-- ── CORNER ARCS (static, poster style) + 1 slow ring far background ── -->
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+        <svg style="position:absolute;top:-50px;left:-50px;opacity:0.07;" width="280" height="280" viewBox="0 0 280 280">
+            <circle cx="0" cy="0" r="220" fill="none" stroke="#EF9F27" stroke-width="1"/>
+            <circle cx="0" cy="0" r="180" fill="none" stroke="#FAC775" stroke-width="0.7"/>
+            <circle cx="0" cy="0" r="140" fill="none" stroke="#EF9F27" stroke-width="0.5"/>
+        </svg>
+        <svg style="position:absolute;bottom:-50px;right:-50px;opacity:0.07;" width="280" height="280" viewBox="0 0 280 280">
+            <circle cx="280" cy="280" r="220" fill="none" stroke="#EF9F27" stroke-width="1"/>
+            <circle cx="280" cy="280" r="180" fill="none" stroke="#FAC775" stroke-width="0.7"/>
+            <circle cx="280" cy="280" r="140" fill="none" stroke="#EF9F27" stroke-width="0.5"/>
+        </svg>
+        <svg style="position:absolute;top:-50px;right:-50px;opacity:0.05;" width="200" height="200" viewBox="0 0 200 200">
+            <circle cx="200" cy="0" r="160" fill="none" stroke="#FAC775" stroke-width="0.8"/>
+            <circle cx="200" cy="0" r="120" fill="none" stroke="#EF9F27" stroke-width="0.5"/>
+        </svg>
+        <!-- Single slow-spin square — small enough to stay BEHIND content (180px radius = ~255px dia, safe from 380px text zone) -->
+        <div style="position:absolute;top:50%;left:50%;width:260px;height:260px;border:1px solid rgba(239,159,39,0.08);border-radius:24px;animation:spinRect 35s linear infinite;"></div>
+        <div style="position:absolute;top:50%;left:50%;width:200px;height:200px;border:1px solid rgba(239,159,39,0.06);border-radius:18px;animation:spinRect 22s linear infinite reverse;"></div>
+    </div>
+
+    <div style="text-align:center;padding:32px;max-width:380px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
+
+        <!-- Logo pulse -->
+        <div class="pulse-logo splash-item" style="animation-delay:0.1s;width:90px;height:90px;background:rgba(239,159,39,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+            <svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                <circle cx="34" cy="34" r="30" fill="none" stroke="#EF9F27" stroke-width="3.5" stroke-dasharray="4 2"/>
+                <circle cx="34" cy="34" r="22" fill="none" stroke="#EF9F27" stroke-width="1.5"/>
+                <rect x="4" y="25" width="60" height="18" rx="4" fill="#EF9F27" transform="rotate(-10 34 34)"/>
+                <text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C447C" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text>
+                <path id="sA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/>
+                <text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#EF9F27" letter-spacing="2"><textPath href="#sA" startOffset="20%">C R E</textPath></text>
+            </svg>
+        </div>
+
+        <!-- Welcome text -->
+        <p class="splash-item" style="animation-delay:0.25s;color:#EF9F27;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.35em;margin-bottom:8px;">Welcome to</p>
+        <div class="splash-item" style="animation-delay:0.4s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <span style="color:#EF9F27;font-size:34px;font-weight:900;text-transform:uppercase;line-height:1;">CRE</span>
+            <span style="color:#fff;font-size:34px;font-weight:900;text-transform:uppercase;line-height:1;">Tracker</span>
+            <span style="background:#EF9F27;color:#0C447C;font-size:11px;font-weight:900;padding:4px 10px;border-radius:999px;letter-spacing:0.12em;text-transform:uppercase;">PRO</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="splash-item" style="animation-delay:0.5s;width:48px;height:2px;background:#EF9F27;border-radius:2px;margin-bottom:16px;opacity:0.7;"></div>
+
+        <!-- Hospital card -->
+        <div class="splash-item" style="animation-delay:0.6s;background:rgba(255,255,255,0.06);border:1px solid rgba(239,159,39,0.2);border-radius:14px;padding:10px 20px;margin-bottom:16px;width:100%;">
+            <p style="color:#FAC775;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.18em;margin-bottom:3px;">Infection Control Unit</p>
+            <p style="color:#fff;font-size:11px;font-weight:700;line-height:1.4;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
+        </div>
+
+        <!-- Credits — CLABSI Guard style -->
+        <div class="splash-item" style="animation-delay:0.75s;margin-bottom:24px;">
+            <p style="color:rgba(255,255,255,0.45);font-size:10px;font-weight:700;letter-spacing:0.05em;font-family:monospace;">
+                © 2026 · Dr. Aneesa Binti Tharek · SN Siti Mariam Binti Abdul Rasil · IPC Unit HTPN
+            </p>
+        </div>
+
+        <!-- Enter button — centred -->
+        <button class="splash-item" onclick="enterApp()"
+            style="animation-delay:0.9s;background:#EF9F27;color:#0C447C;border:none;padding:15px 48px;border-radius:999px;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:all 0.25s;box-shadow:0 8px 28px rgba(239,159,39,0.4);"
+            onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 14px 36px rgba(239,159,39,0.55)'"
+            onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 28px rgba(239,159,39,0.4)'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Enter
+        </button>
+    </div>
+</div>
+
 <div id="mainApp" style="display:none;">
 
 <!-- ── HEADER ── -->
@@ -216,13 +415,17 @@
             <div class="flex items-baseline gap-2 flex-wrap">
                 <h1 class="text-3xl font-black tracking-tight uppercase leading-none" style="color:#EF9F27;">CRE</h1>
                 <h1 class="text-3xl font-black tracking-tight uppercase leading-none text-white">Tracker</h1>
-                <span class="text-lg font-black uppercase tracking-[0.3em]" style="color:#FAC775;">PRO</span>
+                <span style="background:#EF9F27;color:#0C447C;font-size:10px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:0.15em;text-transform:uppercase;vertical-align:middle;">PRO</span>
             </div>
             <p class="text-[11px] text-blue-200 font-bold uppercase tracking-widest mt-1">Hospital Tengku Permaisuri Norashikin, Kajang</p>
             <p class="text-[10px] font-medium uppercase tracking-tight mt-0.5" style="color:#B5D4F4;">Infection Prevention &amp; Control Unit</p>
         </div>
     </div>
-    <div class="flex gap-2 px-6 pb-3 justify-end max-w-4xl mx-auto">
+    <div class="flex gap-2 px-6 pb-3 justify-end max-w-4xl mx-auto items-center">
+        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(239,159,39,0.4);">
+            <button id="btnBM" onclick="setLang('BM')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:#EF9F27;color:#0C447C;letter-spacing:0.08em;">BM</button>
+            <button id="btnEN" onclick="setLang('EN')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:transparent;color:#EF9F27;letter-spacing:0.08em;">EN</button>
+        </div>
         <span style="width:8px;height:8px;border-radius:50%;background:#EF9F27;opacity:0.9;display:inline-block;"></span>
         <span style="width:8px;height:8px;border-radius:50%;background:#FAC775;opacity:0.7;display:inline-block;"></span>
         <span style="width:8px;height:8px;border-radius:50%;background:#EF9F27;opacity:0.5;display:inline-block;"></span>
@@ -236,7 +439,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            CRE Search
+            <span id="tab-label-search">CRE Search</span>
         </button>
         <button class="tab-btn flex-1 flex items-center justify-center gap-2" onclick="switchTab('about', this)">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -259,8 +462,8 @@
     <!-- ══ TAB: SEARCH ══ -->
     <div id="tab-search" class="tab-content active">
         <div class="glass-card p-8 md:p-12 rounded-[2.5rem] shadow-2xl text-center">
-            <h2 class="text-2xl font-black mb-2 text-slate-800 uppercase tracking-tight">CRE Status Check</h2>
-            <p class="text-slate-500 mb-8 text-sm font-medium">Enter IC / KP number without dashes.<br>
+            <h2 class="text-2xl font-black mb-2 text-slate-800 uppercase tracking-tight" id="search-title">CRE Status Check</h2>
+            <p class="text-slate-500 mb-8 text-sm font-medium" id="search-desc">Enter IC / KP number without dashes.<br>
                 <span class="font-mono font-black text-slate-700">Example: 850901036117</span></p>
             <div class="flex flex-col gap-4">
                 <input type="text" id="icSearch" maxlength="20" placeholder="KP / IC NUMBER"
@@ -280,20 +483,15 @@
     <!-- ══ TAB: ABOUT ══ -->
     <div id="tab-about" class="tab-content">
         <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
-
-            <!-- About header -->
             <div style="background:#0C447C;border-bottom:4px solid #EF9F27;padding:28px 32px;">
                 <p style="color:#EF9F27;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:4px;">Unit IPC · HTPN</p>
-                <h2 style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;">About This App</h2>
+                <h2 style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;" data-bm="Tentang Aplikasi Ini" data-en="About This App">Tentang Aplikasi Ini</h2>
             </div>
-
             <div style="padding:28px 32px;">
-
-                <!-- App info card -->
                 <div style="background:#f0f7ff;border:2px solid #bfdbfe;border-radius:20px;padding:20px;margin-bottom:20px;">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
                         <div>
-                            <p style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#1e40af;margin-bottom:2px;">Application</p>
+                            <p style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#1e40af;margin-bottom:2px;" data-bm="Aplikasi" data-en="Application">Aplikasi</p>
                             <p style="font-size:18px;font-weight:900;color:#1e3a5f;">CRE Tracker Pro</p>
                         </div>
                         <span style="background:#0C447C;color:#EF9F27;font-size:10px;font-weight:900;padding:4px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:0.1em;">2026</span>
@@ -301,87 +499,81 @@
                     <hr style="margin:12px 0;border-color:#bfdbfe;">
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                         <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;">Developed By</p>
+                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Dibangunkan Oleh" data-en="Developed By">Dibangunkan Oleh</p>
                             <p style="font-size:12px;font-weight:700;color:#1e293b;">Unit Kawalan Pencegahan Infeksi (UKI/IPC)</p>
                         </div>
                         <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;">Facility</p>
+                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Fasiliti" data-en="Facility">Fasiliti</p>
                             <p style="font-size:12px;font-weight:700;color:#1e293b;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
                         </div>
                         <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;">Platform</p>
+                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Platform" data-en="Platform">Platform</p>
                             <p style="font-size:12px;font-weight:700;color:#1e293b;">Web App · Netlify + Google Sheets</p>
                         </div>
                         <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;">Data Source</p>
+                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Sumber Data" data-en="Data Source">Sumber Data</p>
                             <p style="font-size:12px;font-weight:700;color:#1e293b;">CRE Surveillance Database 2026</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Purpose -->
                 <div style="margin-bottom:16px;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;">🎯 Tujuan Aplikasi</p>
-                    <p style="font-size:13px;color:#334155;line-height:1.7;">
-                        CRE Tracker Pro membolehkan kakitangan klinikal menyemak status Carbapenem-Resistant Enterobacteriaceae (CRE) seseorang pesakit secara cepat dan tepat berdasarkan nombor KP mereka. Aplikasi ini memaparkan status semasa (Index / Close Contact), maklumat saringan, organisma terlibat, dan tindakan IPC mandatori yang perlu diambil.
-                    </p>
+                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;" data-bm="🎯 Tujuan Aplikasi" data-en="🎯 Purpose">🎯 Tujuan Aplikasi</p>
+                    <p style="font-size:13px;color:#334155;line-height:1.7;" data-bm="CRE Tracker Pro membolehkan kakitangan klinikal menyemak status Carbapenem-Resistant Enterobacteriaceae (CRE) seseorang pesakit secara cepat dan tepat berdasarkan nombor KP mereka. Aplikasi ini memaparkan status semasa (Index / Close Contact), maklumat saringan, organisma terlibat, dan tindakan IPC mandatori yang perlu diambil." data-en="CRE Tracker Pro enables clinical staff to quickly and accurately check a patient's Carbapenem-Resistant Enterobacteriaceae (CRE) status using their IC number. The app displays current status (Index / Close Contact), screening information, organisms involved, and mandatory IPC actions required.">CRE Tracker Pro membolehkan kakitangan klinikal menyemak status Carbapenem-Resistant Enterobacteriaceae (CRE) seseorang pesakit secara cepat dan tepat berdasarkan nombor KP mereka. Aplikasi ini memaparkan status semasa (Index / Close Contact), maklumat saringan, organisma terlibat, dan tindakan IPC mandatori yang perlu diambil.</p>
                 </div>
 
-                <!-- How to use -->
                 <div style="margin-bottom:16px;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;">📋 Cara Penggunaan</p>
-                    <div style="space-y:8px;">
+                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;" data-bm="📋 Cara Penggunaan" data-en="📋 How to Use">📋 Cara Penggunaan</p>
+                    <div>
                         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
                             <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;">Klik tab <strong>CRE Search</strong> dan masukkan nombor KP pesakit tanpa tanda sempang.</p>
+                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Klik tab <strong>CRE Search</strong> dan masukkan nombor KP pesakit." data-en="Click the <strong>CRE Search</strong> tab and enter the patient's IC number.">Klik tab <strong>CRE Search</strong> dan masukkan nombor KP pesakit.</p>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
                             <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;">Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026.</p>
+                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026." data-en="Press the <strong>Search</strong> button or Enter. The system will check the CRE 2026 database.">Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026.</p>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
                             <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;">Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan bagi setiap status kes.</p>
+                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan bagi setiap status kes." data-en="Follow the <strong>mandatory IPC actions</strong> displayed for each case status.">Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan bagi setiap status kes.</p>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;">
                             <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;">Jika ada masalah teknikal atau penemuan data yang tidak tepat, hubungi UKI atau gunakan tab <strong>Feedback</strong>.</p>
+                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Jika ada masalah teknikal atau penemuan data yang tidak tepat, hubungi UKI atau gunakan tab <strong>Feedback</strong>." data-en="For technical issues or inaccurate data, contact UKI or use the <strong>Feedback</strong> tab.">Jika ada masalah teknikal atau penemuan data yang tidak tepat, hubungi UKI atau gunakan tab <strong>Feedback</strong>.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Status legend -->
                 <div style="margin-bottom:16px;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;">🔴 Status Kes</p>
+                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;" data-bm="🔴 Status Kes" data-en="🔴 Case Status">🔴 Status Kes</p>
                     <div style="display:flex;flex-direction:column;gap:8px;">
                         <div style="background:#fef2f2;border:2px solid #fecaca;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;">
                             <span style="font-size:18px;">🦠</span>
                             <div>
                                 <p style="font-size:11px;font-weight:900;color:#991b1b;text-transform:uppercase;letter-spacing:0.08em;">Index Case</p>
-                                <p style="font-size:11px;color:#7f1d1d;">Pesakit positif CRE yang disahkan. Perlu pengasingan segera.</p>
+                                <p style="font-size:11px;color:#7f1d1d;" data-bm="Pesakit positif CRE yang disahkan. Perlu pengasingan segera." data-en="Confirmed CRE positive patient. Immediate isolation required.">Pesakit positif CRE yang disahkan. Perlu pengasingan segera.</p>
                             </div>
                         </div>
                         <div style="background:#fffbeb;border:2px solid #fde68a;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;">
                             <span style="font-size:18px;">👥</span>
                             <div>
                                 <p style="font-size:11px;font-weight:900;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;">Close Contact</p>
-                                <p style="font-size:11px;color:#78350f;">Pesakit yang berdekatan dengan kes Index. Perlu saringan dan langkah berjaga.</p>
+                                <p style="font-size:11px;color:#78350f;" data-bm="Pesakit yang berdekatan dengan kes Index. Perlu saringan dan langkah berjaga." data-en="Patient exposed to an Index case. Screening and precautions required.">Pesakit yang berdekatan dengan kes Index. Perlu saringan dan langkah berjaga.</p>
                             </div>
                         </div>
                         <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;">
                             <span style="font-size:18px;">🔍</span>
                             <div>
                                 <p style="font-size:11px;font-weight:900;color:#166534;text-transform:uppercase;letter-spacing:0.08em;">Not Found</p>
-                                <p style="font-size:11px;color:#14532d;">Tiada rekod dalam pangkalan data — termasuk kes Off-Tag.</p>
+                                <p style="font-size:11px;color:#14532d;" data-bm="Tiada rekod dalam pangkalan data — termasuk kes Off-Tag." data-en="No record found in the database — includes Off-Tag cases.">Tiada rekod dalam pangkalan data — termasuk kes Off-Tag.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Contact -->
                 <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;padding:16px;text-align:center;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;margin-bottom:4px;">Hubungi UKI/IPC HTPN</p>
-                    <p style="font-size:12px;font-weight:700;color:#334155;">Untuk pertanyaan teknikal atau kes baru yang perlu didaftarkan, sila hubungi pasukan UKI terus.</p>
+                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;margin-bottom:4px;" data-bm="Hubungi UKI/IPC HTPN" data-en="Contact UKI/IPC HTPN">Hubungi UKI/IPC HTPN</p>
+                    <p style="font-size:12px;font-weight:700;color:#334155;" data-bm="Untuk pertanyaan teknikal atau kes baru yang perlu didaftarkan, sila hubungi pasukan UKI terus." data-en="For technical enquiries or new cases to be registered, please contact the UKI team directly.">Untuk pertanyaan teknikal atau kes baru yang perlu didaftarkan, sila hubungi pasukan UKI terus.</p>
                 </div>
             </div>
         </div>
@@ -394,45 +586,44 @@
             <!-- Feedback header -->
             <div style="background:#0C447C;border-bottom:4px solid #EF9F27;padding:28px 32px;">
                 <p style="color:#EF9F27;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:4px;">CRE Tracker Pro · HTPN</p>
-                <h2 style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;">Feedback &amp; Cadangan</h2>
-                <p style="color:#93c5fd;font-size:11px;font-weight:600;margin-top:4px;">Maklum balas anda membantu kami memperbaiki aplikasi ini.</p>
+                <h2 style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;" id="fb-title">Feedback &amp; Cadangan</h2>
+                <p style="color:#93c5fd;font-size:11px;font-weight:600;margin-top:4px;" id="fb-subtitle">Maklum balas anda membantu kami memperbaiki aplikasi ini.</p>
             </div>
 
             <div style="padding:28px 32px;">
                 <div id="feedbackSuccess" style="display:none;background:#f0fdf4;border:2px solid #86efac;border-radius:20px;padding:32px;text-align:center;margin-bottom:20px;">
                     <p style="font-size:40px;margin-bottom:12px;">✅</p>
-                    <p style="font-size:18px;font-weight:900;color:#166534;text-transform:uppercase;">Terima Kasih!</p>
-                    <p style="font-size:13px;color:#15803d;margin-top:4px;">Maklum balas anda telah berjaya dihantar kepada pasukan UKI/IPC.</p>
+                    <p style="font-size:18px;font-weight:900;color:#166534;text-transform:uppercase;" id="fb-success-title">Terima Kasih!</p>
+                    <p style="font-size:13px;color:#15803d;margin-top:4px;" id="fb-success-msg">Maklum balas anda telah berjaya dihantar kepada pasukan UKI/IPC.</p>
                     <button onclick="resetFeedback()" style="margin-top:16px;background:#0C447C;color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;cursor:pointer;">
-                        Hantar Feedback Lain
+                        <span id="fb-send-another">Hantar Feedback Lain</span>
                     </button>
                 </div>
 
                 <div id="feedbackForm">
                     <!-- Role -->
                     <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;">Jawatan / Kategori Staf *</label>
+                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-role-label">Jawatan / Kategori Staf *</label>
                         <select id="fbRole" style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;cursor:pointer;">
-                            <option value="">-- Pilih Kategori --</option>
-                            <option>Jururawat (SN/EN)</option>
-                            <option>Pegawai Perubatan (MO/HO)</option>
-                            <option>Pakar Perunding</option>
-                            <option>Pegawai IPC/UKI</option>
-                            <option>Pembantu Perawatan Kesihatan (PPK)</option>
-                            <option>Lain-lain</option>
+                            <option value="" data-bm="-- Pilih Kategori --" data-en="-- Select Category --">-- Pilih Kategori --</option>
+                            <option data-bm="Jururawat (SN/EN)" data-en="Nurse (SN/EN)">Jururawat (SN/EN)</option>
+                            <option data-bm="Pegawai Perubatan (MO/HO)" data-en="Medical Officer (MO/HO)">Pegawai Perubatan (MO/HO)</option>
+                            <option data-bm="Pakar Perubatan" data-en="Specialist">Pakar Perubatan</option>
+                            <option data-bm="Pegawai Unit Hasil" data-en="Unit Hasil Staff">Pegawai Unit Hasil</option>
+                            <option data-bm="Lain-lain" data-en="Others">Lain-lain</option>
                         </select>
                     </div>
 
                     <!-- Ward -->
                     <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;">Wad / Unit</label>
+                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-ward-label">Wad / Unit</label>
                         <input type="text" id="fbWard" placeholder="contoh: Wad Ortopedik, OT, Klinik Pakar..."
                             style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;">
                     </div>
 
                     <!-- Rating -->
                     <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;">Penilaian Keseluruhan *</label>
+                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-rating-label">Penilaian Keseluruhan *</label>
                         <div style="display:flex;gap:8px;justify-content:center;padding:16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;">
                             <span class="star-btn" onclick="setRating(1)" id="star1">⭐</span>
                             <span class="star-btn" onclick="setRating(2)" id="star2">⭐</span>
@@ -445,26 +636,28 @@
 
                     <!-- Category -->
                     <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;">Kategori Maklum Balas *</label>
+                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-cat-label">Kategori Maklum Balas *</label>
                         <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Kebolehgunaan / UI"
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Staff Unit Hasil" data-bm="Staff Unit Hasil 🔬" data-en="Unit Hasil Staff 🔬"
+                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Staff Unit Hasil 🔬</button>
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Kebolehgunaan / UI" data-bm="Kebolehgunaan / UI" data-en="Usability / UI"
                                 style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Kebolehgunaan / UI</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Ketepatan Data"
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Ketepatan Data" data-bm="Ketepatan Data" data-en="Data Accuracy"
                                 style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Ketepatan Data</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Bug / Masalah Teknikal"
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Bug / Masalah Teknikal" data-bm="Bug / Masalah Teknikal" data-en="Bug / Technical Issue"
                                 style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Bug / Masalah Teknikal</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Cadangan Ciri Baru"
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Cadangan Ciri Baru" data-bm="Cadangan Ciri Baru" data-en="Feature Suggestion"
                                 style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Cadangan Ciri Baru</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Pujian"
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Pujian" data-bm="Pujian 🎉" data-en="Compliment 🎉"
                                 style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Pujian 🎉</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Lain-lain"
+                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Lain-lain" data-bm="Lain-lain" data-en="Others"
                                 style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Lain-lain</button>
                         </div>
                     </div>
 
                     <!-- Message -->
                     <div style="margin-bottom:20px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;">Maklum Balas / Cadangan *</label>
+                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-msg-label">Maklum Balas / Cadangan *</label>
                         <textarea id="fbMessage" rows="4" placeholder="Tuliskan maklum balas, cadangan, atau masalah yang anda alami di sini..."
                             style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:600;color:#334155;outline:none;resize:vertical;font-family:inherit;box-sizing:border-box;line-height:1.6;"></textarea>
                     </div>
@@ -472,7 +665,7 @@
                     <!-- Privacy note -->
                     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 14px;margin-bottom:20px;display:flex;gap:8px;align-items:flex-start;">
                         <span style="font-size:14px;flex-shrink:0;">🔒</span>
-                        <p style="font-size:11px;color:#78350f;font-weight:600;line-height:1.5;margin:0;">Jangan masukkan maklumat pesakit (nama, IC, rekod perubatan) dalam borang ini. Feedback ini untuk penambahbaikan sistem sahaja.</p>
+                        <p style="font-size:11px;color:#78350f;font-weight:600;line-height:1.5;margin:0;" id="fb-privacy-text">Jangan masukkan maklumat pesakit (nama, IC, rekod perubatan) dalam borang ini. Feedback ini untuk penambahbaikan sistem sahaja.</p>
                     </div>
 
                     <!-- Submit -->
@@ -481,7 +674,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                         </svg>
-                        Hantar Maklum Balas
+                        <span id="fb-submit-label">Hantar Maklum Balas</span>
                     </button>
                 </div>
             </div>
@@ -528,12 +721,25 @@ function toggleAck() {
     }
 }
 
+function enterApp() {
+    // Splash → fade out → show disclaimer
+    const splash = document.getElementById('splashScreen');
+    splash.style.transition = 'opacity 0.5s ease';
+    splash.style.opacity = '0';
+    setTimeout(() => {
+        splash.style.display = 'none';
+        document.getElementById('disclaimerModal').style.display = 'flex';
+    }, 500);
+}
+
 function proceedToApp() {
     if (!ackChecked) return;
+    // Disclaimer → fade out → show main app
     document.getElementById('disclaimerModal').style.display = 'none';
-    document.getElementById('mainApp').style.display = 'block';
-    // Log acknowledgment timestamp (optional)
-    console.log('[CRE Tracker Pro] Disclaimer acknowledged at', new Date().toISOString());
+    const app = document.getElementById('mainApp');
+    app.style.display = 'block';
+    app.style.opacity = '0';
+    setTimeout(() => { app.style.opacity = '1'; }, 50);
 }
 
 // ── Tab switching ─────────────────────────
@@ -607,13 +813,16 @@ async function submitFeedback() {
     };
 
     try {
-        await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+        const params = new URLSearchParams({
+            action:    "feedback",
+            role:      payload.role,
+            ward:      payload.ward,
+            rating:    payload.rating,
+            category:  payload.category,
+            message:   payload.message,
+            timestamp: payload.timestamp
         });
-        // no-cors → can't read response, assume success
+        await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`);
         document.getElementById('feedbackForm').style.display = 'none';
         document.getElementById('feedbackSuccess').style.display = 'block';
     } catch (err) {
@@ -856,6 +1065,162 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === "Enter") searchPatient();
     });
 });
+
+// ── Language Toggle ───────────────────────
+let currentLang = 'BM';
+
+const LANG = {
+  BM: {
+    // Tabs
+    tabSearch: 'CRE Search', tabAbout: 'Tentang', tabFeedback: 'Maklum Balas',
+    // Search
+    searchTitle: 'Semak Status CRE',
+    searchDesc: 'Masukkan nombor KP / IC tanpa sempang.',
+    searchBtn: 'Cari',
+    searchPlaceholder: 'NOMBOR KP / IC',
+    // Feedback
+    fbTitle: 'Maklum Balas & Cadangan',
+    fbSubtitle: 'Maklum balas anda membantu kami memperbaiki aplikasi ini.',
+    fbRoleLabel: 'Jawatan / Kategori Staf *',
+    fbRolePlaceholder: '-- Pilih Kategori --',
+    fbWardLabel: 'Wad / Unit',
+    fbWardPlaceholder: 'contoh: Wad Ortopedik, OT, Klinik Pakar...',
+    fbRatingLabel: 'Penilaian Keseluruhan *',
+    fbCatLabel: 'Kategori Maklum Balas *',
+    fbMsgLabel: 'Maklum Balas / Cadangan *',
+    fbMsgPlaceholder: 'Tuliskan maklum balas, cadangan, atau masalah yang anda alami di sini...',
+    fbPrivacy: 'Jangan masukkan maklumat pesakit (nama, IC, rekod perubatan) dalam borang ini. Feedback ini untuk penambahbaikan sistem sahaja.',
+    fbSubmitBtn: 'Hantar Maklum Balas',
+    fbSuccessTitle: 'Terima Kasih!',
+    fbSuccessMsg: 'Maklum balas anda telah berjaya dihantar kepada pasukan UKI/IPC.',
+    fbSendAnother: 'Hantar Feedback Lain',
+    ratingLabels: ['','Sangat Lemah 😟','Lemah 😕','Sederhana 😐','Baik 😊','Sangat Baik 🌟'],
+    ratingDefault: 'Pilih penilaian',
+    // Disclaimer
+    disclaimerAck: 'Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.',
+    disclaimerBtn: 'Akses Ditolak — Sila Baca & Setuju Dahulu',
+    disclaimerBtnOk: 'Saya Faham — Masuk ke Aplikasi',
+  },
+  EN: {
+    tabSearch: 'CRE Search', tabAbout: 'About', tabFeedback: 'Feedback',
+    searchTitle: 'CRE Status Check',
+    searchDesc: 'Enter IC / KP number without dashes.',
+    searchBtn: 'Search',
+    searchPlaceholder: 'KP / IC NUMBER',
+    fbTitle: 'Feedback & Suggestions',
+    fbSubtitle: 'Your feedback helps us improve this application.',
+    fbRoleLabel: 'Staff Category / Designation *',
+    fbRolePlaceholder: '-- Select Category --',
+    fbWardLabel: 'Ward / Unit',
+    fbWardPlaceholder: 'e.g. Orthopaedic Ward, OT, Specialist Clinic...',
+    fbRatingLabel: 'Overall Rating *',
+    fbCatLabel: 'Feedback Category *',
+    fbMsgLabel: 'Feedback / Suggestions *',
+    fbMsgPlaceholder: 'Write your feedback, suggestions, or issues experienced here...',
+    fbPrivacy: 'Do not include patient information (name, IC, medical records) in this form. Feedback is for system improvement only.',
+    fbSubmitBtn: 'Submit Feedback',
+    fbSuccessTitle: 'Thank You!',
+    fbSuccessMsg: 'Your feedback has been successfully sent to the UKI/IPC team.',
+    fbSendAnother: 'Submit Another Feedback',
+    ratingLabels: ['','Very Poor 😟','Poor 😕','Average 😐','Good 😊','Excellent 🌟'],
+    ratingDefault: 'Select rating',
+    disclaimerAck: 'I have <strong>read, understood and agreed</strong> to all terms of use and confidentiality notice above.',
+    disclaimerBtn: 'Access Denied — Please Read & Agree First',
+    disclaimerBtnOk: 'I Understand — Enter Application',
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  const active = '#EF9F27', activeText = '#0C447C';
+  const inactive = 'transparent', inactiveText = '#EF9F27';
+  // Sync ALL BM/EN button pairs (header + disclaimer)
+  ['btnBM','discBtnBM'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) { b.style.background = lang==='BM'?active:inactive; b.style.color = lang==='BM'?activeText:inactiveText; }
+  });
+  ['btnEN','discBtnEN'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) { b.style.background = lang==='EN'?active:inactive; b.style.color = lang==='EN'?activeText:inactiveText; }
+  });
+  // Translate select dropdown options
+  document.querySelectorAll('#fbRole option').forEach(opt => {
+    const val = opt.getAttribute('data-' + lang.toLowerCase());
+    if (val) opt.innerText = val;
+  });
+  // Translate feedback category buttons
+  document.querySelectorAll('.fb-cat-btn').forEach(btn => {
+    const val = btn.getAttribute('data-' + lang.toLowerCase());
+    if (val) btn.innerText = val;
+  });
+  applyLang();
+}
+function toggleLang() { setLang(currentLang === 'BM' ? 'EN' : 'BM'); }
+
+function applyLang() {
+  const L = LANG[currentLang];
+  const btn = document.getElementById('langToggleBtn');
+  if (btn) btn.innerText = currentLang === 'BM' ? '🌐 BM / EN' : '🌐 EN / BM';
+
+  // Tabs
+  safeText('tab-label-search', L.tabSearch);
+  safeText('tab-label-about', L.tabAbout);
+  safeText('tab-label-feedback', L.tabFeedback);
+
+  // Search tab
+  safeText('search-title', L.searchTitle);
+  safeText('search-desc', L.searchDesc);
+  safeText('search-btn-text', L.searchBtn);
+  safeAttr('icSearch', 'placeholder', L.searchPlaceholder);
+
+  // Feedback tab
+  safeText('fb-title', L.fbTitle);
+  safeText('fb-subtitle', L.fbSubtitle);
+  safeText('fb-role-label', L.fbRoleLabel);
+  safeAttr('fbRole', 'data-placeholder', L.fbRolePlaceholder);
+  const roleOpt = document.querySelector('#fbRole option[value=""]');
+  if (roleOpt) roleOpt.innerText = L.fbRolePlaceholder;
+  safeText('fb-ward-label', L.fbWardLabel);
+  safeAttr('fbWard', 'placeholder', L.fbWardPlaceholder);
+  safeText('fb-rating-label', L.fbRatingLabel);
+  safeText('fb-cat-label', L.fbCatLabel);
+  safeText('fb-msg-label', L.fbMsgLabel);
+  safeAttr('fbMessage', 'placeholder', L.fbMsgPlaceholder);
+  safeText('fb-privacy-text', L.fbPrivacy);
+  safeText('fb-submit-label', L.fbSubmitBtn);
+  safeText('fb-success-title', L.fbSuccessTitle);
+  safeText('fb-success-msg', L.fbSuccessMsg);
+  safeText('fb-send-another', L.fbSendAnother);
+
+  // Rating label update
+  window._ratingLabels = L.ratingLabels;
+  window._ratingDefault = L.ratingDefault;
+  const rl = document.getElementById('ratingLabel');
+  if (rl && selectedRating === 0) rl.innerText = L.ratingDefault;
+  else if (rl && selectedRating > 0) rl.innerText = L.ratingLabels[selectedRating];
+
+  // Disclaimer
+  const ackP = document.getElementById('ack-text');
+  if (ackP) ackP.innerHTML = L.disclaimerAck;
+  const procBtn = document.getElementById('proceedBtn');
+  if (procBtn) procBtn.innerText = ackChecked ? L.disclaimerBtnOk : L.disclaimerBtn;
+
+  // Swap all data-bm / data-en elements
+  const attr = currentLang === 'BM' ? 'data-bm' : 'data-en';
+  document.querySelectorAll('[data-bm]').forEach(el => {
+    const val = el.getAttribute(attr);
+    if (val !== null) el.innerHTML = val;
+  });
+}
+
+function safeText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.innerText = text;
+}
+function safeAttr(id, attr, val) {
+  const el = document.getElementById(id);
+  if (el) el.setAttribute(attr, val);
+}
 </script>
 </body>
 </html>
