@@ -126,9 +126,94 @@
         }
         .pulse-logo { animation:pulse-ring 1.8s ease infinite; }
         .star { position:absolute; border-radius:50%; pointer-events:none; }
+        /* Login Screen */
+        #loginScreen {
+            position:fixed; inset:0; z-index:9997;
+            background:#f1f5f9;
+            display:none; align-items:center; justify-content:center;
+            padding:16px;
+        }
+        .login-card {
+            background:#fff;
+            border-radius:2rem;
+            max-width:400px; width:100%;
+            overflow:hidden;
+            box-shadow:0 24px 60px rgba(0,0,0,0.12);
+            border:2px solid #e2e8f0;
+        }
+        .login-header {
+            background:#0C447C;
+            border-bottom:4px solid #EF9F27;
+            padding:20px 28px;
+        }
     </style>
 </head>
 <body class="min-h-screen pb-16">
+
+<!-- ════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════ -->
+<div id="loginScreen" style="display:none;">
+    <div class="login-card">
+        <!-- Header -->
+        <div class="login-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div style="background:#EF9F27;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <div>
+                    <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:2px;">CRE Tracker Pro · HTPN</p>
+                    <h2 style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;">Log Masuk</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:24px 28px;">
+            <div id="loginError" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:12px;font-weight:700;color:#dc2626;text-align:center;">
+                ⚠️ Username atau password salah. Sila cuba semula.
+            </div>
+
+            <!-- Username -->
+            <div style="margin-bottom:16px;">
+                <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Username</label>
+                <input type="text" id="loginUser" placeholder="Masukkan username..."
+                    style="width:100%;padding:12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;transition:border 0.2s;"
+                    onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'"
+                    onkeypress="if(event.key==='Enter')document.getElementById('loginPass').focus()">
+            </div>
+
+            <!-- Password -->
+            <div style="margin-bottom:20px;">
+                <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Password</label>
+                <div style="position:relative;">
+                    <input type="password" id="loginPass" placeholder="Masukkan password..."
+                        style="width:100%;padding:12px 44px 12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;transition:border 0.2s;"
+                        onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'"
+                        onkeypress="if(event.key==='Enter')doLogin()">
+                    <button onclick="togglePassVis()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#94a3b8;padding:4px;">
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login button -->
+            <button onclick="doLogin()"
+                style="width:100%;padding:14px;border-radius:999px;background:#0C447C;color:#EF9F27;border:none;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(12,68,124,0.25);"
+                onmouseover="this.style.background='#0a3868'" onmouseout="this.style.background='#0C447C'">
+                Log Masuk
+            </button>
+
+            <!-- Footer note -->
+            <p style="text-align:center;font-size:10px;color:#94a3b8;font-weight:600;margin-top:16px;">Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.</p>
+        </div>
+    </div>
+</div>
 
 <!-- ════════════════════════════════════════════
      DISCLAIMER MODAL
@@ -456,19 +541,19 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            <span id="tab-label-search">CRE Search</span>
+            <span id="tab-label-search">Carian CRE</span>
         </button>
         <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('about', this)">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            About
+            <span id="tab-label-about">Info</span>
         </button>
         <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('feedback', this)">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
             </svg>
-            Feedback
+            <span id="tab-label-feedback">Maklum Balas</span>
         </button>
     </div>
 </div>
@@ -479,8 +564,8 @@
     <!-- ══ TAB: SEARCH ══ -->
     <div id="tab-search" class="tab-content active">
         <div class="glass-card p-8 md:p-12 rounded-[2.5rem] shadow-2xl text-center">
-            <h2 class="text-2xl font-black mb-2 text-slate-800 uppercase tracking-tight" id="search-title">CRE Status Check</h2>
-            <p class="text-slate-500 mb-8 text-sm font-medium" id="search-desc">Masukkan nombor KP / IC / No. Passport tanpa sempang.<br>
+            <h2 class="text-2xl font-black mb-2 text-slate-800 uppercase tracking-tight" id="search-title" data-bm="Semak Status CRE" data-en="CRE Status Check">Semak Status CRE</h2>
+            <p class="text-slate-500 mb-8 text-sm font-medium" id="search-desc">Masukkan nombor KP / IC / No. Passport anda.<br>
                 <span class="font-mono font-black text-slate-700">Contoh: 1234567890</span></p>
             <div class="flex flex-col gap-4">
                 <input type="text" id="icSearch" maxlength="20" placeholder="KP / IC / PASSPORT"
@@ -490,7 +575,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    Search
+                    <span id="search-btn-text">Carian</span>
                 </button>
             </div>
         </div>
@@ -545,7 +630,7 @@
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
                             <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026." data-en="Press the <strong>Search</strong> button or Enter. The system will check the CRE 2026 database.">Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026.</p>
+                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE." data-en="Press the <strong>Search</strong> button or Enter. The system will check the CRE 2026 database.">Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026.</p>
                         </div>
                         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
                             <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
@@ -730,7 +815,7 @@
 // ══════════════════════════════════════════
 // PASTE YOUR APPS SCRIPT WEB APP URL HERE ↓
 // ══════════════════════════════════════════
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYBlOAHnKuXnoGti8tlO1TSEWVoOgr16PMOVq4h0PJ9ndIC1jFupJfuRwfUTeB3gOvVA/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJ0493s_FMsNkBkT7tD76_x2JPX4xyBNjuDILRjQ8H3E0HOdwxI32pDMqX2bzTxmEdVw/exec";
 
 // ── Disclaimer logic ─────────────────────
 let ackChecked = false;
@@ -761,13 +846,13 @@ function toggleAck() {
 }
 
 function enterApp() {
-    // Splash → fade out → show disclaimer
     const splash = document.getElementById('splashScreen');
     splash.style.transition = 'opacity 0.5s ease';
     splash.style.opacity = '0';
     setTimeout(() => {
         splash.style.display = 'none';
-        document.getElementById('disclaimerModal').style.display = 'flex';
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('loginUser').focus();
     }, 500);
 }
 
@@ -1063,9 +1148,9 @@ async function searchPatient() {
 
             res.innerHTML = `
                 <div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};">
-                    <p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Patient Details · CRE 2026</p>
-                    <h3 class="text-3xl font-black uppercase leading-tight tracking-tight">${d.nama || "—"}</h3>
-                    <p class="font-mono mt-1 opacity-80 tracking-widest text-sm">${d.kp}</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${d.sample_date ? (() => { const dt = new Date(d.sample_date); return isNaN(dt) ? d.sample_date : String(dt.getDate()).padStart(2,"0")+"/"+String(dt.getMonth()+1).padStart(2,"0")+"/"+dt.getFullYear(); })() : "—"}</p>
+                    <h3 class="text-lg font-black uppercase leading-tight tracking-tight opacity-80">Please confirm the identification number entered</h3>
+                    <p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${d.kp.replace(/./g, (c,i) => i < 4 || i >= d.kp.length-2 ? c : '*')}</p>
                     <p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p>
                 </div>
                 <div class="${st.cardBg} px-8 pt-6 pb-8 border-x-[12px] ${st.border} border-b border-slate-100 shadow-xl rounded-b-[2.5rem]">
@@ -1114,11 +1199,44 @@ async function searchPatient() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    setLang('BM'); // apply BM on load
     const ic = document.getElementById('icSearch');
     if (ic) ic.addEventListener("keypress", e => {
         if (e.key === "Enter") searchPatient();
     });
 });
+
+// ── Login Credentials ────────────────────────
+const CREDENTIALS = {
+  'W1':'mbw1','W2':'mbw2','W3':'mbw3','W4':'mbw4',
+  'W6':'mbw6','W7':'mbw7','W8':'mbw8',
+  'ICU MB':'icumb1','HAMB':'hamb1',
+  'W8A':'wcc8a','W8B':'wcc8b','W7A':'wcc7a','W7B':'wcc7b',
+  'W6A':'wcc6a','W6B':'wcc6b','LB':'lbwcc1',
+  'ICUWCC':'icuwcc1','PICU':'picuwcc1','NICU':'nicuwcc1',
+  'SCN':'scnwcc1','HAWCC':'hawcc1','UKI':'uki1'
+};
+
+function doLogin() {
+  const user = document.getElementById('loginUser').value.trim().toUpperCase();
+  const pass = document.getElementById('loginPass').value.trim();
+  const errEl = document.getElementById('loginError');
+
+  if (CREDENTIALS[user] && CREDENTIALS[user] === pass) {
+    errEl.style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('disclaimerModal').style.display = 'flex';
+  } else {
+    errEl.style.display = 'block';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+  }
+}
+
+function togglePassVis() {
+  const p = document.getElementById('loginPass');
+  p.type = p.type === 'password' ? 'text' : 'password';
+}
 
 // ── Language Toggle ───────────────────────
 let currentLang = 'BM';
@@ -1126,11 +1244,11 @@ let currentLang = 'BM';
 const LANG = {
   BM: {
     // Tabs
-    tabSearch: 'CRE Search', tabAbout: 'Tentang', tabFeedback: 'Maklum Balas',
+    tabSearch: 'Carian CRE', tabAbout: 'Info', tabFeedback: 'Maklum Balas',
     // Search
     searchTitle: 'Semak Status CRE',
-    searchDesc: 'Masukkan nombor KP / IC / No. Passport tanpa sempang.',
-    searchBtn: 'Cari',
+    searchDesc: 'Masukkan nombor KP / IC / No. Passport anda.',
+    searchBtn: 'Carian',
     searchPlaceholder: 'KP / IC / PASSPORT',
     // Feedback
     fbTitle: 'Maklum Balas & Cadangan',
@@ -1156,9 +1274,9 @@ const LANG = {
     disclaimerBtnOk: 'Saya Faham — Masuk ke Aplikasi',
   },
   EN: {
-    tabSearch: 'CRE Search', tabAbout: 'About', tabFeedback: 'Feedback',
+    tabSearch: 'CRE Search', tabAbout: 'Info', tabFeedback: 'Feedback',
     searchTitle: 'CRE Status Check',
-    searchDesc: 'Enter IC / KP / Passport number without dashes.',
+    searchDesc: 'Enter your IC / KP / Passport number.',
     searchBtn: 'Search',
     searchPlaceholder: 'KP / IC / PASSPORT',
     fbTitle: 'Feedback & Suggestions',
