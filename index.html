@@ -157,15 +157,22 @@
     <div class="login-card">
         <!-- Header -->
         <div class="login-header">
-            <div style="display:flex;align-items:center;gap:12px;">
-                <div style="background:#EF9F27;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                    </svg>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="background:#EF9F27;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:2px;">CRE Tracker Pro · HTPN</p>
+                        <h2 id="login-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;">Log Masuk</h2>
+                    </div>
                 </div>
-                <div>
-                    <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:2px;">CRE Tracker Pro · HTPN</p>
-                    <h2 style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;">Log Masuk</h2>
+                <!-- BM/EN toggle -->
+                <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(239,159,39,0.4);">
+                    <button id="loginBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:#EF9F27;color:#0C447C;letter-spacing:0.08em;">BM</button>
+                    <button id="loginBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:transparent;color:#EF9F27;letter-spacing:0.08em;">EN</button>
                 </div>
             </div>
         </div>
@@ -173,12 +180,12 @@
         <!-- Body -->
         <div style="padding:24px 28px;">
             <div id="loginError" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:12px;font-weight:700;color:#dc2626;text-align:center;">
-                ⚠️ Username atau password salah. Sila cuba semula.
+                <span id="login-error-msg">⚠️ Username atau password salah. Sila cuba semula.</span>
             </div>
 
             <!-- Username -->
             <div style="margin-bottom:16px;">
-                <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Username</label>
+                <label id="login-user-label" style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Username</label>
                 <input type="text" id="loginUser" placeholder="Masukkan username..."
                     style="width:100%;padding:12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;transition:border 0.2s;"
                     onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'"
@@ -187,7 +194,7 @@
 
             <!-- Password -->
             <div style="margin-bottom:20px;">
-                <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Password</label>
+                <label id="login-pass-label" style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Password</label>
                 <div style="position:relative;">
                     <input type="password" id="loginPass" placeholder="Masukkan password..."
                         style="width:100%;padding:12px 44px 12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;transition:border 0.2s;"
@@ -206,11 +213,11 @@
             <button onclick="doLogin()"
                 style="width:100%;padding:14px;border-radius:999px;background:#0C447C;color:#EF9F27;border:none;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(12,68,124,0.25);"
                 onmouseover="this.style.background='#0a3868'" onmouseout="this.style.background='#0C447C'">
-                Log Masuk
+                <span id="login-btn-text">Log Masuk</span>
             </button>
 
             <!-- Footer note -->
-            <p style="text-align:center;font-size:10px;color:#94a3b8;font-weight:600;margin-top:16px;">Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.</p>
+            <p id="login-note" style="text-align:center;font-size:10px;color:#94a3b8;font-weight:600;margin-top:16px;">Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.</p>
         </div>
     </div>
 </div>
@@ -1148,7 +1155,7 @@ async function searchPatient() {
 
             res.innerHTML = `
                 <div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};">
-                    <p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${d.sample_date ? (() => { const dt = new Date(d.sample_date); return isNaN(dt) ? d.sample_date : String(dt.getDate()).padStart(2,"0")+"/"+String(dt.getMonth()+1).padStart(2,"0")+"/"+dt.getFullYear(); })() : "—"}</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${d.sample_date ? (() => { const s = d.sample_date.toString().trim(); const dt = new Date(s); if (isNaN(dt)) return s; const day = String(dt.getDate()).padStart(2,"0"); const mon = String(dt.getMonth()+1).padStart(2,"0"); const yr = dt.getFullYear(); return day+"/"+mon+"/"+yr; })() : "—"}</p>
                     <h3 class="text-lg font-black uppercase leading-tight tracking-tight opacity-80">Please confirm the identification number entered</h3>
                     <p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${d.kp.replace(/./g, (c,i) => i < 4 || i >= d.kp.length-2 ? c : '*')}</p>
                     <p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p>
@@ -1272,6 +1279,9 @@ const LANG = {
     disclaimerAck: 'Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.',
     disclaimerBtn: 'Akses Ditolak — Sila Baca & Setuju Dahulu',
     disclaimerBtnOk: 'Saya Faham — Masuk ke Aplikasi',
+    loginTitle: 'Log Masuk', loginUserLabel: 'Username', loginPassLabel: 'Password',
+    loginBtn: 'Log Masuk', loginNote: 'Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.',
+    loginError: '⚠️ Username atau password salah. Sila cuba semula.',
   },
   EN: {
     tabSearch: 'CRE Search', tabAbout: 'Info', tabFeedback: 'Feedback',
@@ -1299,6 +1309,9 @@ const LANG = {
     disclaimerAck: 'I have <strong>read, understood and agreed</strong> to all terms of use and confidentiality notice above.',
     disclaimerBtn: 'Access Denied — Please Read & Agree First',
     disclaimerBtnOk: 'I Understand — Enter Application',
+    loginTitle: 'Login', loginUserLabel: 'Username', loginPassLabel: 'Password',
+    loginBtn: 'Login', loginNote: 'For authorised hospital staff only.',
+    loginError: '⚠️ Incorrect username or password. Please try again.',
   }
 };
 
@@ -1307,11 +1320,11 @@ function setLang(lang) {
   const active = '#EF9F27', activeText = '#0C447C';
   const inactive = 'transparent', inactiveText = '#EF9F27';
   // Sync ALL BM/EN button pairs (header + disclaimer)
-  ['btnBM','discBtnBM'].forEach(id => {
+  ['btnBM','discBtnBM','loginBtnBM'].forEach(id => {
     const b = document.getElementById(id);
     if (b) { b.style.background = lang==='BM'?active:inactive; b.style.color = lang==='BM'?activeText:inactiveText; }
   });
-  ['btnEN','discBtnEN'].forEach(id => {
+  ['btnEN','discBtnEN','loginBtnEN'].forEach(id => {
     const b = document.getElementById(id);
     if (b) { b.style.background = lang==='EN'?active:inactive; b.style.color = lang==='EN'?activeText:inactiveText; }
   });
@@ -1370,6 +1383,16 @@ function applyLang() {
   const rl = document.getElementById('ratingLabel');
   if (rl && selectedRating === 0) rl.innerText = L.ratingDefault;
   else if (rl && selectedRating > 0) rl.innerText = L.ratingLabels[selectedRating];
+
+  // Login
+  safeText('login-title', L.loginTitle);
+  safeText('login-user-label', L.loginUserLabel);
+  safeText('login-pass-label', L.loginPassLabel);
+  safeText('login-btn-text', L.loginBtn);
+  safeText('login-note', L.loginNote);
+  safeText('login-error-msg', L.loginError);
+  safeAttr('loginUser', 'placeholder', currentLang==='BM' ? 'Masukkan username...' : 'Enter username...');
+  safeAttr('loginPass', 'placeholder', currentLang==='BM' ? 'Masukkan password...' : 'Enter password...');
 
   // Disclaimer
   const ackP = document.getElementById('ack-text');
