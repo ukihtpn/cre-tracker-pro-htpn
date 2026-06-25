@@ -827,13 +827,13 @@ async function submitFeedback(){
   const role=document.getElementById('fbRole').value.trim(),message=document.getElementById('fbMessage').value.trim(),nama=document.getElementById('fbName').value.trim(),L=LANG[currentLang];
   if(!nama)return showToast(currentLang==='BM'?'Sila masukkan nama anda!':'Please enter your name!');
   if(!role)return showToast(currentLang==='BM'?'Sila pilih kategori staf!':'Please select staff category!');
-  if(!selectedRating)return showToast(currentLang==='BM'?'Sila beri penilaian bintang!':'Please give a star rating!');
-  if(!selectedCategory)return showToast(currentLang==='BM'?'Sila pilih kategori!':'Please select category!');
+  if(!selRating)return showToast(currentLang==='BM'?'Sila beri penilaian bintang!':'Please give a star rating!');
+  if(!selectedCat)return showToast(currentLang==='BM'?'Sila pilih kategori!':'Please select category!');
   if(!message)return showToast(currentLang==='BM'?'Sila isi maklum balas!':'Please fill in feedback!');
   const btn=document.getElementById('fbSubmitBtn');btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menghantar...':'Sending...');
   const ward=document.getElementById('fbWard').value.trim(),email=document.getElementById('fbEmail').value.trim(),phone=document.getElementById('fbPhone').value.trim(),ts=new Date().toLocaleString('ms-MY',{timeZone:'Asia/Kuala_Lumpur'});
   try{
-    await fetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:"feedback",nama,email:email||"—",phone:phone||"—",role,ward:ward||"Tidak dinyatakan",rating:selectedRating,category:selectedCategory,message,timestamp:ts})}`);
+    await fetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:"feedback",nama,email:email||"—",phone:phone||"—",role,ward:ward||"Tidak dinyatakan",rating:selRating,category:selectedCat,message,timestamp:ts})}`);
     hide('feedbackForm');show('feedbackSuccess');
   }catch(err){
     showToast(currentLang==='BM'?'Gagal hantar!':'Send failed!');btn.disabled=false;btn.style.opacity='1';btn.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> ${L.fbSubmitBtn}`;
@@ -841,7 +841,7 @@ async function submitFeedback(){
 }
 function resetFeedback(){
   ['fbName','fbEmail','fbPhone','fbWard','fbMessage'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
-  document.getElementById('fbRole').value='';selectedRating=0;selectedCategory='';
+  document.getElementById('fbRole').value='';selRating=0;selectedCat='';
   for(let i=1;i<=5;i++)document.getElementById('star'+i).classList.remove('selected');
   const rl=document.getElementById('ratingLabel');if(rl)rl.textContent=LANG[currentLang].ratingDefault;
   renderFeedbackCats();show('feedbackForm');hide('feedbackSuccess');
@@ -865,7 +865,7 @@ async function searchPatient(){
   if(!ic)return showToast("Sila masukkan nombor KP / IC / Passport!");
   res.innerHTML=`<div class="p-16 text-center animate-pulse"><p class="text-slate-400 font-black uppercase tracking-widest text-xs">Searching CRE 2026 database...</p></div>`;
   try{
-    const resp=await fetch(`${APPS_SCRIPT_URL}?ic=${encodeURIComponent(ic)}`),data=await resp.json();
+    const resp=await fetch(`${APPS_SCRIPT_URL}?action=search&ic=${encodeURIComponent(ic)}`),data=await resp.json();
     if(data.status==="not_found"){res.innerHTML=`<div class="bg-white p-12 rounded-[2.5rem] shadow-xl border-l-[16px] border-slate-300 text-center"><p class="text-5xl mb-4">🔍</p><h3 class="text-2xl font-black text-slate-700 uppercase">No Record Found</h3><p class="text-slate-500 mt-2 text-sm">KP <span class="font-mono font-black">${ic}</span> not found.</p><p class="text-slate-400 mt-1 text-xs uppercase tracking-widest">OFF TAG patients are not displayed.</p></div>`;return;}
     if(data.status==="found"){
       const d=data.data,st=getStyle(d.status,d.screening),sc=screeningChip(d.screening);
