@@ -537,7 +537,7 @@ const LANG = {
     entryDOALabel:'Tarikh Masuk Wad *',entrySampleLabel:'Tarikh Sampel Diambil',
     entryWardLabel:'Wad / Unit *',entryWardPlaceholder:'-- Pilih Wad --',entryWardOther:'Lain-lain',entryWardOtherPlaceholder:'Taip nama wad / lokasi...',
     entryBedLabel:'Katil / Bed',entryBedPlaceholder:'cth: B3',
-    entryOrgLabel:'Nama Organisma / Kuman *',entryOrgPlaceholder:'cth: Klebsiella pneumoniae NDM, E. coli OXA-48...',
+    entryOrgLabel:'Nama Organisma / Kuman',entryOrgPlaceholder:'cth: Klebsiella pneumoniae NDM, E. coli OXA-48...',
     entryStatusLabel:'Status Kes *',
     entryIndexDesc:'Positif CRE disahkan',entryCCDesc:'Berdekatan dengan Index',
     entryHospLabel:'Hospital Diagnose CRE',entryHospPlaceholder:'-- Pilih Hospital --',entryHospOther:'Lain-lain',entryHospOtherPlaceholder:'Nama hospital lain...',entryEntryDateLabel:'Tarikh Entry',entryEntryByLabel:'Entry oleh',
@@ -574,7 +574,7 @@ const LANG = {
     entryDOALabel:'Date of Admission *',entrySampleLabel:'Date of Sample Taken',
     entryWardLabel:'Ward / Unit *',entryWardPlaceholder:'-- Select Ward --',entryWardOther:'Others',entryWardOtherPlaceholder:'Type ward / location name...',
     entryBedLabel:'Bed',entryBedPlaceholder:'e.g. B3',
-    entryOrgLabel:'Organism / Pathogen Name *',entryOrgPlaceholder:'e.g. Klebsiella pneumoniae NDM, E. coli OXA-48...',
+    entryOrgLabel:'Organism / Pathogen Name',entryOrgPlaceholder:'e.g. Klebsiella pneumoniae NDM, E. coli OXA-48...',
     entryStatusLabel:'Case Status *',
     entryIndexDesc:'Confirmed CRE positive',entryCCDesc:'Exposed to Index case',
     entryHospLabel:'Hospital Diagnose CRE',entryHospPlaceholder:'-- Select Hospital --',entryHospOther:'Others',entryHospOtherPlaceholder:'Other hospital name...',entryEntryDateLabel:'Entry Date',entryEntryByLabel:'Entered by',
@@ -971,7 +971,6 @@ async function submitEntry(){
   if(!ic)return showToast(currentLang==='BM'?'Sila masukkan No. IC / KP!':'Please enter IC / KP!');
   if(!doa)return showToast(currentLang==='BM'?'Sila pilih tarikh masuk wad!':'Please select date of admission!');
   if(!ward)return showToast(currentLang==='BM'?'Sila pilih wad!':'Please select ward!');
-  if(!org)return showToast(currentLang==='BM'?'Sila masukkan nama organisma!':'Please enter organism name!');
   if(!status)return showToast(currentLang==='BM'?'Sila pilih status kes!':'Please select case status!');
   var btn=document.getElementById('entrySubmitBtn');
   btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menyimpan...':'Saving...');
