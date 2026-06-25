@@ -1,1421 +1,716 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRE Tracker Pro - HTPN</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
-        @keyframes alert-blink {
-            0%,100% { opacity:1; transform:scale(1); }
-            50%      { opacity:0.4; transform:scale(1.01); }
-        }
-        .animate-blink { animation: alert-blink 0.7s infinite; }
-        .glass-card { background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); }
-        header { position:relative; overflow:hidden; }
-        .header-motif { position:absolute; right:20px; top:50%; transform:translateY(-50%); opacity:0.15; pointer-events:none; }
-
-        /* Disclaimer Modal */
-        #disclaimerModal {
-            position:fixed; inset:0; z-index:9999;
-            background:rgba(8,20,40,0.92);
-            display:flex; align-items:center; justify-content:center;
-            padding:16px;
-        }
-        .disclaimer-box {
-            background:#fff;
-            border-radius:2rem;
-            max-width:520px; width:100%;
-            overflow:hidden;
-            box-shadow:0 32px 80px rgba(0,0,0,0.5);
-            border:3px solid #0C447C;
-        }
-        .disclaimer-header {
-            background:#0C447C;
-            border-bottom:4px solid #EF9F27;
-            padding:20px 24px;
-        }
-        .disclaimer-body {
-            padding:24px;
-            max-height:55vh;
-            overflow-y:auto;
-        }
-        .disclaimer-body::-webkit-scrollbar { width:4px; }
-        .disclaimer-body::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:4px; }
-        .disclaimer-footer {
-            padding:16px 24px;
-            background:#f8fafc;
-            border-top:1px solid #e2e8f0;
-        }
-
-        /* Tab styles */
-        .tab-btn {
-            padding:10px 8px;
-            font-weight:800;
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:0.04em;
-            border-radius:999px;
-            transition:all 0.2s;
-            cursor:pointer;
-            border:none;
-            background:transparent;
-            color:#64748b;
-            white-space:nowrap;
-            min-width:0;
-        }
-        .tab-btn.active {
-            background:#0C447C;
-            color:#fff;
-            box-shadow:0 4px 12px rgba(12,68,124,0.25);
-        }
-        .tab-btn:not(.active):hover {
-            background:#e2e8f0;
-            color:#334155;
-        }
-        @media (max-width: 400px) {
-            .tab-btn { font-size:9px; padding:9px 6px; gap:4px !important; }
-            .tab-btn svg { width:13px !important; height:13px !important; flex-shrink:0; }
-        }
-        .tab-content { display:none; }
-        .tab-content.active { display:block; }
-
-        /* Feedback rating stars */
-        .star-btn {
-            font-size:28px;
-            cursor:pointer;
-            transition:transform 0.1s;
-            opacity:0.3;
-        }
-        .star-btn.selected, .star-btn:hover { opacity:1; transform:scale(1.15); }
-
-        /* Splash screen */
-        /* ── Splash Screen ── */
-        #splashScreen {
-            position:fixed; inset:0; z-index:9998;
-            background: radial-gradient(ellipse at 30% 40%, #0e2a5e 0%, #0C447C 40%, #071c3a 100%);
-            display:none; align-items:center; justify-content:center;
-            flex-direction:column;
-            transition:opacity 0.6s ease;
-            overflow:hidden;
-        }
-        #mainApp { transition:opacity 0.4s ease; }
-        @keyframes fadeUp {
-            from { opacity:0; transform:translateY(20px); }
-            to   { opacity:1; transform:translateY(0); }
-        }
-        .splash-item { animation:fadeUp 0.55s ease forwards; opacity:0; }
-        @keyframes spinRect {
-            from { transform:translate(-50%,-50%) rotate(0deg); }
-            to   { transform:translate(-50%,-50%) rotate(360deg); }
-        }
-        @keyframes twinkle {
-            0%,100% { opacity:0.2; transform:scale(0.8); }
-            50%      { opacity:1;   transform:scale(1.2); }
-        }
-        @keyframes twinkle2 {
-            0%,100% { opacity:0.1; transform:scale(1); }
-            50%      { opacity:0.8; transform:scale(1.4); }
-        }
-        @keyframes pulse-ring {
-            0%   { transform:scale(0.95); box-shadow:0 0 0 0 rgba(239,159,39,0.45); }
-            70%  { transform:scale(1);    box-shadow:0 0 0 18px rgba(239,159,39,0); }
-            100% { transform:scale(0.95); box-shadow:0 0 0 0 rgba(239,159,39,0); }
-        }
-        .pulse-logo { animation:pulse-ring 1.8s ease infinite; }
-        .star { position:absolute; border-radius:50%; pointer-events:none; }
-        /* Login Screen */
-        #loginScreen {
-            position:fixed; inset:0; z-index:9997;
-            background:#f1f5f9;
-            display:none; align-items:center; justify-content:center;
-            padding:16px;
-        }
-        .login-card {
-            background:#fff;
-            border-radius:2rem;
-            max-width:400px; width:100%;
-            overflow:hidden;
-            box-shadow:0 24px 60px rgba(0,0,0,0.12);
-            border:2px solid #e2e8f0;
-        }
-        .login-header {
-            background:#0C447C;
-            border-bottom:4px solid #EF9F27;
-            padding:20px 28px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRE Tracker Pro - HTPN</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
+@keyframes alert-blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.01);}}
+.animate-blink{animation:alert-blink 0.7s infinite;}
+.glass-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);}
+.tab-btn{padding:10px 8px;font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:0.04em;border-radius:999px;transition:all 0.2s;cursor:pointer;border:none;background:transparent;color:#64748b;white-space:nowrap;}
+.tab-btn.active{background:#0C447C;color:#fff;box-shadow:0 4px 12px rgba(12,68,124,0.25);}
+.tab-btn:not(.active):hover{background:#e2e8f0;color:#334155;}
+.tab-content{display:none;}.tab-content.active{display:block;}
+.star-btn{font-size:28px;cursor:pointer;transition:transform 0.1s;opacity:0.3;}
+.star-btn.selected,.star-btn:hover{opacity:1;transform:scale(1.15);}
+.star{position:absolute;border-radius:50%;pointer-events:none;}
+@keyframes twinkle{0%,100%{opacity:0.2;transform:scale(0.8);}50%{opacity:1;transform:scale(1.2);}}
+@keyframes twinkle2{0%,100%{opacity:0.1;transform:scale(1);}50%{opacity:0.8;transform:scale(1.4);}}
+@keyframes twinkle3{0%,100%{opacity:0.3;transform:scale(0.9)rotate(0deg);}50%{opacity:1;transform:scale(1.3)rotate(20deg);}}
+@keyframes spinRect{from{transform:translate(-50%,-50%)rotate(0deg);}to{transform:translate(-50%,-50%)rotate(360deg);}}
+@keyframes pulseLogo{0%{transform:scale(0.96);box-shadow:0 0 0 0 rgba(232,160,48,0.5);}70%{transform:scale(1);box-shadow:0 0 0 20px rgba(232,160,48,0);}100%{transform:scale(0.96);box-shadow:0 0 0 0 rgba(232,160,48,0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.sp{opacity:0;}
+</style>
 </head>
 <body class="min-h-screen pb-16">
 
-<!-- ════════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════════ -->
-<div id="loginScreen" style="display:none;">
-    <div class="login-card">
-        <!-- Header -->
-        <div class="login-header">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-                <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="background:#EF9F27;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:2px;">CRE Tracker Pro · HTPN</p>
-                        <h2 id="login-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;">Log Masuk</h2>
-                    </div>
-                </div>
-                <!-- BM/EN toggle -->
-                <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(239,159,39,0.4);">
-                    <button id="loginBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:#EF9F27;color:#0C447C;letter-spacing:0.08em;">BM</button>
-                    <button id="loginBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:transparent;color:#EF9F27;letter-spacing:0.08em;">EN</button>
-                </div>
-            </div>
-        </div>
+<!-- SPLASH -->
+<div id="sp" style="position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at 35% 40%,#0a2d5e 0%,#071e42 45%,#040e24 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+<!-- glitter - ALL pointer-events:none -->
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
 
-        <!-- Body -->
-        <div style="padding:24px 28px;">
-            <div id="loginError" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:12px;font-weight:700;color:#dc2626;text-align:center;">
-                <span id="login-error-msg">⚠️ Username atau password salah. Sila cuba semula.</span>
-            </div>
+    <!-- Bright gold radial glows — more intense -->
+    <div style="position:absolute;pointer-events:none;top:50%;left:50%;width:700px;height:700px;background:radial-gradient(circle,rgba(232,160,48,0.12) 0%,transparent 60%);transform:translate(-50%,-50%);border-radius:50%;"></div>
+    <div style="position:absolute;pointer-events:none;top:-80px;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(232,160,48,0.13) 0%,transparent 55%);border-radius:50%;"></div>
+    <div style="position:absolute;pointer-events:none;bottom:-80px;right:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(232,160,48,0.11) 0%,transparent 55%);border-radius:50%;"></div>
+    <div style="position:absolute;pointer-events:none;top:-40px;right:-40px;width:320px;height:320px;background:radial-gradient(circle,rgba(232,160,48,0.10) 0%,transparent 55%);border-radius:50%;"></div>
+    <div style="position:absolute;pointer-events:none;bottom:-40px;left:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(232,160,48,0.09) 0%,transparent 55%);border-radius:50%;"></div>
+    <div style="position:absolute;pointer-events:none;top:25%;right:3%;width:250px;height:250px;background:radial-gradient(circle,rgba(232,160,48,0.07) 0%,transparent 55%);border-radius:50%;"></div>
+    <div style="position:absolute;pointer-events:none;bottom:20%;left:3%;width:230px;height:230px;background:radial-gradient(circle,rgba(232,160,48,0.07) 0%,transparent 55%);border-radius:50%;"></div>
+    <!-- extra mid glows -->
+    <div style="position:absolute;pointer-events:none;top:40%;left:50%;width:500px;height:300px;background:radial-gradient(ellipse,rgba(10,45,94,0.3) 0%,transparent 70%);transform:translate(-50%,-50%);border-radius:50%;"></div>
 
-            <!-- Username -->
-            <div style="margin-bottom:16px;">
-                <label id="login-user-label" style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Username</label>
-                <input type="text" id="loginUser" placeholder="Masukkan username..."
-                    style="width:100%;padding:12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;transition:border 0.2s;"
-                    onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'"
-                    onkeypress="if(event.key==='Enter')document.getElementById('loginPass').focus()">
-            </div>
+    <!-- ★ ROW 1 — very top edge ★ -->
+    <svg style="position:absolute;top:0%;left:0%;opacity:1;animation:twinkle3 2.0s ease infinite;" width="22" height="22" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:1%;left:8%;opacity:0.9;animation:twinkle 1.6s ease infinite 0.4s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:0%;left:18%;opacity:0.95;animation:twinkle3 2.4s ease infinite 0.9s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:2%;left:28%;opacity:0.8;animation:twinkle 2.2s ease infinite 0.2s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:0%;left:40%;opacity:0.7;animation:twinkle3 1.8s ease infinite 1.0s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:1%;left:52%;opacity:1;animation:twinkle3 2.6s ease infinite 0.6s;" width="24" height="24" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:0%;left:63%;opacity:0.85;animation:twinkle 2.8s ease infinite 1.3s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:2%;left:74%;opacity:0.9;animation:twinkle3 2.1s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:0%;left:84%;opacity:0.8;animation:twinkle 1.9s ease infinite 0.8s;" width="11" height="11" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:1%;left:92%;opacity:1;animation:twinkle3 2.3s ease infinite 0.1s;" width="26" height="26" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
 
-            <!-- Password -->
-            <div style="margin-bottom:20px;">
-                <label id="login-pass-label" style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:6px;">Password</label>
-                <div style="position:relative;">
-                    <input type="password" id="loginPass" placeholder="Masukkan password..."
-                        style="width:100%;padding:12px 44px 12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;transition:border 0.2s;"
-                        onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'"
-                        onkeypress="if(event.key==='Enter')doLogin()">
-                    <button onclick="togglePassVis()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#94a3b8;padding:4px;">
-                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <!-- ★ ROW 2 ★ -->
+    <svg style="position:absolute;top:5%;left:3%;opacity:0.9;animation:twinkle 2.5s ease infinite 1.2s;" width="15" height="15" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:6%;left:13%;opacity:0.75;animation:twinkle3 3.0s ease infinite 0.5s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:4%;left:25%;opacity:0.85;animation:twinkle 2.0s ease infinite 1.0s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:7%;left:36%;opacity:0.7;animation:twinkle3 2.7s ease infinite 0.7s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:5%;left:48%;opacity:0.6;animation:twinkle 2.3s ease infinite 1.4s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:8%;left:59%;opacity:0.9;animation:twinkle3 1.7s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:6%;left:71%;opacity:0.75;animation:twinkle 2.9s ease infinite 0.9s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:4%;left:81%;opacity:0.85;animation:twinkle3 2.2s ease infinite 1.1s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:7%;left:90%;opacity:0.95;animation:twinkle 1.8s ease infinite 0.5s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
 
-            <!-- Login button -->
-            <button onclick="doLogin()"
-                style="width:100%;padding:14px;border-radius:999px;background:#0C447C;color:#EF9F27;border:none;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(12,68,124,0.25);"
-                onmouseover="this.style.background='#0a3868'" onmouseout="this.style.background='#0C447C'">
-                <span id="login-btn-text">Log Masuk</span>
-            </button>
+    <!-- ★ ROW 3 — upper-mid ★ -->
+    <svg style="position:absolute;top:12%;left:1%;opacity:0.85;animation:twinkle3 2.4s ease infinite 0.6s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:14%;left:11%;opacity:0.6;animation:twinkle 3.1s ease infinite 1.3s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:11%;left:22%;opacity:0.7;animation:twinkle3 2.6s ease infinite 0.4s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:15%;left:33%;opacity:0.5;animation:twinkle 2.0s ease infinite 1.6s;" width="8" height="8" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:13%;left:66%;opacity:0.8;animation:twinkle3 2.2s ease infinite 0.2s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:16%;left:77%;opacity:0.65;animation:twinkle 2.5s ease infinite 0.8s;" width="11" height="11" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:12%;left:88%;opacity:0.9;animation:twinkle3 1.9s ease infinite 1.4s;" width="19" height="19" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
 
-            <!-- Footer note -->
-            <p id="login-note" style="text-align:center;font-size:10px;color:#94a3b8;font-weight:600;margin-top:16px;">Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.</p>
-        </div>
-    </div>
+    <!-- ★ LEFT EDGE ★ -->
+    <svg style="position:absolute;top:20%;left:0%;opacity:0.9;animation:twinkle3 2.3s ease infinite 0.5s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:28%;left:1%;opacity:0.7;animation:twinkle 2.8s ease infinite 1.0s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:37%;left:0%;opacity:0.85;animation:twinkle3 2.1s ease infinite 0.3s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:47%;left:1%;opacity:0.75;animation:twinkle 1.9s ease infinite 1.2s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:56%;left:0%;opacity:0.8;animation:twinkle3 2.6s ease infinite 0.7s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:65%;left:1%;opacity:0.65;animation:twinkle 3.0s ease infinite 0.4s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:74%;left:0%;opacity:0.9;animation:twinkle3 2.4s ease infinite 1.1s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+
+    <!-- ★ RIGHT EDGE ★ -->
+    <svg style="position:absolute;top:20%;left:97%;opacity:0.95;animation:twinkle3 2.0s ease infinite 0.2s;" width="22" height="22" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:29%;left:96%;opacity:0.7;animation:twinkle 2.7s ease infinite 0.9s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:38%;left:97%;opacity:0.85;animation:twinkle3 2.3s ease infinite 1.4s;" width="17" height="17" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:48%;left:96%;opacity:0.8;animation:twinkle 2.1s ease infinite 0.6s;" width="15" height="15" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:57%;left:97%;opacity:0.9;animation:twinkle3 1.8s ease infinite 1.0s;" width="19" height="19" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:66%;left:96%;opacity:0.7;animation:twinkle 2.9s ease infinite 0.3s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:75%;left:97%;opacity:0.85;animation:twinkle3 2.5s ease infinite 0.8s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+
+    <!-- ★ CENTER LEFT FLANK ★ -->
+    <svg style="position:absolute;top:22%;left:6%;opacity:0.75;animation:twinkle3 2.2s ease infinite 0.5s;" width="15" height="15" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:26%;left:16%;opacity:0.55;animation:twinkle 2.6s ease infinite 1.1s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:34%;left:8%;opacity:0.7;animation:twinkle3 2.1s ease infinite 0.8s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:40%;left:17%;opacity:0.5;animation:twinkle 3.2s ease infinite 0.4s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:52%;left:7%;opacity:0.65;animation:twinkle3 2.4s ease infinite 1.3s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:59%;left:16%;opacity:0.5;animation:twinkle 2.8s ease infinite 0.6s;" width="8" height="8" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+
+    <!-- ★ CENTER RIGHT FLANK ★ -->
+    <svg style="position:absolute;top:22%;left:82%;opacity:0.65;animation:twinkle3 2.5s ease infinite 0.2s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:26%;left:91%;opacity:0.55;animation:twinkle 2.1s ease infinite 0.9s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:34%;left:83%;opacity:0.7;animation:twinkle3 1.9s ease infinite 0.5s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:40%;left:91%;opacity:0.6;animation:twinkle 2.7s ease infinite 1.2s;" width="11" height="11" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:52%;left:82%;opacity:0.55;animation:twinkle3 2.3s ease infinite 0.7s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:59%;left:90%;opacity:0.7;animation:twinkle 2.0s ease infinite 1.5s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+
+    <!-- ★ BOTTOM ZONE ★ -->
+    <svg style="position:absolute;top:68%;left:4%;opacity:1;animation:twinkle3 2.2s ease infinite 0.4s;" width="22" height="22" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:72%;left:14%;opacity:0.75;animation:twinkle 1.7s ease infinite 0.8s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:76%;left:25%;opacity:0.8;animation:twinkle3 2.6s ease infinite 1.2s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:80%;left:37%;opacity:0.9;animation:twinkle3 2.0s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:74%;left:50%;opacity:0.7;animation:twinkle 2.4s ease infinite 1.0s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:79%;left:61%;opacity:0.85;animation:twinkle3 1.8s ease infinite 0.6s;" width="17" height="17" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:83%;left:72%;opacity:0.95;animation:twinkle 2.2s ease infinite 1.4s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:77%;left:83%;opacity:0.8;animation:twinkle3 2.7s ease infinite 0.2s;" width="15" height="15" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:81%;left:93%;opacity:0.9;animation:twinkle 1.9s ease infinite 0.9s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <!-- bottom row 2 -->
+    <svg style="position:absolute;top:87%;left:6%;opacity:0.85;animation:twinkle3 2.5s ease infinite 0.7s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:91%;left:19%;opacity:0.7;animation:twinkle 2.3s ease infinite 1.1s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:88%;left:33%;opacity:0.8;animation:twinkle3 1.7s ease infinite 0.5s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:94%;left:46%;opacity:0.95;animation:twinkle 2.0s ease infinite 1.3s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:90%;left:58%;opacity:0.75;animation:twinkle3 2.8s ease infinite 0.4s;" width="13" height="13" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:95%;left:70%;opacity:0.85;animation:twinkle 2.1s ease infinite 0.8s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:92%;left:81%;opacity:0.7;animation:twinkle3 2.4s ease infinite 1.5s;" width="11" height="11" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+    <svg style="position:absolute;top:96%;left:91%;opacity:0.9;animation:twinkle 1.8s ease infinite 0.6s;" width="22" height="22" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#E8A030"/></svg>
+
+    <!-- ✦ GLITTER DOTS — bright gold, dense ✦ -->
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:3%;left:6%;animation:twinkle2 1.8s ease infinite;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:5%;left:15%;animation:twinkle2 2.5s ease infinite 0.4s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:2%;left:26%;animation:twinkle2 1.6s ease infinite 0.9s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:6%;left:38%;animation:twinkle2 2.8s ease infinite 0.2s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:4%;left:50%;animation:twinkle2 2.2s ease infinite 1.3s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:3%;left:62%;animation:twinkle2 2.0s ease infinite 0.6s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:7%;left:73%;animation:twinkle2 3.0s ease infinite 1.0s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:5%;left:84%;animation:twinkle2 1.7s ease infinite 0.3s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:2%;left:96%;animation:twinkle2 2.4s ease infinite 1.4s;"></div>
+    <!-- mid dots -->
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:18%;left:4%;animation:twinkle2 2.3s ease infinite 0.7s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:22%;left:14%;animation:twinkle2 2.7s ease infinite 1.2s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:19%;left:24%;animation:twinkle2 1.9s ease infinite 0.5s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:23%;left:74%;animation:twinkle2 2.6s ease infinite 0.8s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:20%;left:85%;animation:twinkle2 2.1s ease infinite 1.5s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:18%;left:95%;animation:twinkle2 2.9s ease infinite 0.2s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:30%;left:3%;animation:twinkle2 1.8s ease infinite 1.0s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:33%;left:13%;animation:twinkle2 2.4s ease infinite 0.4s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:31%;left:85%;animation:twinkle2 2.0s ease infinite 1.3s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:35%;left:95%;animation:twinkle2 2.7s ease infinite 0.6s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:43%;left:2%;animation:twinkle2 2.3s ease infinite 0.9s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:47%;left:96%;animation:twinkle2 1.7s ease infinite 1.1s;"></div>
+    <!-- lower-mid dots -->
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:63%;left:5%;animation:twinkle2 2.1s ease infinite 0.3s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:67%;left:16%;animation:twinkle2 2.8s ease infinite 0.8s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:71%;left:27%;animation:twinkle2 1.9s ease infinite 1.4s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:75%;left:42%;animation:twinkle2 2.5s ease infinite 0.2s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:69%;left:56%;animation:twinkle2 2.2s ease infinite 1.0s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:73%;left:68%;animation:twinkle2 3.0s ease infinite 0.5s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:67%;left:80%;animation:twinkle2 1.8s ease infinite 1.3s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:72%;left:91%;animation:twinkle2 2.6s ease infinite 0.7s;"></div>
+    <!-- bottom dots -->
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:84%;left:8%;animation:twinkle2 2.0s ease infinite 0.4s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:88%;left:22%;animation:twinkle2 2.4s ease infinite 1.1s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:85%;left:38%;animation:twinkle2 1.7s ease infinite 0.8s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:91%;left:53%;animation:twinkle2 2.9s ease infinite 0.2s;"></div>
+    <div class="star" style="width:3px;height:3px;background:#E8A030;top:87%;left:66%;animation:twinkle2 2.1s ease infinite 1.4s;"></div>
+    <div class="star" style="width:4px;height:4px;background:#E8A030;top:93%;left:78%;animation:twinkle2 2.5s ease infinite 0.6s;"></div>
+    <div class="star" style="width:5px;height:5px;background:#E8A030;top:89%;left:89%;animation:twinkle2 1.9s ease infinite 1.0s;"></div>
+
+    <!-- Spinning rings — brighter border -->
+    <svg style="position:absolute;top:-60px;left:-60px;opacity:0.15;pointer-events:none;" width="360" height="360" viewBox="0 0 360 360"><circle cx="0" cy="0" r="300" fill="none" stroke="#E8A030" stroke-width="1.5"/><circle cx="0" cy="0" r="240" fill="none" stroke="#E8A030" stroke-width="1"/><circle cx="0" cy="0" r="180" fill="none" stroke="#E8A030" stroke-width="0.6"/></svg>
+    <svg style="position:absolute;bottom:-60px;right:-60px;opacity:0.15;pointer-events:none;" width="360" height="360" viewBox="0 0 360 360"><circle cx="360" cy="360" r="300" fill="none" stroke="#E8A030" stroke-width="1.5"/><circle cx="360" cy="360" r="240" fill="none" stroke="#E8A030" stroke-width="1"/></svg>
+    <div style="position:absolute;top:50%;left:50%;width:340px;height:340px;border:1.5px solid rgba(232,160,48,0.12);border-radius:32px;animation:spinRect 35s linear infinite;pointer-events:none;"></div>
+    <div style="position:absolute;top:50%;left:50%;width:250px;height:250px;border:1px solid rgba(232,160,48,0.09);border-radius:22px;animation:spinRect 22s linear infinite reverse;pointer-events:none;"></div>
+    <div style="position:absolute;top:50%;left:50%;width:170px;height:170px;border:1px solid rgba(232,160,48,0.07);border-radius:15px;animation:spinRect 14s linear infinite;pointer-events:none;"></div>
 </div>
 
-<!-- ════════════════════════════════════════════
-     DISCLAIMER MODAL
-════════════════════════════════════════════ -->
-<div id="disclaimerModal" style="display:none;">
-    <div class="disclaimer-box">
-
-        <!-- Header -->
-        <div class="disclaimer-header">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-                <div class="flex items-center gap-3">
-                    <div style="background:#EF9F27;border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p style="color:#EF9F27;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;opacity:0.8;">CRE Tracker Pro · HTPN</p>
-                        <h2 id="disc-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;"
-                            data-bm="Notis Kerahsiaan &amp; Syarat Penggunaan"
-                            data-en="Confidentiality Notice &amp; Terms of Use">Notis Kerahsiaan &amp; Syarat Penggunaan</h2>
-                    </div>
-                </div>
-                <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(239,159,39,0.4);">
-                    <button id="discBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:#EF9F27;color:#0C447C;letter-spacing:0.08em;">BM</button>
-                    <button id="discBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:transparent;color:#EF9F27;letter-spacing:0.08em;">EN</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Body -->
-        <div class="disclaimer-body">
-
-            <!-- Warning banner -->
-            <div style="background:#fff3cd;border:2px solid #ffc107;border-radius:12px;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;">
-                <span style="font-size:20px;flex-shrink:0;">⚠️</span>
-                <p style="font-size:12px;font-weight:700;color:#856404;line-height:1.5;"
-                   data-bm="Aplikasi ini mengandungi <strong>maklumat sulit pesakit</strong> — hanya untuk kegunaan kakitangan hospital yang diberi kuasa sahaja."
-                   data-en="This application contains <strong>confidential patient information</strong> — for authorised hospital staff only.">
-                    Aplikasi ini mengandungi <strong>maklumat sulit pesakit</strong> — hanya untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.
-                </p>
-            </div>
-
-            <!-- Section 1 -->
-            <div style="margin-bottom:14px;">
-                <p style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:#0C447C;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:4px;"
-                   data-bm="1. Tujuan Aplikasi" data-en="1. Purpose of Application">1. Tujuan Aplikasi</p>
-                <p style="font-size:12px;color:#334155;line-height:1.6;"
-                   data-bm="Aplikasi <strong>CRE Tracker Pro</strong> dibangunkan oleh Unit Kawalan Pencegahan Infeksi (IPC), Hospital Tengku Permaisuri Norashikin (HTPN) untuk memudahkan semakan status CRE pesakit bagi tujuan <strong>kawalan infeksi dan keselamatan pesakit</strong> sahaja."
-                   data-en="<strong>CRE Tracker Pro</strong> was developed by the Infection Prevention and Control Unit (IPC), Hospital Tengku Permaisuri Norashikin (HTPN) to facilitate CRE patient status checks for <strong>infection control and patient safety</strong> purposes only.">
-                    Aplikasi <strong>CRE Tracker Pro</strong> dibangunkan oleh Unit Kawalan Pencegahan Infeksi (IPC), Hospital Tengku Permaisuri Norashikin (HTPN) untuk memudahkan semakan status CRE pesakit bagi tujuan <strong>kawalan infeksi dan keselamatan pesakit</strong> sahaja.
-                </p>
-            </div>
-
-            <!-- Section 2 -->
-            <div style="margin-bottom:14px;">
-                <p style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:#0C447C;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:4px;"
-                   data-bm="2. Kerahsiaan Data Pesakit" data-en="2. Patient Data Confidentiality">2. Kerahsiaan Data Pesakit</p>
-                <ul style="font-size:12px;color:#334155;padding-left:0;list-style:none;">
-                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Semua maklumat yang dipaparkan adalah <span style='font-weight:900;color:#dc2626;'>SULIT</span> di bawah Akta Privasi Data Peribadi 2010 (PDPA) dan polisi KKM."
-                        data-en="All information displayed is <span style='font-weight:900;color:#dc2626;'>CONFIDENTIAL</span> under the Personal Data Protection Act 2010 (PDPA) and MOH policy.">Semua maklumat yang dipaparkan adalah <span style="font-weight:900;color:#dc2626;">SULIT</span> di bawah Akta Privasi Data Peribadi 2010 (PDPA) dan polisi KKM.</span></li>
-                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Adalah <span style='font-weight:900;'>dilarang sama sekali</span> untuk menyalin, mengambil tangkapan skrin, atau berkongsi maklumat pesakit kepada mana-mana pihak yang tidak berkaitan."
-                        data-en="It is <span style='font-weight:900;'>strictly prohibited</span> to copy, screenshot, or share patient information with any unauthorised party.">Adalah <span style="font-weight:900;">dilarang sama sekali</span> untuk menyalin, mengambil tangkapan skrin, atau berkongsi maklumat pesakit kepada mana-mana pihak yang tidak berkaitan.</span></li>
-                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Capaian kepada aplikasi ini mestilah menggunakan <span style='font-weight:900;'>peranti hospital yang diluluskan</span> sahaja."
-                        data-en="Access to this application must only be via <span style='font-weight:900;'>approved hospital devices</span>.">Capaian kepada aplikasi ini mestilah menggunakan <span style="font-weight:900;">peranti hospital yang diluluskan</span> sahaja.</span></li>
-                    <li style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#dc2626;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Jangan biarkan skrin terbuka tanpa pengawasan semasa menggunakan aplikasi ini."
-                        data-en="Do not leave the screen unattended while using this application.">Jangan biarkan skrin terbuka tanpa pengawasan semasa menggunakan aplikasi ini.</span></li>
-                </ul>
-            </div>
-
-            <!-- Section 3 -->
-            <div style="margin-bottom:14px;">
-                <p style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:#0C447C;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:4px;"
-                   data-bm="3. Tanggungjawab Pengguna" data-en="3. User Responsibility">3. Tanggungjawab Pengguna</p>
-                <ul style="font-size:12px;color:#334155;padding-left:0;list-style:none;">
-                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Hanya <span style='font-weight:900;'>kakitangan hospital</span> yang bertugas dan diberi kuasa boleh menggunakan aplikasi ini."
-                        data-en="Only <span style='font-weight:900;'>hospital staff</span> who are on duty and authorised may use this application.">Hanya <span style="font-weight:900;">kakitangan hospital</span> yang bertugas dan diberi kuasa boleh menggunakan aplikasi ini.</span></li>
-                    <li style="display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Sebarang penyalahgunaan data boleh dikenakan <span style='font-weight:900;'>tindakan tatatertib dan undang-undang</span>."
-                        data-en="Any misuse of data may result in <span style='font-weight:900;'>disciplinary and legal action</span>.">Sebarang penyalahgunaan data boleh dikenakan <span style="font-weight:900;">tindakan tatatertib dan undang-undang</span>.</span></li>
-                    <li style="display:flex;gap:8px;align-items:flex-start;"><span style="color:#0C447C;font-weight:900;flex-shrink:0;margin-top:1px;">•</span><span
-                        data-bm="Maklumat dalam aplikasi ini adalah untuk <span style='font-weight:900;'>rujukan klinikal</span> sahaja dan bukan rekod rasmi hospital."
-                        data-en="Information in this application is for <span style='font-weight:900;'>clinical reference</span> only and is not an official hospital record.">Maklumat dalam aplikasi ini adalah untuk <span style="font-weight:900;">rujukan klinikal</span> sahaja dan bukan rekod rasmi hospital.</span></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <!-- Footer / Acknowledgement -->
-        <div class="disclaimer-footer">
-            <!-- Checkbox -->
-            <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;margin-bottom:14px;" id="ackLabel">
-                <div id="checkboxCustom" onclick="toggleAck()" style="width:22px;height:22px;border:2.5px solid #cbd5e1;border-radius:6px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;background:#f8fafc;">
-                </div>
-                <p style="font-size:12px;font-weight:700;color:#334155;line-height:1.5;user-select:none;" onclick="toggleAck()">
-                    <span id="ack-text">Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.</span>
-                </p>
-            </label>
-            <!-- Button -->
-            <button id="proceedBtn" onclick="proceedToApp()" disabled
-                style="width:100%;padding:14px;border-radius:999px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;cursor:not-allowed;border:none;background:#e2e8f0;color:#94a3b8;transition:all 0.3s;">
-                Akses Ditolak — Sila Baca &amp; Setuju Dahulu
-            </button>
-        </div>
-
+  <div style="position:relative;z-index:50;text-align:center;padding:40px 24px;max-width:520px;width:100%;display:flex;flex-direction:column;align-items:center;">
+    <div id="sp-logo" style="width:120px;height:120px;background:rgba(232,160,48,0.1);border:2px solid rgba(232,160,48,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;opacity:0;">
+      <svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="85" height="85">
+        <circle cx="34" cy="34" r="30" fill="none" stroke="#E8A030" stroke-width="3.5" stroke-dasharray="4 2"/>
+        <circle cx="34" cy="34" r="22" fill="none" stroke="#E8A030" stroke-width="1.5"/>
+        <rect x="4" y="25" width="60" height="18" rx="4" fill="#E8A030" transform="rotate(-10 34 34)"/>
+        <text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C3060" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text>
+        <path id="sA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/>
+        <text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#E8A030" letter-spacing="2"><textPath href="#sA" startOffset="20%">C R E</textPath></text>
+      </svg>
     </div>
+    <p id="sp-1" class="sp" style="color:rgba(255,255,255,0.7);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5em;margin-bottom:8px;">Welcome to</p>
+    <div id="sp-2" class="sp" style="margin-bottom:6px;line-height:1;">
+      <span style="color:#E8A030;font-size:56px;font-weight:900;text-transform:uppercase;text-shadow:0 0 40px rgba(232,160,48,0.6);">CRE </span><span style="color:#fff;font-size:56px;font-weight:900;text-transform:uppercase;">TRACKER</span>
+    </div>
+    <div id="sp-3" class="sp" style="margin-bottom:20px;">
+      <span style="background:linear-gradient(135deg,#E8A030,#FAC775);color:#0C3060;font-size:12px;font-weight:900;padding:5px 18px;border-radius:999px;letter-spacing:0.2em;text-transform:uppercase;box-shadow:0 4px 16px rgba(232,160,48,0.4);">PRO</span>
+    </div>
+    <div id="sp-4" class="sp" style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+      <div style="width:40px;height:1px;background:rgba(232,160,48,0.5);"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:rgba(232,160,48,0.5);"></div>
+      <div style="width:40px;height:1px;background:rgba(232,160,48,0.5);"></div>
+    </div>
+    <div id="sp-5" class="sp" style="margin-bottom:8px;width:100%;">
+      <p style="color:rgba(232,160,48,0.8);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:4px;">Infection Control Unit</p>
+      <p style="color:rgba(255,255,255,0.95);font-size:15px;font-weight:700;line-height:1.4;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
+    </div>
+    <div id="sp-6" class="sp" style="width:80%;height:1px;background:rgba(255,255,255,0.1);margin:14px 0;"></div>
+    <div id="sp-7" class="sp" style="margin-bottom:24px;">
+      <p style="color:rgba(255,255,255,0.3);font-size:10px;font-weight:600;letter-spacing:0.06em;font-family:monospace;line-height:1.7;">&copy; 2026 &middot; Dr. Aneesa Binti Tharek &middot; SN Siti Mariam Binti Abdul Rasil<br>IPC Unit &amp; Healthcare Intelligence Office HTPN</p>
+    </div>
+    <button id="enterBtn" style="background:linear-gradient(135deg,#E8A030,#FAC775);color:#0C3060;border:none;padding:18px 56px;border-radius:999px;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:0.2em;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(232,160,48,0.5);position:relative;z-index:999;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Enter
+    </button>
+  </div>
 </div>
 
-<!-- ════════════════════════════════════════════
-     MAIN APP (hidden until disclaimer agreed)
-════════════════════════════════════════════ -->
-<!-- ════════════════════════════════════════════
-     SPLASH / WELCOME SCREEN
-════════════════════════════════════════════ -->
-<div id="splashScreen" style="display:flex;">
-    <!-- ── GLITTER LAYER ── -->
-    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
-
-        <!-- Radial glow centre -->
-        <div style="position:absolute;top:50%;left:50%;width:480px;height:480px;background:radial-gradient(circle,rgba(239,159,39,0.07) 0%,transparent 65%);transform:translate(-50%,-50%);border-radius:50%;"></div>
-        <!-- Corner glows -->
-        <div style="position:absolute;top:-60px;left:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(239,159,39,0.09) 0%,transparent 60%);border-radius:50%;"></div>
-        <div style="position:absolute;bottom:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(239,159,39,0.06) 0%,transparent 60%);border-radius:50%;"></div>
-        <div style="position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(239,159,39,0.07) 0%,transparent 60%);border-radius:50%;"></div>
-        <div style="position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(239,159,39,0.05) 0%,transparent 60%);border-radius:50%;"></div>
-
-        <!-- ★ GOLD 4-point stars — dense scatter across all zones ★ -->
-        <svg style="position:absolute;top:2%;left:2%;opacity:0.9;animation:twinkle 2.2s ease infinite;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:5%;left:22%;opacity:0.7;animation:twinkle 1.8s ease infinite 0.6s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <svg style="position:absolute;top:3%;left:45%;opacity:0.6;animation:twinkle 2.9s ease infinite 1.1s;" width="8" height="8" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:1%;left:68%;opacity:0.95;animation:twinkle 2.5s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:4%;left:85%;opacity:0.8;animation:twinkle 3.1s ease infinite 0.8s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <svg style="position:absolute;top:8%;left:94%;opacity:0.85;animation:twinkle 2.0s ease infinite 0.4s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:13%;left:6%;opacity:0.75;animation:twinkle 3.3s ease infinite 1.4s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:15%;left:35%;opacity:0.5;animation:twinkle 2.7s ease infinite 0.9s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <svg style="position:absolute;top:11%;left:78%;opacity:0.7;animation:twinkle 1.9s ease infinite 0.2s;" width="11" height="11" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:20%;left:92%;opacity:0.85;animation:twinkle 2.4s ease infinite 1.2s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <!-- Left edge -->
-        <svg style="position:absolute;top:30%;left:1%;opacity:0.8;animation:twinkle 2.6s ease infinite 0.5s;" width="14" height="14" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:45%;left:3%;opacity:0.65;animation:twinkle 3.0s ease infinite 1.0s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <svg style="position:absolute;top:58%;left:1%;opacity:0.75;animation:twinkle 2.3s ease infinite 0.7s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <!-- Right edge -->
-        <svg style="position:absolute;top:35%;left:95%;opacity:0.9;animation:twinkle 2.1s ease infinite 0.3s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:50%;left:97%;opacity:0.7;animation:twinkle 3.2s ease infinite 1.5s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <svg style="position:absolute;top:63%;left:94%;opacity:0.8;animation:twinkle 2.8s ease infinite 0.6s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <!-- Bottom zone -->
-        <svg style="position:absolute;top:78%;left:4%;opacity:0.85;animation:twinkle 2.5s ease infinite 0.8s;" width="18" height="18" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:82%;left:22%;opacity:0.65;animation:twinkle 1.7s ease infinite 0.4s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <svg style="position:absolute;top:87%;left:48%;opacity:0.7;animation:twinkle 2.9s ease infinite 1.3s;" width="12" height="12" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:91%;left:70%;opacity:0.9;animation:twinkle 2.2s ease infinite 0.2s;" width="16" height="16" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#EF9F27"/></svg>
-        <svg style="position:absolute;top:95%;left:88%;opacity:0.8;animation:twinkle 3.4s ease infinite 1.0s;" width="20" height="20" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#FAC775"/></svg>
-        <!-- White sparse stars -->
-        <svg style="position:absolute;top:25%;left:15%;opacity:0.3;animation:twinkle 3.5s ease infinite 1.2s;" width="10" height="10" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#fff"/></svg>
-        <svg style="position:absolute;top:70%;left:55%;opacity:0.25;animation:twinkle 2.8s ease infinite 0.9s;" width="9" height="9" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#fff"/></svg>
-        <svg style="position:absolute;top:40%;left:80%;opacity:0.28;animation:twinkle 3.1s ease infinite 0.5s;" width="8" height="8" viewBox="0 0 20 20"><path d="M10 0L12 8L20 10L12 12L10 20L8 12L0 10L8 8Z" fill="#fff"/></svg>
-
-        <!-- Tiny glitter dot clusters — very dense -->
-        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:6%;left:14%;animation:twinkle2 2.0s ease infinite;"></div>
-        <div class="star" style="width:2px;height:2px;background:#FAC775;top:9%;left:32%;animation:twinkle2 2.7s ease infinite 0.4s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:12%;left:58%;animation:twinkle2 1.8s ease infinite 0.9s;"></div>
-        <div class="star" style="width:4px;height:4px;background:#FAC775;top:17%;left:75%;animation:twinkle2 3.0s ease infinite 0.3s;"></div>
-        <div class="star" style="width:2px;height:2px;background:#EF9F27;top:23%;left:48%;animation:twinkle2 2.4s ease infinite 1.4s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:28%;left:62%;animation:twinkle2 2.2s ease infinite 0.7s;"></div>
-        <div class="star" style="width:2px;height:2px;background:#FAC775;top:33%;left:28%;animation:twinkle2 3.2s ease infinite 0.5s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:38%;left:42%;animation:twinkle2 1.9s ease infinite 1.1s;"></div>
-        <div class="star" style="width:4px;height:4px;background:#EF9F27;top:52%;left:18%;animation:twinkle2 2.5s ease infinite 0.2s;"></div>
-        <div class="star" style="width:2px;height:2px;background:#FAC775;top:57%;left:72%;animation:twinkle2 2.9s ease infinite 1.3s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:62%;left:38%;animation:twinkle2 1.7s ease infinite 0.6s;"></div>
-        <div class="star" style="width:2px;height:2px;background:#EF9F27;top:67%;left:85%;animation:twinkle2 3.1s ease infinite 0.8s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#FAC775;top:73%;left:52%;animation:twinkle2 2.3s ease infinite 1.5s;"></div>
-        <div class="star" style="width:4px;height:4px;background:#EF9F27;top:79%;left:15%;animation:twinkle2 2.0s ease infinite 0.3s;"></div>
-        <div class="star" style="width:2px;height:2px;background:#FAC775;top:84%;left:35%;animation:twinkle2 2.6s ease infinite 1.0s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#EF9F27;top:89%;left:62%;animation:twinkle2 1.8s ease infinite 0.5s;"></div>
-        <div class="star" style="width:2px;height:2px;background:#EF9F27;top:94%;left:8%;animation:twinkle2 3.3s ease infinite 0.7s;"></div>
-        <div class="star" style="width:3px;height:3px;background:#FAC775;top:97%;left:28%;animation:twinkle2 2.1s ease infinite 1.2s;"></div>
-        <!-- white dots sparse -->
-        <div class="star" style="width:2px;height:2px;background:#fff;top:42%;left:55%;animation:twinkle 3.4s ease infinite 0.6s;opacity:0.3;"></div>
-        <div class="star" style="width:3px;height:3px;background:#fff;top:55%;left:30%;animation:twinkle 2.6s ease infinite 1.3s;opacity:0.2;"></div>
-        <div class="star" style="width:2px;height:2px;background:#fff;top:70%;left:45%;animation:twinkle 3.0s ease infinite 0.4s;opacity:0.25;"></div>
+<!-- LOGIN -->
+<div id="loginScreen" style="display:none;position:fixed;inset:0;z-index:101;background:#f1f5f9;align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#fff;border-radius:2rem;max-width:400px;width:100%;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12);border:2px solid #e2e8f0;">
+    <div style="background:#0C447C;border-bottom:4px solid #E8A030;padding:20px 28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="background:#E8A030;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div>
+          <div><p style="color:#E8A030;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:2px;">CRE Tracker Pro &middot; HTPN</p><h2 id="login-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;">Log Masuk</h2></div>
+        </div>
+        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.4);">
+          <button id="loginBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;">BM</button>
+          <button id="loginBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;">EN</button>
+        </div>
+      </div>
     </div>
-
-    <!-- ── CORNER ARCS (static, poster style) + 1 slow ring far background ── -->
-    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
-        <svg style="position:absolute;top:-50px;left:-50px;opacity:0.07;" width="280" height="280" viewBox="0 0 280 280">
-            <circle cx="0" cy="0" r="220" fill="none" stroke="#EF9F27" stroke-width="1"/>
-            <circle cx="0" cy="0" r="180" fill="none" stroke="#FAC775" stroke-width="0.7"/>
-            <circle cx="0" cy="0" r="140" fill="none" stroke="#EF9F27" stroke-width="0.5"/>
-        </svg>
-        <svg style="position:absolute;bottom:-50px;right:-50px;opacity:0.07;" width="280" height="280" viewBox="0 0 280 280">
-            <circle cx="280" cy="280" r="220" fill="none" stroke="#EF9F27" stroke-width="1"/>
-            <circle cx="280" cy="280" r="180" fill="none" stroke="#FAC775" stroke-width="0.7"/>
-            <circle cx="280" cy="280" r="140" fill="none" stroke="#EF9F27" stroke-width="0.5"/>
-        </svg>
-        <svg style="position:absolute;top:-50px;right:-50px;opacity:0.05;" width="200" height="200" viewBox="0 0 200 200">
-            <circle cx="200" cy="0" r="160" fill="none" stroke="#FAC775" stroke-width="0.8"/>
-            <circle cx="200" cy="0" r="120" fill="none" stroke="#EF9F27" stroke-width="0.5"/>
-        </svg>
-        <!-- Single slow-spin square — small enough to stay BEHIND content (180px radius = ~255px dia, safe from 380px text zone) -->
-        <div style="position:absolute;top:50%;left:50%;width:260px;height:260px;border:1px solid rgba(239,159,39,0.08);border-radius:24px;animation:spinRect 35s linear infinite;"></div>
-        <div style="position:absolute;top:50%;left:50%;width:200px;height:200px;border:1px solid rgba(239,159,39,0.06);border-radius:18px;animation:spinRect 22s linear infinite reverse;"></div>
+    <div style="padding:24px 28px;">
+      <div id="loginError" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:12px;font-weight:700;color:#dc2626;text-align:center;"><span id="login-error-msg">Username atau password salah.</span></div>
+      <form onsubmit="return false;" autocomplete="on">
+        <div style="margin-bottom:14px;"><label id="login-user-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Username</label><input type="text" id="loginUser" name="username" autocomplete="username" placeholder="Masukkan username..." style="width:100%;padding:12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'"></div>
+        <div style="margin-bottom:14px;"><label id="login-pass-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Password</label>
+          <div style="position:relative;"><input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Masukkan password..." style="width:100%;padding:12px 44px 12px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:14px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            <button type="button" id="eyeBtn" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#94a3b8;padding:4px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><input type="checkbox" id="rememberMe" style="width:16px;height:16px;cursor:pointer;accent-color:#0C447C;"><label for="rememberMe" id="remember-label" style="font-size:12px;font-weight:700;color:#475569;cursor:pointer;">Ingat kata laluan saya</label></div>
+        <button id="loginBtn" type="submit" style="width:100%;padding:14px;border-radius:999px;background:#0C447C;color:#E8A030;border:none;font-size:13px;font-weight:900;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(12,68,124,0.25);"><span id="login-btn-text">Log Masuk</span></button>
+      </form>
+      <p id="login-note" style="text-align:center;font-size:10px;color:#94a3b8;font-weight:600;margin-top:14px;">Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.</p>
     </div>
-
-    <div style="text-align:center;padding:40px 32px;max-width:540px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;">
-
-        <!-- Logo pulse -->
-        <div class="pulse-logo splash-item" style="animation-delay:0.1s;width:110px;height:110px;background:rgba(239,159,39,0.1);border:1.5px solid rgba(239,159,39,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;box-shadow:0 0 40px rgba(239,159,39,0.12);">
-            <svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
-                <circle cx="34" cy="34" r="30" fill="none" stroke="#EF9F27" stroke-width="3.5" stroke-dasharray="4 2"/>
-                <circle cx="34" cy="34" r="22" fill="none" stroke="#EF9F27" stroke-width="1.5"/>
-                <rect x="4" y="25" width="60" height="18" rx="4" fill="#EF9F27" transform="rotate(-10 34 34)"/>
-                <text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C447C" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text>
-                <path id="sA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/>
-                <text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#EF9F27" letter-spacing="2"><textPath href="#sA" startOffset="20%">C R E</textPath></text>
-            </svg>
-        </div>
-
-        <!-- WELCOME TO — clean white, small caps -->
-        <p class="splash-item" style="animation-delay:0.2s;color:rgba(255,255,255,0.55);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5em;margin-bottom:10px;">Welcome to</p>
-
-        <!-- CRE TRACKER PRO — bold hierarchy -->
-        <div class="splash-item" style="animation-delay:0.35s;margin-bottom:6px;line-height:1;">
-            <span style="color:#EF9F27;font-size:56px;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;text-shadow:0 0 40px rgba(239,159,39,0.35);">CRE </span><span style="color:#ffffff;font-size:56px;font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;">TRACKER</span>
-        </div>
-        <!-- PRO pill on its own line for clean look -->
-        <div class="splash-item" style="animation-delay:0.45s;margin-bottom:22px;">
-            <span style="background:linear-gradient(135deg,#EF9F27,#FAC775);color:#0C447C;font-size:12px;font-weight:900;padding:5px 18px;border-radius:999px;letter-spacing:0.2em;text-transform:uppercase;box-shadow:0 4px 16px rgba(239,159,39,0.35);">PRO</span>
-        </div>
-
-        <!-- Divider line with dots -->
-        <div class="splash-item" style="animation-delay:0.5s;display:flex;align-items:center;gap:8px;margin-bottom:22px;opacity:0.5;">
-            <div style="width:32px;height:1px;background:#EF9F27;"></div>
-            <div style="width:5px;height:5px;border-radius:50%;background:#EF9F27;"></div>
-            <div style="width:32px;height:1px;background:#EF9F27;"></div>
-        </div>
-
-        <!-- Hospital info — clean minimal card -->
-        <div class="splash-item" style="animation-delay:0.6s;margin-bottom:8px;width:100%;">
-            <p style="color:rgba(239,159,39,0.7);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:5px;">Infection Control Unit</p>
-            <p style="color:rgba(255,255,255,0.9);font-size:15px;font-weight:700;line-height:1.4;letter-spacing:0.01em;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
-        </div>
-
-        <!-- Thin separator -->
-        <div class="splash-item" style="animation-delay:0.65s;width:80%;height:1px;background:rgba(255,255,255,0.08);margin:16px 0;"></div>
-
-        <!-- Credits — clean monospace small -->
-        <div class="splash-item" style="animation-delay:0.7s;margin-bottom:28px;">
-            <p style="color:rgba(255,255,255,0.3);font-size:10px;font-weight:600;letter-spacing:0.06em;font-family:monospace;line-height:1.7;">
-                © 2026 · Dr. Aneesa Binti Tharek · SN Siti Mariam Binti Abdul Rasil<br>IPC Unit &amp; Healthcare Intelligence Office HTPN
-            </p>
-        </div>
-
-        <!-- Enter button — solid gold, clean -->
-        <button class="splash-item" onclick="enterApp()"
-            style="animation-delay:0.85s;background:linear-gradient(135deg,#EF9F27 0%,#FAC775 100%);color:#0C447C;border:none;padding:16px 56px;border-radius:999px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:0.25em;cursor:pointer;display:inline-flex;align-items:center;gap:12px;transition:all 0.25s;box-shadow:0 6px 24px rgba(239,159,39,0.45);"
-            onmouseover="this.style.transform='translateY(-2px) scale(1.03)';this.style.boxShadow='0 12px 32px rgba(239,159,39,0.6)'"
-            onmouseout="this.style.transform='translateY(0) scale(1)';this.style.boxShadow='0 6px 24px rgba(239,159,39,0.45)'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            Enter
-        </button>
-    </div>
+  </div>
 </div>
 
+<!-- DISCLAIMER -->
+<div id="disclaimerModal" style="display:none;position:fixed;inset:0;z-index:102;background:rgba(8,20,40,0.92);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:#fff;border-radius:2rem;max-width:520px;width:100%;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.5);border:3px solid #0C447C;">
+    <div style="background:#0C447C;border-bottom:4px solid #E8A030;padding:20px 24px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="background:#E8A030;border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+          <div><p style="color:#E8A030;font-size:9px;font-weight:800;text-transform:uppercase;opacity:0.8;">CRE Tracker Pro &middot; HTPN</p><h2 id="disc-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;line-height:1.2;">Notis Kerahsiaan</h2></div>
+        </div>
+        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.4);">
+          <button id="discBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;">BM</button>
+          <button id="discBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;">EN</button>
+        </div>
+      </div>
+    </div>
+    <div id="disclaimerBody" style="padding:24px;max-height:55vh;overflow-y:auto;"></div>
+    <div style="padding:16px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;">
+      <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;margin-bottom:14px;">
+        <div id="ckbox" style="width:22px;height:22px;border:2.5px solid #cbd5e1;border-radius:6px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#f8fafc;"></div>
+        <p style="font-size:12px;font-weight:700;color:#334155;line-height:1.5;"><span id="ack-text">Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan.</span></p>
+      </label>
+      <button id="proceedBtn" disabled style="width:100%;padding:14px;border-radius:999px;font-size:12px;font-weight:900;text-transform:uppercase;cursor:not-allowed;border:none;background:#e2e8f0;color:#94a3b8;">Akses Ditolak</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
 <div id="mainApp" style="display:none;">
-
-<!-- ── HEADER ── -->
-<header class="shadow-2xl mb-8" style="background:#0C447C; border-left:8px solid #EF9F27; border-bottom:4px solid #EF9F27;">
-    <svg class="header-motif" width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="65" cy="65" r="56" fill="none" stroke="white" stroke-width="1.5"/>
-        <circle cx="65" cy="65" r="36" fill="none" stroke="white" stroke-width="1.5"/>
-        <circle cx="65" cy="65" r="14" fill="white"/>
-        <line x1="65" y1="9"   x2="65" y2="1"   stroke="white" stroke-width="1.5"/>
-        <line x1="121" y1="65" x2="129" y2="65" stroke="white" stroke-width="1.5"/>
-        <line x1="9"  y1="65"  x2="1"  y2="65"  stroke="white" stroke-width="1.5"/>
-        <line x1="65" y1="121" x2="65" y2="129" stroke="white" stroke-width="1.5"/>
-        <circle cx="106" cy="24"  r="7" fill="white"/>
-        <circle cx="24"  cy="24"  r="7" fill="white"/>
-        <circle cx="106" cy="106" r="7" fill="white"/>
-        <circle cx="24"  cy="106" r="7" fill="white"/>
-    </svg>
-    <div class="max-w-4xl mx-auto px-6 py-5 flex items-center gap-4">
-        <div style="width:68px;height:68px;flex-shrink:0;">
-            <svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="68" height="68">
-                <circle cx="34" cy="34" r="30" fill="none" stroke="#EF9F27" stroke-width="3.5" stroke-dasharray="4 2"/>
-                <circle cx="34" cy="34" r="22" fill="none" stroke="#EF9F27" stroke-width="1.5"/>
-                <rect x="4" y="25" width="60" height="18" rx="4" fill="#EF9F27" transform="rotate(-10 34 34)"/>
-                <text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C447C" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text>
-                <path id="tA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/>
-                <text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#EF9F27" letter-spacing="2"><textPath href="#tA" startOffset="20%">C R E</textPath></text>
-                <path id="bA" d="M 10,36 A 24,24 0 0,0 58,36" fill="none"/>
-                <text font-family="Plus Jakarta Sans,sans-serif" font-size="6" font-weight="700" fill="#FAC775" letter-spacing="1.5"><textPath href="#bA" startOffset="12%">TRACKER PRO</textPath></text>
-            </svg>
-        </div>
-        <div>
-            <div class="flex items-baseline gap-2 flex-wrap">
-                <h1 class="text-3xl font-black tracking-tight uppercase leading-none" style="color:#EF9F27;">CRE</h1>
-                <h1 class="text-3xl font-black tracking-tight uppercase leading-none text-white">Tracker</h1>
-                <span style="background:#EF9F27;color:#0C447C;font-size:10px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:0.15em;text-transform:uppercase;vertical-align:middle;">PRO</span>
-            </div>
-            <p class="text-[11px] text-blue-200 font-bold uppercase tracking-widest mt-1">Hospital Tengku Permaisuri Norashikin, Kajang</p>
-            <p class="text-[10px] font-medium uppercase tracking-tight mt-0.5" style="color:#B5D4F4;">Infection Prevention &amp; Control Unit</p>
-        </div>
+<header class="shadow-2xl mb-8" style="background:#0C447C;border-left:8px solid #E8A030;border-bottom:4px solid #E8A030;position:relative;overflow:hidden;">
+  <div class="max-w-4xl mx-auto px-6 py-5 flex items-center gap-4">
+    <div style="width:68px;height:68px;flex-shrink:0;"><svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="68" height="68"><circle cx="34" cy="34" r="30" fill="none" stroke="#E8A030" stroke-width="3.5" stroke-dasharray="4 2"/><circle cx="34" cy="34" r="22" fill="none" stroke="#E8A030" stroke-width="1.5"/><rect x="4" y="25" width="60" height="18" rx="4" fill="#E8A030" transform="rotate(-10 34 34)"/><text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C447C" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text><path id="tA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/><text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#E8A030" letter-spacing="2"><textPath href="#tA" startOffset="20%">C R E</textPath></text></svg></div>
+    <div>
+      <div class="flex items-baseline gap-2 flex-wrap">
+        <h1 class="text-3xl font-black tracking-tight uppercase leading-none" style="color:#E8A030;">CRE</h1>
+        <h1 class="text-3xl font-black tracking-tight uppercase leading-none text-white">Tracker</h1>
+        <span style="background:#E8A030;color:#0C447C;font-size:10px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:0.15em;text-transform:uppercase;">PRO</span>
+      </div>
+      <p style="font-size:11px;color:#bfdbfe;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-top:4px;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
     </div>
-    <div class="flex gap-2 px-6 pb-3 justify-end max-w-4xl mx-auto items-center">
-        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(239,159,39,0.4);">
-            <button id="btnBM" onclick="setLang('BM')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:#EF9F27;color:#0C447C;letter-spacing:0.08em;">BM</button>
-            <button id="btnEN" onclick="setLang('EN')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;background:transparent;color:#EF9F27;letter-spacing:0.08em;">EN</button>
-        </div>
-        <span style="width:8px;height:8px;border-radius:50%;background:#EF9F27;opacity:0.9;display:inline-block;"></span>
-        <span style="width:8px;height:8px;border-radius:50%;background:#FAC775;opacity:0.7;display:inline-block;"></span>
-        <span style="width:8px;height:8px;border-radius:50%;background:#EF9F27;opacity:0.5;display:inline-block;"></span>
+  </div>
+  <div class="flex gap-2 px-6 pb-3 justify-end max-w-4xl mx-auto">
+    <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.4);">
+      <button id="btnBM" onclick="setLang('BM')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;">BM</button>
+      <button id="btnEN" onclick="setLang('EN')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;">EN</button>
     </div>
+  </div>
 </header>
-
-<!-- ── TAB BAR ── -->
-<div class="max-w-3xl mx-auto px-4 mb-6">
-    <div class="bg-white rounded-[2rem] shadow-md p-1.5 flex gap-1">
-        <button class="tab-btn active flex-1 flex items-center justify-center gap-1" onclick="switchTab('search', this)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-            <span id="tab-label-search">Carian CRE</span>
-        </button>
-        <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('about', this)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <span id="tab-label-about">Info</span>
-        </button>
-        <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('feedback', this)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-            </svg>
-            <span id="tab-label-feedback">Maklum Balas</span>
-        </button>
-    </div>
-</div>
-
-<!-- ── MAIN CONTENT ── -->
+<div class="max-w-3xl mx-auto px-4 mb-6"><div class="bg-white rounded-[2rem] shadow-md p-1.5 flex gap-1">
+  <button class="tab-btn active flex-1 flex items-center justify-center gap-1" onclick="switchTab('search',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span id="tab-label-search">Carian CRE</span></button>
+  <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('about',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span id="tab-label-about">Info</span></button>
+  <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('feedback',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg><span id="tab-label-feedback">Maklum Balas</span></button>
+</div></div>
 <main class="max-w-3xl mx-auto px-4 space-y-6">
-
-    <!-- ══ TAB: SEARCH ══ -->
-    <div id="tab-search" class="tab-content active">
-        <div class="glass-card p-8 md:p-12 rounded-[2.5rem] shadow-2xl text-center">
-            <h2 class="text-2xl font-black mb-2 text-slate-800 uppercase tracking-tight" id="search-title" data-bm="Semak Status CRE" data-en="CRE Status Check">Semak Status CRE</h2>
-            <p class="text-slate-500 mb-8 text-sm font-medium" id="search-desc">Masukkan nombor KP / IC / No. Passport anda.<br>
-                <span class="font-mono font-black text-slate-700">Contoh: 1234567890</span></p>
-            <div class="flex flex-col gap-4">
-                <input type="text" id="icSearch" maxlength="20" placeholder="KP / IC / PASSPORT"
-                    class="w-full p-6 bg-slate-50 border-2 border-slate-100 rounded-3xl outline-none focus:border-blue-600 focus:ring-8 focus:ring-blue-50 transition-all text-2xl font-black tracking-[0.2em] text-center shadow-inner placeholder:tracking-normal placeholder:text-slate-300">
-                <button onclick="searchPatient()"
-                    class="bg-blue-800 hover:bg-blue-900 text-white py-6 rounded-3xl font-black text-lg uppercase tracking-widest shadow-xl active:scale-95 transition-all flex justify-center items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                    <span id="search-btn-text">Carian</span>
-                </button>
-            </div>
-        </div>
-        <div id="resultDisplay"></div>
+  <div id="tab-search" class="tab-content active">
+    <div class="glass-card p-8 md:p-12 rounded-[2.5rem] shadow-2xl text-center">
+      <h2 class="text-2xl font-black mb-2 text-slate-800 uppercase tracking-tight" id="search-title">Semak Status CRE</h2>
+      <p class="text-slate-500 mb-8 text-sm font-medium" id="search-desc">Masukkan nombor KP / IC / No. Passport anda.</p>
+      <div class="flex flex-col gap-4">
+        <input type="text" id="icSearch" maxlength="20" placeholder="KP / IC / PASSPORT" class="w-full p-6 bg-slate-50 border-2 border-slate-100 rounded-3xl outline-none focus:border-blue-600 focus:ring-8 focus:ring-blue-50 transition-all text-2xl font-black tracking-[0.2em] text-center shadow-inner placeholder:tracking-normal placeholder:text-slate-300">
+        <button onclick="searchPatient()" class="bg-blue-800 hover:bg-blue-900 text-white py-6 rounded-3xl font-black text-lg uppercase tracking-widest shadow-xl active:scale-95 transition-all flex justify-center items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span id="search-btn-text">Carian</span></button>
+      </div>
     </div>
-
-    <!-- ══ TAB: ABOUT ══ -->
-    <div id="tab-about" class="tab-content">
-        <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
-            <div style="background:#0C447C;border-bottom:4px solid #EF9F27;padding:28px 32px;">
-                <p style="color:#EF9F27;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:4px;">Unit IPC · HTPN</p>
-                <h2 style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;" data-bm="Tentang Aplikasi Ini" data-en="About This App">Tentang Aplikasi Ini</h2>
-            </div>
-            <div style="padding:28px 32px;">
-                <div style="background:#f0f7ff;border:2px solid #bfdbfe;border-radius:20px;padding:20px;margin-bottom:20px;">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
-                        <div>
-                            <p style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#1e40af;margin-bottom:2px;" data-bm="Aplikasi" data-en="Application">Aplikasi</p>
-                            <p style="font-size:18px;font-weight:900;color:#1e3a5f;">CRE Tracker Pro</p>
-                        </div>
-                        <span style="background:#0C447C;color:#EF9F27;font-size:10px;font-weight:900;padding:4px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:0.1em;">2026</span>
-                    </div>
-                    <hr style="margin:12px 0;border-color:#bfdbfe;">
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                        <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Dibangunkan Oleh" data-en="Developed By">Dibangunkan Oleh</p>
-                            <p style="font-size:12px;font-weight:700;color:#1e293b;">Unit Kawalan Pencegahan Infeksi (UKI/IPC)</p>
-                        </div>
-                        <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Fasiliti" data-en="Facility">Fasiliti</p>
-                            <p style="font-size:12px;font-weight:700;color:#1e293b;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
-                        </div>
-
-                        <div>
-                            <p style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;" data-bm="Sumber Data" data-en="Data Source">Sumber Data</p>
-                            <p style="font-size:12px;font-weight:700;color:#1e293b;">CRE Surveillance Database 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom:16px;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;" data-bm="🎯 Tujuan Aplikasi" data-en="🎯 Purpose">🎯 Tujuan Aplikasi</p>
-                    <p style="font-size:13px;color:#334155;line-height:1.7;" data-bm="CRE Tracker Pro membolehkan kakitangan klinikal menyemak status Carbapenem-Resistant Enterobacteriaceae (CRE) seseorang pesakit secara cepat, tepat dan membolehkan perlaksanaan IPC dilakukan dengan segera. Aplikasi ini memaparkan status semasa (Index / Close Contact), maklumat saringan, organisma terlibat, dan tindakan IPC mandatori yang perlu diambil." data-en="CRE Tracker Pro enables clinical staff to quickly and accurately verify a patient's Carbapenem-Resistant Enterobacteriaceae (CRE) status, facilitating prompt IPC implementation. The app displays current status (Index / Close Contact), screening information, organisms involved, and mandatory IPC actions required.">CRE Tracker Pro membolehkan kakitangan klinikal menyemak status Carbapenem-Resistant Enterobacteriaceae (CRE) seseorang pesakit secara cepat, tepat dan membolehkan perlaksanaan IPC dilakukan dengan segera. Aplikasi ini memaparkan status semasa (Index / Close Contact), maklumat saringan, organisma terlibat, dan tindakan IPC mandatori yang perlu diambil.</p>
-                </div>
-
-                <div style="margin-bottom:16px;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;" data-bm="📋 Cara Penggunaan" data-en="📋 How to Use">📋 Cara Penggunaan</p>
-                    <div>
-                        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
-                            <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Klik tab <strong>CRE Search</strong> dan masukkan nombor KP / IC / Passport pesakit." data-en="Click the <strong>CRE Search</strong> tab and enter the patient's IC / KP / Passport number.">Klik tab <strong>CRE Search</strong> dan masukkan nombor KP pesakit.</p>
-                        </div>
-                        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
-                            <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE." data-en="Press the <strong>Search</strong> button or Enter. The system will check the CRE 2026 database.">Tekan butang <strong>Search</strong> atau Enter. Sistem akan menyemak pangkalan data CRE 2026.</p>
-                        </div>
-                        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
-                            <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Tag kes yang dikenal pasti pada profil pesakit." data-en="Tag the identified case on patient profile.">Tag kes yang dikenal pasti pada profil pesakit.</p>
-                        </div>
-                        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:8px;">
-                            <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan bagi setiap status kes." data-en="Follow the <strong>mandatory IPC actions</strong> displayed for each case status.">Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan bagi setiap status kes.</p>
-                        </div>
-                        <div style="display:flex;gap:12px;align-items:flex-start;">
-                            <div style="background:#0C447C;color:#EF9F27;font-size:11px;font-weight:900;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
-                            <p style="font-size:13px;color:#334155;line-height:1.6;margin:0;" data-bm="Jika ada masalah teknikal atau penemuan data yang tidak tepat, hubungi UKI atau gunakan tab <strong>Feedback</strong>." data-en="For technical issues or inaccurate data, contact UKI or use the <strong>Feedback</strong> tab.">Jika ada masalah teknikal atau penemuan data yang tidak tepat, hubungi UKI atau gunakan tab <strong>Feedback</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom:16px;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;margin-bottom:8px;" data-bm="🔴 Status Kes" data-en="🔴 Case Status">🔴 Status Kes</p>
-                    <div style="display:flex;flex-direction:column;gap:8px;">
-                        <div style="background:#fef2f2;border:2px solid #fecaca;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;">
-                            <span style="font-size:18px;">🦠</span>
-                            <div>
-                                <p style="font-size:11px;font-weight:900;color:#991b1b;text-transform:uppercase;letter-spacing:0.08em;">Index Case</p>
-                                <p style="font-size:11px;color:#7f1d1d;" data-bm="Pesakit positif CRE yang disahkan. Perlu pengasingan segera." data-en="Confirmed CRE positive patient. Immediate isolation required.">Pesakit positif CRE yang disahkan. Perlu pengasingan segera.</p>
-                            </div>
-                        </div>
-                        <div style="background:#fffbeb;border:2px solid #fde68a;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;">
-                            <span style="font-size:18px;">👥</span>
-                            <div>
-                                <p style="font-size:11px;font-weight:900;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;">Close Contact</p>
-                                <p style="font-size:11px;color:#78350f;" data-bm="Pesakit yang berdekatan dengan kes Index. Perlu saringan dan langkah berjaga." data-en="Patient exposed to an Index case. Screening and precautions required.">Pesakit yang berdekatan dengan kes Index. Perlu saringan dan langkah berjaga.</p>
-                            </div>
-                        </div>
-                        <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;">
-                            <span style="font-size:18px;">🔍</span>
-                            <div>
-                                <p style="font-size:11px;font-weight:900;color:#166534;text-transform:uppercase;letter-spacing:0.08em;">Not Found</p>
-                                <p style="font-size:11px;color:#14532d;" data-bm="Tiada rekod dalam pangkalan data — termasuk kes Off-Tag." data-en="No record found in the database — includes Off-Tag cases.">Tiada rekod dalam pangkalan data — termasuk kes Off-Tag.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;padding:16px;text-align:center;">
-                    <p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#64748b;margin-bottom:4px;" data-bm="Hubungi UKI/IPC HTPN" data-en="Contact UKI/IPC HTPN">Hubungi UKI/IPC HTPN</p>
-                    <p style="font-size:12px;font-weight:700;color:#334155;" data-bm="Untuk pertanyaan teknikal atau kes baru yang perlu didaftarkan, sila hubungi pasukan UKI terus." data-en="For technical enquiries or new cases to be registered, please contact the UKI team directly.">Untuk pertanyaan teknikal atau kes baru yang perlu didaftarkan, sila hubungi pasukan UKI terus.</p>
-                </div>
-            </div>
+    <div id="resultDisplay"></div>
+  </div>
+  <div id="tab-about" class="tab-content">
+    <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
+      <div style="background:#0C447C;border-bottom:4px solid #E8A030;padding:28px 32px;"><p style="color:#E8A030;font-size:9px;font-weight:900;text-transform:uppercase;margin-bottom:4px;">Unit IPC &middot; HTPN</p><h2 id="about-title" style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;">Tentang Aplikasi Ini</h2></div>
+      <div style="padding:28px 32px;">
+        <!-- App Info Card -->
+        <div style="background:#f0f7ff;border:2px solid #bfdbfe;border-radius:20px;padding:20px;margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;"><div><p id="about-app-label" style="font-size:11px;font-weight:900;text-transform:uppercase;color:#1e40af;margin-bottom:2px;">Aplikasi</p><p style="font-size:18px;font-weight:900;color:#1e3a5f;">CRE Tracker Pro</p></div><span style="background:#0C447C;color:#E8A030;font-size:10px;font-weight:900;padding:4px 12px;border-radius:999px;text-transform:uppercase;">2026</span></div>
+          <hr style="margin:12px 0;border-color:#bfdbfe;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div><p id="about-dev-label" style="font-size:9px;font-weight:800;text-transform:uppercase;color:#64748b;">Dibangunkan Oleh</p><p style="font-size:12px;font-weight:700;color:#1e293b;">Unit Kawalan Pencegahan Infeksi (UKI/IPC)</p></div>
+            <div><p id="about-fac-label" style="font-size:9px;font-weight:800;text-transform:uppercase;color:#64748b;">Fasiliti</p><p style="font-size:12px;font-weight:700;color:#1e293b;">Hospital Tengku Permaisuri Norashikin, Kajang</p></div>
+            <div><p id="about-src-label" style="font-size:9px;font-weight:800;text-transform:uppercase;color:#64748b;">Sumber Data</p><p style="font-size:12px;font-weight:700;color:#1e293b;">CRE Surveillance Database 2026</p></div>
+          </div>
         </div>
-    </div>
-
-    <!-- ══ TAB: FEEDBACK ══ -->
-    <div id="tab-feedback" class="tab-content">
-        <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
-
-            <!-- Feedback header -->
-            <div style="background:#0C447C;border-bottom:4px solid #EF9F27;padding:28px 32px;">
-                <p style="color:#EF9F27;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:0.25em;margin-bottom:4px;">CRE Tracker Pro · HTPN</p>
-                <h2 style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;" id="fb-title">Feedback &amp; Cadangan</h2>
-                <p style="color:#93c5fd;font-size:11px;font-weight:600;margin-top:4px;" id="fb-subtitle">Maklum balas anda membantu kami memperbaiki aplikasi ini.</p>
-            </div>
-
-            <div style="padding:28px 32px;">
-                <div id="feedbackSuccess" style="display:none;background:#f0fdf4;border:2px solid #86efac;border-radius:20px;padding:32px;text-align:center;margin-bottom:20px;">
-                    <p style="font-size:40px;margin-bottom:12px;">✅</p>
-                    <p style="font-size:18px;font-weight:900;color:#166534;text-transform:uppercase;" id="fb-success-title">Terima Kasih!</p>
-                    <p style="font-size:13px;color:#15803d;margin-top:4px;" id="fb-success-msg">Maklum balas anda telah berjaya dihantar kepada pasukan UKI/IPC.</p>
-                    <button onclick="resetFeedback()" style="margin-top:16px;background:#0C447C;color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;cursor:pointer;">
-                        <span id="fb-send-another">Hantar Feedback Lain</span>
-                    </button>
-                </div>
-
-                <div id="feedbackForm">
-                    <!-- Role -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-role-label">Jawatan / Kategori Staf *</label>
-                        <select id="fbRole" style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;cursor:pointer;">
-                            <option value="" data-bm="-- Pilih Kategori --" data-en="-- Select Category --">-- Pilih Kategori --</option>
-                            <option data-bm="Jururawat (SN/EN)" data-en="Nurse (SN/EN)">Jururawat (SN/EN)</option>
-                            <option data-bm="Pegawai Perubatan (MO/HO)" data-en="Medical Officer (MO/HO)">Pegawai Perubatan (MO/HO)</option>
-                            <option data-bm="Pakar Perubatan" data-en="Specialist">Pakar Perubatan</option>
-                            <option data-bm="Pegawai Unit Hasil" data-en="Unit Hasil Staff">Pegawai Unit Hasil</option>
-                            <option data-bm="Lain-lain" data-en="Others">Lain-lain</option>
-                        </select>
-                    </div>
-
-                    <!-- Ward -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-ward-label">Wad / Unit</label>
-                        <input type="text" id="fbWard" placeholder="contoh: Wad Ortopedik, OT, Klinik Pakar..."
-                            style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;">
-                    </div>
-
-                    <!-- Nama -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-name-label" data-bm="Nama *" data-en="Name *">Nama *</label>
-                        <input type="text" id="fbName" placeholder="Nama penuh anda..."
-                            style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;">
-                    </div>
-
-                    <!-- Email -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-email-label" data-bm="Emel" data-en="Email">Emel</label>
-                        <input type="email" id="fbEmail" placeholder="contoh: nama@htpn.gov.my"
-                            style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;">
-                    </div>
-
-                    <!-- Phone -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-phone-label" data-bm="No. Telefon" data-en="Phone No.">No. Telefon</label>
-                        <input type="tel" id="fbPhone" placeholder="contoh: 0123456789"
-                            style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;">
-                    </div>
-
-                    <!-- Rating -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-rating-label">Penilaian Keseluruhan *</label>
-                        <div style="display:flex;gap:8px;justify-content:center;padding:16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;">
-                            <span class="star-btn" onclick="setRating(1)" id="star1">⭐</span>
-                            <span class="star-btn" onclick="setRating(2)" id="star2">⭐</span>
-                            <span class="star-btn" onclick="setRating(3)" id="star3">⭐</span>
-                            <span class="star-btn" onclick="setRating(4)" id="star4">⭐</span>
-                            <span class="star-btn" onclick="setRating(5)" id="star5">⭐</span>
-                        </div>
-                        <p id="ratingLabel" style="text-align:center;font-size:11px;font-weight:700;color:#64748b;margin-top:6px;">Pilih penilaian</p>
-                    </div>
-
-                    <!-- Category -->
-                    <div style="margin-bottom:18px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-cat-label">Kategori Maklum Balas *</label>
-                        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Staff Unit Hasil" data-bm="Staff Unit Hasil 🔬" data-en="Unit Hasil Staff 🔬"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Staff Unit Hasil 🔬</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Kebolehgunaan / UI" data-bm="Kebolehgunaan / UI" data-en="Usability / UI"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Kebolehgunaan / UI</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Ketepatan Data" data-bm="Ketepatan Data" data-en="Data Accuracy"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Ketepatan Data</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Bug / Masalah Teknikal" data-bm="Bug / Masalah Teknikal" data-en="Bug / Technical Issue"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Bug / Masalah Teknikal</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Cadangan Ciri Baru" data-bm="Cadangan Ciri Baru" data-en="Feature Suggestion"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Cadangan Ciri Baru</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Pujian" data-bm="Pujian 🎉" data-en="Compliment 🎉"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Pujian 🎉</button>
-                            <button type="button" class="fb-cat-btn" onclick="selectCategory(this)" data-val="Lain-lain" data-bm="Lain-lain" data-en="Others"
-                                style="padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;border:2px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.2s;">Lain-lain</button>
-                        </div>
-                    </div>
-
-                    <!-- Message -->
-                    <div style="margin-bottom:20px;">
-                        <label style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#0C447C;display:block;margin-bottom:8px;" id="fb-msg-label">Maklum Balas / Cadangan *</label>
-                        <textarea id="fbMessage" rows="4" placeholder="Tuliskan maklum balas, cadangan, atau masalah yang anda alami di sini..."
-                            style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:600;color:#334155;outline:none;resize:vertical;font-family:inherit;box-sizing:border-box;line-height:1.6;"></textarea>
-                    </div>
-
-                    <!-- Privacy note -->
-                    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 14px;margin-bottom:20px;display:flex;gap:8px;align-items:flex-start;">
-                        <span style="font-size:14px;flex-shrink:0;">🔒</span>
-                        <p style="font-size:11px;color:#78350f;font-weight:600;line-height:1.5;margin:0;" id="fb-privacy-text">Jangan masukkan maklumat pesakit (nama, IC, rekod perubatan) dalam borang ini. Feedback ini untuk penambahbaikan sistem sahaja.</p>
-                    </div>
-
-                    <!-- Submit -->
-                    <button onclick="submitFeedback()" id="fbSubmitBtn"
-                        style="width:100%;padding:16px;border-radius:999px;background:#0C447C;color:#EF9F27;border:none;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                        </svg>
-                        <span id="fb-submit-label">Hantar Maklum Balas</span>
-                    </button>
-                </div>
-            </div>
+        <!-- Purpose Section -->
+        <div style="margin-bottom:16px;">
+          <p id="about-purpose-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;letter-spacing:0.08em;margin-bottom:8px;display:flex;align-items:center;gap:6px;">🎯 Tujuan Aplikasi</p>
+          <p id="about-purpose-text" style="font-size:13px;color:#334155;line-height:1.7;background:#f8fafc;border-radius:14px;padding:14px 16px;border:1px solid #e2e8f0;"></p>
         </div>
+        <!-- How to Use -->
+        <div style="margin-bottom:16px;">
+          <p id="about-how-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;letter-spacing:0.08em;margin-bottom:8px;">📋 Cara Penggunaan</p>
+          <ol id="about-steps-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;"></ol>
+        </div>
+        <!-- Status Kes -->
+        <div style="margin-bottom:16px;">
+          <p id="about-status-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;letter-spacing:0.08em;margin-bottom:8px;">🔴 Status Kes</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#fff1f2;border:1.5px solid #fecdd3;border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;"><span style="font-size:22px;flex-shrink:0;">🦠</span><div><p style="font-size:11px;font-weight:900;color:#991b1b;text-transform:uppercase;margin-bottom:2px;">INDEX CASE</p><p id="about-index-desc" style="font-size:12px;color:#7f1d1d;"></p></div></div>
+            <div style="background:#fefce8;border:1.5px solid #fef08a;border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;"><span style="font-size:22px;flex-shrink:0;">👥</span><div><p style="font-size:11px;font-weight:900;color:#854d0e;text-transform:uppercase;margin-bottom:2px;">CLOSE CONTACT</p><p id="about-cc-desc" style="font-size:12px;color:#713f12;"></p></div></div>
+            <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;"><span style="font-size:22px;flex-shrink:0;">🔍</span><div><p style="font-size:11px;font-weight:900;color:#166534;text-transform:uppercase;margin-bottom:2px;">NOT FOUND</p><p id="about-nf-desc" style="font-size:12px;color:#14532d;"></p></div></div>
+          </div>
+        </div>
+        <!-- Contact -->
+        <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;padding:16px;text-align:center;">
+          <p id="about-contact-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#64748b;margin-bottom:4px;">Hubungi UKI/IPC HTPN</p>
+          <p id="about-contact-text" style="font-size:12px;font-weight:700;color:#334155;">Untuk pertanyaan teknikal, sila hubungi pasukan UKI terus.</p>
+        </div>
+      </div>
     </div>
-
+  </div>
+  <div id="tab-feedback" class="tab-content">
+    <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
+      <div style="background:#0C447C;border-bottom:4px solid #E8A030;padding:28px 32px;"><p style="color:#E8A030;font-size:9px;font-weight:900;text-transform:uppercase;margin-bottom:4px;">CRE Tracker Pro &middot; HTPN</p><h2 id="fb-title" style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;">Feedback &amp; Cadangan</h2><p id="fb-subtitle" style="color:#93c5fd;font-size:11px;font-weight:600;margin-top:4px;">Maklum balas anda membantu kami.</p></div>
+      <div style="padding:28px 32px;">
+        <div id="feedbackSuccess" style="display:none;background:#f0fdf4;border:2px solid #86efac;border-radius:20px;padding:32px;text-align:center;"><p style="font-size:40px;margin-bottom:12px;">&#9989;</p><p id="fb-success-title" style="font-size:18px;font-weight:900;color:#166534;text-transform:uppercase;">Terima Kasih!</p><p id="fb-success-msg" style="font-size:13px;color:#15803d;margin-top:4px;">Maklum balas anda telah dihantar.</p><button onclick="resetFeedback()" style="margin-top:16px;background:#0C447C;color:#fff;border:none;padding:10px 24px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;cursor:pointer;"><span id="fb-send-another">Hantar Lagi</span></button></div>
+        <div id="feedbackForm">
+          <div style="margin-bottom:18px;"><label id="fb-role-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Jawatan *</label><select id="fbRole" style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;cursor:pointer;"><option value="">-- Pilih --</option><option value="Jururawat">Jururawat (SN/EN)</option><option value="MO/HO">Pegawai Perubatan (MO/HO)</option><option value="Specialist">Pakar Perubatan</option><option value="Unit Hasil">Pegawai Unit Hasil</option><option value="Others">Lain-lain</option></select></div>
+          <div style="margin-bottom:18px;"><label id="fb-ward-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Wad / Unit</label><input type="text" id="fbWard" placeholder="contoh: Wad Ortopedik..." style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;"></div>
+          <div style="margin-bottom:18px;"><label id="fb-name-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Nama *</label><input type="text" id="fbName" placeholder="Nama penuh anda..." style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;"></div>
+          <div style="margin-bottom:18px;"><label id="fb-email-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Emel</label><input type="email" id="fbEmail" placeholder="nama@htpn.gov.my" style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;"></div>
+          <div style="margin-bottom:18px;"><label id="fb-phone-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">No. Telefon</label><input type="tel" id="fbPhone" placeholder="0123456789" style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;"></div>
+          <div style="margin-bottom:18px;"><label id="fb-rating-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Penilaian *</label><div style="display:flex;gap:8px;justify-content:center;padding:16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;"><span class="star-btn" onclick="setRating(1)" id="star1">&#11088;</span><span class="star-btn" onclick="setRating(2)" id="star2">&#11088;</span><span class="star-btn" onclick="setRating(3)" id="star3">&#11088;</span><span class="star-btn" onclick="setRating(4)" id="star4">&#11088;</span><span class="star-btn" onclick="setRating(5)" id="star5">&#11088;</span></div><p id="ratingLabel" style="text-align:center;font-size:11px;font-weight:700;color:#64748b;margin-top:6px;">Pilih penilaian</p></div>
+          <div style="margin-bottom:18px;"><label id="fb-cat-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Kategori *</label><div id="fb-cat-buttons" style="display:flex;flex-wrap:wrap;gap:8px;"></div></div>
+          <div style="margin-bottom:20px;"><label id="fb-msg-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">Maklum Balas *</label><textarea id="fbMessage" rows="4" placeholder="Tuliskan maklum balas..." style="width:100%;padding:14px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:16px;font-size:13px;font-weight:600;color:#334155;outline:none;resize:vertical;font-family:inherit;box-sizing:border-box;line-height:1.6;"></textarea></div>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 14px;margin-bottom:20px;display:flex;gap:8px;"><span>&#128274;</span><p id="fb-privacy-text" style="font-size:11px;color:#78350f;font-weight:600;margin:0;">Jangan masukkan maklumat pesakit dalam borang ini.</p></div>
+          <button onclick="submitFeedback()" id="fbSubmitBtn" style="width:100%;padding:16px;border-radius:999px;background:#0C447C;color:#E8A030;border:none;font-size:13px;font-weight:900;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg><span id="fb-submit-label">Hantar Maklum Balas</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
-</div><!-- end mainApp -->
-
-<!-- ── TOAST ── -->
+</div>
 <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-full shadow-2xl opacity-0 transition-opacity pointer-events-none z-50 text-xs font-black uppercase tracking-widest border border-white/10"></div>
 
 <script>
-// ══════════════════════════════════════════
-// PASTE YOUR APPS SCRIPT WEB APP URL HERE ↓
-// ══════════════════════════════════════════
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJ0493s_FMsNkBkT7tD76_x2JPX4xyBNjuDILRjQ8H3E0HOdwxI32pDMqX2bzTxmEdVw/exec";
-
-// ── Disclaimer logic ─────────────────────
-let ackChecked = false;
-
-function toggleAck() {
-    ackChecked = !ackChecked;
-    const box = document.getElementById('checkboxCustom');
-    const btn = document.getElementById('proceedBtn');
-    if (ackChecked) {
-        box.style.background = '#0C447C';
-        box.style.borderColor = '#0C447C';
-        box.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
-        btn.disabled = false;
-        btn.style.background = '#0C447C';
-        btn.style.color = '#EF9F27';
-        btn.style.cursor = 'pointer';
-        btn.innerText = 'Saya Faham — Masuk ke Aplikasi';
-    } else {
-        box.style.background = '#f8fafc';
-        box.style.borderColor = '#cbd5e1';
-        box.innerHTML = '';
-        btn.disabled = true;
-        btn.style.background = '#e2e8f0';
-        btn.style.color = '#94a3b8';
-        btn.style.cursor = 'not-allowed';
-        btn.innerText = 'Akses Ditolak — Sila Baca & Setuju Dahulu';
-    }
-}
-
-function enterApp() {
-    const splash = document.getElementById('splashScreen');
-    splash.style.transition = 'opacity 0.5s ease';
-    splash.style.opacity = '0';
-    setTimeout(() => {
-        splash.style.display = 'none';
-        document.getElementById('loginScreen').style.display = 'flex';
-        document.getElementById('loginUser').focus();
-    }, 500);
-}
-
-function proceedToApp() {
-    if (!ackChecked) return;
-    // Disclaimer → fade out → show main app
-    document.getElementById('disclaimerModal').style.display = 'none';
-    const app = document.getElementById('mainApp');
-    app.style.display = 'block';
-    app.style.opacity = '0';
-    setTimeout(() => { app.style.opacity = '1'; }, 50);
-}
-
-// ── Tab switching ─────────────────────────
-function switchTab(name, btn) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
-    btn.classList.add('active');
-}
-
-// ── Toast ─────────────────────────────────
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.innerText = msg;
-    t.classList.remove('opacity-0');
-    setTimeout(() => t.classList.add('opacity-0'), 3000);
-}
-
-// ── Rating ───────────────────────────────
-let selectedRating = 0;
-const ratingLabels = ['','Sangat Lemah 😟','Lemah 😕','Sederhana 😐','Baik 😊','Sangat Baik 🌟'];
-
-function setRating(n) {
-    selectedRating = n;
-    for (let i = 1; i <= 5; i++) {
-        const s = document.getElementById('star' + i);
-        s.classList.toggle('selected', i <= n);
-    }
-    document.getElementById('ratingLabel').innerText = ratingLabels[n];
-    document.getElementById('ratingLabel').style.color = n >= 4 ? '#166534' : n === 3 ? '#92400e' : '#991b1b';
-}
-
-// ── Category select ───────────────────────
-let selectedCategory = '';
-function selectCategory(btn) {
-    document.querySelectorAll('.fb-cat-btn').forEach(b => {
-        b.style.background = '#f8fafc';
-        b.style.borderColor = '#e2e8f0';
-        b.style.color = '#64748b';
-    });
-    btn.style.background = '#0C447C';
-    btn.style.borderColor = '#0C447C';
-    btn.style.color = '#EF9F27';
-    selectedCategory = btn.getAttribute('data-val');
-}
-
-// ── Feedback submit ───────────────────────
-async function submitFeedback() {
-    const role    = document.getElementById('fbRole').value.trim();
-    const ward    = document.getElementById('fbWard').value.trim();
-    const message = document.getElementById('fbMessage').value.trim();
-
-    if (!role)           return showToast('Sila pilih kategori staf!');
-    if (!selectedRating) return showToast('Sila beri penilaian bintang!');
-    if (!selectedCategory) return showToast('Sila pilih kategori maklum balas!');
-    if (!message)        return showToast('Sila isi ruangan maklum balas!');
-
-    const btn = document.getElementById('fbSubmitBtn');
-    btn.disabled = true;
-    btn.style.opacity = '0.6';
-    btn.innerHTML = '⏳ Menghantar...';
-
-    const nama  = document.getElementById('fbName').value.trim();
-    const email = document.getElementById('fbEmail').value.trim();
-    const phone = document.getElementById('fbPhone').value.trim();
-
-    if (!nama) return showToast('Sila masukkan nama anda!');
-
-    const payload = {
-        action:   "feedback",
-        nama:     nama,
-        email:    email || "—",
-        phone:    phone || "—",
-        role:     role,
-        ward:     ward || "Tidak dinyatakan",
-        rating:   selectedRating,
-        category: selectedCategory,
-        message:  message,
-        timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' })
-    };
-
-    try {
-        const params = new URLSearchParams({
-            action:    "feedback",
-            nama:      payload.nama,
-            email:     payload.email,
-            phone:     payload.phone,
-            role:      payload.role,
-            ward:      payload.ward,
-            rating:    payload.rating,
-            category:  payload.category,
-            message:   payload.message,
-            timestamp: payload.timestamp
-        });
-        await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`);
-        document.getElementById('feedbackForm').style.display = 'none';
-        document.getElementById('feedbackSuccess').style.display = 'block';
-    } catch (err) {
-        console.error(err);
-        showToast('Gagal hantar — semak sambungan internet.');
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> Hantar Maklum Balas`;
-    }
-}
-
-function resetFeedback() {
-    document.getElementById('fbName').value = '';
-    document.getElementById('fbEmail').value = '';
-    document.getElementById('fbPhone').value = '';
-    document.getElementById('fbRole').value = '';
-    document.getElementById('fbWard').value = '';
-    document.getElementById('fbMessage').value = '';
-    selectedRating = 0;
-    selectedCategory = '';
-    for (let i = 1; i <= 5; i++) document.getElementById('star' + i).classList.remove('selected');
-    document.getElementById('ratingLabel').innerText = 'Pilih penilaian';
-    document.querySelectorAll('.fb-cat-btn').forEach(b => {
-        b.style.background = '#f8fafc';
-        b.style.borderColor = '#e2e8f0';
-        b.style.color = '#64748b';
-    });
-    document.getElementById('feedbackForm').style.display = 'block';
-    document.getElementById('feedbackSuccess').style.display = 'none';
-    const btn = document.getElementById('fbSubmitBtn');
-    btn.disabled = false;
-    btn.style.opacity = '1';
-    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> Hantar Maklum Balas`;
-}
-
-// ── CRE Search logic ──────────────────────
-function getStyle(status, screening) {
-    const s  = (status    || "").toUpperCase().trim();
-    const sc = (screening || "").toUpperCase().trim();
-
-    if (s === "INDEX") return {
-        headerBg: "#7f1d1d",
-        cardBg: "bg-red-50", border: "border-red-600",
-        badge: "bg-red-700 text-white border-red-800",
-        blink: "animate-blink",
-        bannerBg: "bg-red-100 border-red-300", bannerText: "text-red-900", iconBg: "bg-red-200",
-        icon: "🦠", label: "INDEX CASE",
-        desc: "This patient is a confirmed CRE Index Case. Contact IPC immediately."
-    };
-
-    if (s.includes("CONTACT")) {
-        if (sc.includes("COMPLETE") && !sc.includes("INCOMPLETE")) return {
-            headerBg: "#991b1b",
-            cardBg: "bg-red-50", border: "border-red-500",
-            badge: "bg-red-600 text-white border-red-700",
-            blink: "animate-blink",
-            bannerBg: "bg-red-100 border-red-300", bannerText: "text-red-900", iconBg: "bg-red-200",
-            icon: "✅", label: "CLOSE CONTACT — COMPLETE SCREENING",
-            desc: "CRE screening completed. Maintain precautions until advised."
-        };
-        if (sc === "NA" || sc === "N/A" || sc.includes("NOT APPLICABLE")) return {
-            headerBg: "#92400e",
-            cardBg: "bg-yellow-50", border: "border-yellow-500",
-            badge: "bg-yellow-400 text-yellow-900 border-yellow-600",
-            blink: "animate-blink",
-            bannerBg: "bg-yellow-100 border-yellow-300", bannerText: "text-yellow-900", iconBg: "bg-yellow-200",
-            icon: "👥", label: "CLOSE CONTACT",
-            desc: "Patient is a close contact of a CRE case."
-        };
-        return {
-            headerBg: "#92400e",
-            cardBg: "bg-yellow-50", border: "border-yellow-500",
-            badge: "bg-yellow-400 text-yellow-900 border-yellow-600",
-            blink: "animate-blink",
-            bannerBg: "bg-yellow-100 border-yellow-300", bannerText: "text-yellow-900", iconBg: "bg-yellow-200",
-            icon: "⏳", label: "CLOSE CONTACT — INCOMPLETE SCREENING",
-            desc: "CRE screening is still incomplete."
-        };
-    }
-
-    return {
-        headerBg: "#1e3a5f",
-        cardBg: "bg-white", border: "border-slate-300",
-        badge: "bg-slate-600 text-white border-slate-700",
-        blink: "",
-        bannerBg: "bg-slate-100 border-slate-200", bannerText: "text-slate-800", iconBg: "bg-slate-200",
-        icon: "ℹ️", label: status || "UNKNOWN", desc: ""
-    };
-}
-
-function screeningChip(sc) {
-    const s = (sc || "").toUpperCase().trim();
-    if (s.includes("COMPLETE") && !s.includes("INCOMPLETE"))
-        return { bg:"bg-red-100 border-red-300", text:"text-red-800", icon:"✅" };
-    if (s.includes("INCOMPLETE"))
-        return { bg:"bg-yellow-100 border-yellow-300", text:"text-yellow-800", icon:"⏳" };
-    if (s === "NA" || s.includes("NOT APPLICABLE"))
-        return { bg:"bg-slate-100 border-slate-200", text:"text-slate-500", icon:"—" };
-    return { bg:"bg-slate-100 border-slate-200", text:"text-slate-600", icon:"📋" };
-}
-
-function detailRow(label, val) {
-    if (!val) return "";
-    return `
-        <div class="bg-slate-50 rounded-2xl px-4 py-3">
-            <p class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">${label}</p>
-            <p class="text-sm font-black text-slate-800">${val}</p>
-        </div>`;
-}
-
-async function searchPatient() {
-    const raw = document.getElementById('icSearch').value.trim();
-    const ic  = raw.replace(/-/g, "").toUpperCase();
-    const res = document.getElementById('resultDisplay');
-
-    if (!ic) return showToast("Sila masukkan nombor KP / IC / Passport!");
-    if (APPS_SCRIPT_URL.includes("YOUR_")) return showToast("Please set Apps Script URL in HTML.");
-
-    res.innerHTML = `<div class="p-16 text-center animate-pulse"><p class="text-slate-400 font-black uppercase tracking-widest text-xs">Searching CRE 2026 database...</p></div>`;
-
-    try {
-        const resp = await fetch(`${APPS_SCRIPT_URL}?ic=${encodeURIComponent(ic)}`);
-        const data = await resp.json();
-
-        if (data.status === "not_found") {
-            res.innerHTML = `
-                <div class="bg-white p-12 rounded-[2.5rem] shadow-xl border-l-[16px] border-slate-300 text-center">
-                    <p class="text-5xl mb-4">🔍</p>
-                    <h3 class="text-2xl font-black text-slate-700 uppercase">No Record Found</h3>
-                    <p class="text-slate-500 mt-2 text-sm">KP <span class="font-mono font-black">${ic}</span> was not found in the CRE 2026 database.</p>
-                    <p class="text-slate-400 mt-1 text-xs uppercase tracking-widest">OFF TAG patients are not displayed.</p>
-                </div>`;
-            return;
-        }
-
-        if (data.status === "found") {
-            const d  = data.data;
-            const st = getStyle(d.status, d.screening);
-            const sc = screeningChip(d.screening);
-            const isContact    = (d.status   || "").toUpperCase().includes("CONTACT");
-            const isIncomplete = (d.screening|| "").toUpperCase().includes("INCOMPLETE");
-            const isIndex      = (d.status   || "").toUpperCase() === "INDEX";
-
-            const swabAlert = isIncomplete ? `
-                <div class="mt-3 bg-yellow-200 border border-yellow-400 rounded-xl px-4 py-2.5 flex items-center gap-2">
-                    <span>🧪</span>
-                    <p class="text-xs font-black text-yellow-900 uppercase tracking-wide">⚠️ Send rectal swab if not yet submitted.</p>
-                </div>` : "";
-
-            const indexActions = [
-                "Isolate or cohort patient immediately.",
-                "Place Contact Precaution signage and tag BHT / Appointment card.",
-                "Strict Hand Hygiene at all WHO 5 Moments.",
-                "Don single-use PPE before entering patient zone; remove and discard before leaving.",
-                "Dedicated equipment (BP cuff, stethoscope) for the patient; disinfect before and after use.",
-                "Notify UKI team and treating physician immediately.",
-                "Send MDRO Notification Form to UKI team."
-            ];
-            const contactActions = [
-                "Isolate or cohort patient immediately.",
-                "Place Contact Precaution signage and tag BHT / Appointment card.",
-                "Strict Hand Hygiene at all WHO 5 Moments.",
-                "Don single-use PPE before entering patient zone; remove and discard before leaving.",
-                "Dedicated equipment (BP cuff, stethoscope) for the patient; disinfect before and after use.",
-                "Notify UKI team and treating physician."
-            ];
-            const ipcActions = isIndex ? indexActions : contactActions;
-            const ipcChecklist = (isContact || isIndex) ? `
-                <div class="mt-5 ${isIndex ? 'bg-red-100 border-red-400' : 'bg-red-50 border-red-200'} border-2 rounded-[1.5rem] p-5">
-                    <h4 class="text-[10px] font-black uppercase tracking-widest text-red-700 mb-3">⚠️ Mandatory IPC Actions:</h4>
-                    <div class="space-y-2">
-                        ${ipcActions.map(t=>`
-                        <div class="flex items-start gap-3">
-                            <span class="text-red-500 font-black flex-shrink-0 mt-0.5">•</span>
-                            <span class="text-sm font-bold text-red-900">${t}</span>
-                        </div>`).join('')}
-                    </div>
-                </div>` : "";
-
-            const orgBlock = d.organisma ? `
-                <div class="bg-blue-50 border-2 border-blue-200 rounded-[1.5rem] p-5 mb-4">
-                    <p class="text-[9px] font-black uppercase tracking-widest text-blue-500 mb-1">Organisma</p>
-                    <p class="text-base font-black text-blue-900 uppercase leading-snug">${d.organisma}</p>
-                    ${d.sample ? `<p class="text-xs text-blue-600 mt-1 font-bold uppercase">Sample: ${d.sample}</p>` : ""}
-                    ${d.positive_date ? `<p class="text-xs text-red-600 mt-1 font-bold uppercase">Positive Date: ${d.positive_date}</p>` : ""}
-                </div>` : "";
-
-            res.innerHTML = `
-                <div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};">
-                    <p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${d.sample_date ? (() => { const s = d.sample_date.toString().trim(); const dt = new Date(s); if (isNaN(dt)) return s; const day = String(dt.getDate()).padStart(2,"0"); const mon = String(dt.getMonth()+1).padStart(2,"0"); const yr = dt.getFullYear(); return day+"/"+mon+"/"+yr; })() : "—"}</p>
-                    <h3 class="text-lg font-black uppercase leading-tight tracking-tight opacity-80">Please confirm the identification number entered</h3>
-                    <p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${d.kp.replace(/./g, (c,i) => i < 4 || i >= d.kp.length-2 ? c : '*')}</p>
-                    <p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p>
-                </div>
-                <div class="${st.cardBg} px-8 pt-6 pb-8 border-x-[12px] ${st.border} border-b border-slate-100 shadow-xl rounded-b-[2.5rem]">
-                    <div class="flex justify-end mb-5">
-                        <span class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase border-2 ${st.badge} ${st.blink} shadow-sm">${d.status || "—"}</span>
-                    </div>
-                    <div class="${st.bannerBg} border-2 rounded-[1.5rem] p-4 flex items-center gap-4 mb-4 shadow-inner">
-                        <div class="${st.iconBg} rounded-xl w-12 h-12 flex items-center justify-center text-2xl flex-shrink-0">${st.icon}</div>
-                        <div class="flex-1">
-                            <p class="text-[10px] font-black uppercase tracking-widest ${st.bannerText} opacity-60 mb-0.5">Case Status</p>
-                            <p class="font-black uppercase text-sm ${st.bannerText} leading-tight">${st.label}</p>
-                            ${st.desc ? `<p class="text-xs ${st.bannerText} opacity-70 mt-0.5">${st.desc}</p>` : ""}
-                            ${swabAlert}
-                        </div>
-                    </div>
-                    <div class="${sc.bg} border rounded-2xl px-4 py-3 mb-4 flex items-center gap-3">
-                        <span class="text-xl">${sc.icon}</span>
-                        <div>
-                            <p class="text-[9px] font-black uppercase tracking-widest opacity-50">Screening</p>
-                            <p class="text-sm font-black uppercase ${sc.text}">${d.screening || "—"}</p>
-                        </div>
-                    </div>
-                    ${orgBlock}
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-                        ${detailRow("Ward / Unit",   d.wad)}
-                        ${detailRow("Bed",           d.bed)}
-                        ${detailRow("RN",            d.rn)}
-                        ${detailRow("Date Admitted",  d.doa)}
-                        ${detailRow("Date Discharged", d.dod)}
-                        ${detailRow("Ix Sent",     d.ix_hantar)}
-                    </div>
-                    ${ipcChecklist}
-                </div>`;
-        }
-
-    } catch (err) {
-        console.error(err);
-        showToast("Connection error — semak URL Apps Script.");
-        res.innerHTML = `
-            <div class="bg-white p-10 rounded-[2.5rem] shadow text-center border-l-8 border-red-400">
-                <p class="text-3xl mb-3">⚠️</p>
-                <p class="font-black text-red-700 uppercase text-lg">Connection Failed</p>
-                <p class="text-slate-500 text-sm mt-1">Check Apps Script URL or internet connection.</p>
-            </div>`;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    setLang('BM'); // apply BM on load
-    const ic = document.getElementById('icSearch');
-    if (ic) ic.addEventListener("keypress", e => {
-        if (e.key === "Enter") searchPatient();
-    });
-});
-
-// ── Login Credentials ────────────────────────
-const CREDENTIALS = {
-  'W1':'mbw1','W2':'mbw2','W3':'mbw3','W4':'mbw4',
-  'W6':'mbw6','W7':'mbw7','W8':'mbw8',
-  'ICU MB':'icumb1','HAMB':'hamb1',
-  'W8A':'wcc8a','W8B':'wcc8b','W7A':'wcc7a','W7B':'wcc7b',
-  'W6A':'wcc6a','W6B':'wcc6b','LB':'lbwcc1',
-  'ICUWCC':'icuwcc1','PICU':'picuwcc1','NICU':'nicuwcc1',
-  'SCN':'scnwcc1','HAWCC':'hawcc1','UKI':'uki1'
-};
-
-function doLogin() {
-  const user = document.getElementById('loginUser').value.trim().toUpperCase();
-  const pass = document.getElementById('loginPass').value.trim();
-  const errEl = document.getElementById('loginError');
-
-  if (CREDENTIALS[user] && CREDENTIALS[user] === pass) {
-    errEl.style.display = 'none';
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('disclaimerModal').style.display = 'flex';
-  } else {
-    errEl.style.display = 'block';
-    document.getElementById('loginPass').value = '';
-    document.getElementById('loginPass').focus();
-  }
-}
-
-function togglePassVis() {
-  const p = document.getElementById('loginPass');
-  p.type = p.type === 'password' ? 'text' : 'password';
-}
-
-// ── Language Toggle ───────────────────────
-let currentLang = 'BM';
-
+const APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbyJ0493s_FMsNkBkT7tD76_x2JPX4xyBNjuDILRjQ8H3E0HOdwxI32pDMqX2bzTxmEdVw/exec";
 const LANG = {
   BM: {
-    // Tabs
-    tabSearch: 'Carian CRE', tabAbout: 'Info', tabFeedback: 'Maklum Balas',
-    // Search
-    searchTitle: 'Semak Status CRE',
-    searchDesc: 'Masukkan nombor KP / IC / No. Passport anda.',
-    searchBtn: 'Carian',
-    searchPlaceholder: 'KP / IC / PASSPORT',
-    // Feedback
-    fbTitle: 'Maklum Balas & Cadangan',
-    fbSubtitle: 'Maklum balas anda membantu kami memperbaiki aplikasi ini.',
-    fbRoleLabel: 'Jawatan / Kategori Staf *',
-    fbRolePlaceholder: '-- Pilih Kategori --',
-    fbWardLabel: 'Wad / Unit',
-    fbWardPlaceholder: 'contoh: Wad Ortopedik, OT, Klinik Pakar...',
-    fbRatingLabel: 'Penilaian Keseluruhan *',
-    fbCatLabel: 'Kategori Maklum Balas *',
-    fbMsgLabel: 'Maklum Balas / Cadangan *',
-    fbMsgPlaceholder: 'Tuliskan maklum balas, cadangan, atau masalah yang anda alami di sini...',
-    fbPrivacy: 'Jangan masukkan maklumat pesakit (nama, IC, rekod perubatan) dalam borang ini. Feedback ini untuk penambahbaikan sistem sahaja.',
-    fbSubmitBtn: 'Hantar Maklum Balas',
-    fbSuccessTitle: 'Terima Kasih!',
-    fbSuccessMsg: 'Maklum balas anda telah berjaya dihantar kepada pasukan UKI/IPC.',
-    fbSendAnother: 'Hantar Feedback Lain',
-    ratingLabels: ['','Sangat Lemah 😟','Lemah 😕','Sederhana 😐','Baik 😊','Sangat Baik 🌟'],
-    ratingDefault: 'Pilih penilaian',
-    // Disclaimer
-    disclaimerAck: 'Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.',
-    disclaimerBtn: 'Akses Ditolak — Sila Baca & Setuju Dahulu',
-    disclaimerBtnOk: 'Saya Faham — Masuk ke Aplikasi',
-    loginTitle: 'Log Masuk', loginUserLabel: 'Username', loginPassLabel: 'Password',
-    loginBtn: 'Log Masuk', loginNote: 'Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.',
-    loginError: '⚠️ Username atau password salah. Sila cuba semula.',
+    tabSearch:'Carian CRE',tabAbout:'Info',tabFeedback:'Maklum Balas',
+    searchTitle:'Semak Status CRE',searchDesc:'Masukkan nombor KP / IC / No. Passport anda.',searchBtn:'Carian',searchPlaceholder:'KP / IC / PASSPORT',
+    fbTitle:'Maklum Balas & Cadangan',fbSubtitle:'Maklum balas anda membantu kami memperbaiki aplikasi ini.',
+    fbRoleLabel:'Jawatan / Kategori Staf *',fbRolePlaceholder:'-- Pilih Kategori --',fbWardLabel:'Wad / Unit',fbWardPlaceholder:'contoh: Wad Ortopedik...',
+    fbNameLabel:'Nama *',fbEmailLabel:'Emel',fbPhoneLabel:'No. Telefon',fbNamePlaceholder:'Nama penuh anda...',fbEmailPlaceholder:'contoh: nama@htpn.gov.my',fbPhonePlaceholder:'contoh: 0123456789',fbRatingLabel:'Penilaian Keseluruhan *',fbCatLabel:'Kategori Maklum Balas *',
+    fbMsgLabel:'Maklum Balas / Cadangan *',fbMsgPlaceholder:'Tuliskan maklum balas...',
+    fbPrivacy:'Jangan masukkan maklumat pesakit dalam borang ini.',fbSubmitBtn:'Hantar Maklum Balas',
+    fbSuccessTitle:'Terima Kasih!',fbSuccessMsg:'Maklum balas anda telah berjaya dihantar kepada pasukan UKI/IPC.',fbSendAnother:'Hantar Feedback Lain',
+    ratingLabels:['','Sangat Lemah 😟','Lemah 😕','Sederhana 😐','Baik 😊','Sangat Baik 🌟'],ratingDefault:'Pilih penilaian',
+    discTitle:'Notis Kerahsiaan & Syarat Penggunaan',
+    discWarning:'Aplikasi ini mengandungi <strong>maklumat sulit pesakit</strong> — hanya untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.',
+    disc1Title:'1. Tujuan Aplikasi',disc1Body:'Aplikasi <strong>CRE Tracker Pro</strong> dibangunkan oleh Unit IPC, HTPN untuk memudahkan semakan status CRE pesakit bagi tujuan <strong>kawalan infeksi dan keselamatan pesakit</strong> sahaja.',
+    disc2Title:'2. Kerahsiaan Data Pesakit',disc2Items:['Semua maklumat adalah <span style="font-weight:900;color:#dc2626;">SULIT</span> di bawah PDPA 2010 dan polisi KKM.','Adalah <span style="font-weight:900;">dilarang</span> menyalin, screenshot, atau berkongsi maklumat pesakit.','Gunakan <span style="font-weight:900;">peranti hospital yang diluluskan</span> sahaja.','Jangan biarkan skrin terbuka tanpa pengawasan.'],
+    disc3Title:'3. Tanggungjawab Pengguna',disc3Items:['Hanya <span style="font-weight:900;">kakitangan hospital</span> yang bertugas boleh menggunakan aplikasi ini.','Penyalahgunaan boleh dikenakan <span style="font-weight:900;">tindakan tatatertib dan undang-undang</span>.','Maklumat ini untuk <span style="font-weight:900;">rujukan klinikal</span> sahaja, bukan rekod rasmi hospital.'],
+    ackText:'Saya telah <strong>membaca, memahami dan bersetuju</strong> dengan semua syarat penggunaan dan notis kerahsiaan di atas.',
+    proceedBtnLocked:'Akses Ditolak — Sila Baca & Setuju Dahulu',proceedBtnOk:'Saya Faham — Masuk ke Aplikasi',
+    loginTitle:'Log Masuk',loginUserLabel:'Username',loginPassLabel:'Password',loginBtn:'Log Masuk',loginNote:'Untuk kegunaan kakitangan hospital yang diberi kuasa sahaja.',loginError:'⚠️ Username atau password salah. Sila cuba semula.',rememberLabel:'Ingat kata laluan saya',
+    fbCats:['Staff Unit Hasil 🔬','Kebolehgunaan / UI','Ketepatan Data','Bug / Masalah Teknikal','Cadangan Ciri Baru','Pujian 🎉','Lain-lain'],
+    aboutTitle:'Tentang Aplikasi Ini',aboutAppLabel:'Aplikasi',aboutDevLabel:'Dibangunkan Oleh',aboutFacLabel:'Fasiliti',aboutSrcLabel:'Sumber Data',
+    aboutPurposeLabel:'🎯 Tujuan Aplikasi',aboutPurposeText:'CRE Tracker Pro membolehkan kakitangan klinikal menyemak status CRE pesakit secara cepat dan tepat untuk tindakan IPC segera.',
+    aboutHowLabel:'📋 Cara Penggunaan',aboutSteps:['Klik tab <strong>Carian CRE</strong> dan masukkan nombor KP / IC / Passport pesakit.','Tekan butang <strong>Carian</strong> atau Enter. Sistem akan semak pangkalan data CRE 2026.','Tag kes pada profil pesakit.','Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan.','Hubungi UKI atau gunakan tab <strong>Maklum Balas</strong> untuk isu teknikal.'],
+    aboutStatusLabel:'🔴 Status Kes',aboutIndexDesc:'Pesakit positif CRE yang disahkan. Perlu pengasingan segera.',aboutCCDesc:'Pesakit yang berdekatan dengan kes Index. Perlu saringan.',aboutNFDesc:'Tiada rekod — termasuk kes Off-Tag.',
+    aboutContactLabel:'Hubungi UKI/IPC HTPN',aboutContactText:'Untuk pertanyaan teknikal, sila hubungi pasukan UKI terus.',
   },
   EN: {
-    tabSearch: 'CRE Search', tabAbout: 'Info', tabFeedback: 'Feedback',
-    searchTitle: 'CRE Status Check',
-    searchDesc: 'Enter your IC / KP / Passport number.',
-    searchBtn: 'Search',
-    searchPlaceholder: 'KP / IC / PASSPORT',
-    fbTitle: 'Feedback & Suggestions',
-    fbSubtitle: 'Your feedback helps us improve this application.',
-    fbRoleLabel: 'Staff Category / Designation *',
-    fbRolePlaceholder: '-- Select Category --',
-    fbWardLabel: 'Ward / Unit',
-    fbWardPlaceholder: 'e.g. Orthopaedic Ward, OT, Specialist Clinic...',
-    fbRatingLabel: 'Overall Rating *',
-    fbCatLabel: 'Feedback Category *',
-    fbMsgLabel: 'Feedback / Suggestions *',
-    fbMsgPlaceholder: 'Write your feedback, suggestions, or issues experienced here...',
-    fbPrivacy: 'Do not include patient information (name, IC, medical records) in this form. Feedback is for system improvement only.',
-    fbSubmitBtn: 'Submit Feedback',
-    fbSuccessTitle: 'Thank You!',
-    fbSuccessMsg: 'Your feedback has been successfully sent to the UKI/IPC team.',
-    fbSendAnother: 'Submit Another Feedback',
-    ratingLabels: ['','Very Poor 😟','Poor 😕','Average 😐','Good 😊','Excellent 🌟'],
-    ratingDefault: 'Select rating',
-    disclaimerAck: 'I have <strong>read, understood and agreed</strong> to all terms of use and confidentiality notice above.',
-    disclaimerBtn: 'Access Denied — Please Read & Agree First',
-    disclaimerBtnOk: 'I Understand — Enter Application',
-    loginTitle: 'Login', loginUserLabel: 'Username', loginPassLabel: 'Password',
-    loginBtn: 'Login', loginNote: 'For authorised hospital staff only.',
-    loginError: '⚠️ Incorrect username or password. Please try again.',
+    tabSearch:'CRE Search',tabAbout:'Info',tabFeedback:'Feedback',
+    searchTitle:'CRE Status Check',searchDesc:'Enter your IC / KP / Passport number.',searchBtn:'Search',searchPlaceholder:'KP / IC / PASSPORT',
+    fbTitle:'Feedback & Suggestions',fbSubtitle:'Your feedback helps us improve this application.',
+    fbRoleLabel:'Staff Category *',fbRolePlaceholder:'-- Select Category --',fbWardLabel:'Ward / Unit',fbWardPlaceholder:'e.g. Orthopaedic Ward...',
+    fbNameLabel:'Name *',fbEmailLabel:'Email',fbPhoneLabel:'Phone No.',fbNamePlaceholder:'Full name...',fbEmailPlaceholder:'e.g. name@htpn.gov.my',fbPhonePlaceholder:'e.g. 0123456789',fbRatingLabel:'Overall Rating *',fbCatLabel:'Feedback Category *',
+    fbMsgLabel:'Feedback / Suggestions *',fbMsgPlaceholder:'Write your feedback here...',
+    fbPrivacy:'Do not include patient information in this form.',fbSubmitBtn:'Submit Feedback',
+    fbSuccessTitle:'Thank You!',fbSuccessMsg:'Your feedback has been sent to the UKI/IPC team.',fbSendAnother:'Submit Another Feedback',
+    ratingLabels:['','Very Poor 😟','Poor 😕','Average 😐','Good 😊','Excellent 🌟'],ratingDefault:'Select rating',
+    discTitle:'Confidentiality Notice & Terms of Use',
+    discWarning:'This application contains <strong>confidential patient information</strong> — for authorised hospital staff only.',
+    disc1Title:'1. Purpose of Application',disc1Body:'<strong>CRE Tracker Pro</strong> was developed by the IPC Unit, HTPN to facilitate CRE patient status checks for <strong>infection control and patient safety</strong> purposes only.',
+    disc2Title:'2. Patient Data Confidentiality',disc2Items:['All information is <span style="font-weight:900;color:#dc2626;">CONFIDENTIAL</span> under PDPA 2010 and MOH policy.','It is <span style="font-weight:900;">strictly prohibited</span> to copy, screenshot, or share patient information.','Access only via <span style="font-weight:900;">approved hospital devices</span>.','Do not leave the screen unattended.'],
+    disc3Title:'3. User Responsibility',disc3Items:['Only <span style="font-weight:900;">authorised hospital staff</span> on duty may use this application.','Misuse may result in <span style="font-weight:900;">disciplinary and legal action</span>.','Information is for <span style="font-weight:900;">clinical reference</span> only, not an official hospital record.'],
+    ackText:'I have <strong>read, understood and agreed</strong> to all terms of use and confidentiality notice above.',
+    proceedBtnLocked:'Access Denied — Please Read & Agree First',proceedBtnOk:'I Understand — Enter Application',
+    loginTitle:'Login',loginUserLabel:'Username',loginPassLabel:'Password',loginBtn:'Login',loginNote:'For authorised hospital staff only.',loginError:'⚠️ Incorrect username or password. Please try again.',rememberLabel:'Remember my password',
+    fbCats:['Unit Hasil Staff 🔬','Usability / UI','Data Accuracy','Bug / Technical Issue','Feature Suggestion','Compliment 🎉','Others'],
+    aboutTitle:'About This App',aboutAppLabel:'Application',aboutDevLabel:'Developed By',aboutFacLabel:'Facility',aboutSrcLabel:'Data Source',
+    aboutPurposeLabel:'🎯 Purpose',aboutPurposeText:'CRE Tracker Pro enables clinical staff to quickly verify CRE patient status for prompt IPC implementation.',
+    aboutHowLabel:'📋 How to Use',aboutSteps:['Click the <strong>CRE Search</strong> tab and enter the patient IC / KP / Passport.','Press <strong>Search</strong> or Enter to check the CRE 2026 database.','Tag the identified case on patient profile.','Follow <strong>mandatory IPC actions</strong> displayed.','Contact UKI or use <strong>Feedback</strong> tab for technical issues.'],
+    aboutStatusLabel:'🔴 Case Status',aboutIndexDesc:'Confirmed CRE positive patient. Immediate isolation required.',aboutCCDesc:'Patient exposed to Index case. Screening required.',aboutNFDesc:'No record found — includes Off-Tag cases.',
+    aboutContactLabel:'Contact UKI/IPC HTPN',aboutContactText:'For technical enquiries, please contact the UKI team directly.',
   }
 };
 
-function setLang(lang) {
-  currentLang = lang;
-  const active = '#EF9F27', activeText = '#0C447C';
-  const inactive = 'transparent', inactiveText = '#EF9F27';
-  // Sync ALL BM/EN button pairs (header + disclaimer)
-  ['btnBM','discBtnBM','loginBtnBM'].forEach(id => {
-    const b = document.getElementById(id);
-    if (b) { b.style.background = lang==='BM'?active:inactive; b.style.color = lang==='BM'?activeText:inactiveText; }
+// ── Helpers ──
+function $(id){return document.getElementById(id);}
+function show(id,flex){var e=$(id);if(e)e.style.display=flex||'block';}
+function hide(id){var e=$(id);if(e)e.style.display='none';}
+function st(id,v){var e=$(id);if(e&&v!==undefined)e.textContent=v;}
+function sa(id,a,v){var e=$(id);if(e)e.setAttribute(a,v);}
+function toast(msg){var t=$('toast');t.textContent=msg;t.classList.remove('opacity-0');setTimeout(function(){t.classList.add('opacity-0');},3000);}
+
+// ── Professional Intro Sound ──
+// Deep cinematic: sub boom + harmony swell + bright bell
+var _ac=null;
+function playIntro(){
+  try{
+    _ac=new(window.AudioContext||window.webkitAudioContext)();
+    var c=_ac,t=c.currentTime;
+    function note(freq,start,dur,vol,type){
+      var o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.type=type||'sine';
+      o.frequency.setValueAtTime(freq,t+start);
+      g.gain.setValueAtTime(0,t+start);
+      g.gain.linearRampToValueAtTime(vol,t+start+0.04);
+      g.gain.exponentialRampToValueAtTime(0.001,t+start+dur);
+      o.start(t+start);o.stop(t+start+dur+0.05);
+    }
+    // Sub bass thud
+    note(55,0,0.6,0.5,'sine');
+    note(110,0,0.4,0.25,'sine');
+    // Rising swell C3->C4
+    var sw=c.createOscillator(),sg=c.createGain();
+    sw.connect(sg);sg.connect(c.destination);
+    sw.type='triangle';
+    sw.frequency.setValueAtTime(130,t+0.05);
+    sw.frequency.exponentialRampToValueAtTime(520,t+1.4);
+    sg.gain.setValueAtTime(0,t+0.05);
+    sg.gain.linearRampToValueAtTime(0.12,t+0.3);
+    sg.gain.exponentialRampToValueAtTime(0.001,t+2.0);
+    sw.start(t+0.05);sw.stop(t+2.1);
+    // Cmaj chord hit at 0.6s
+    note(261.6,0.6,1.8,0.12);
+    note(329.6,0.65,1.7,0.09);
+    note(392.0,0.7,1.6,0.08);
+    note(523.2,0.75,1.5,0.1);
+    // Bright bell C6
+    note(1047,1.0,1.5,0.1,'sine');
+    note(1319,1.1,1.2,0.06,'sine');
+    setTimeout(stopIntro,3000);
+  }catch(e){}
+}
+function stopIntro(){
+  try{if(_ac&&_ac.state!=='closed')_ac.close();}catch(e){}
+  _ac=null;
+}
+function clickSnd(){
+  try{
+    var c=new(window.AudioContext||window.webkitAudioContext)();
+    var o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);
+    o.type='sine';
+    o.frequency.setValueAtTime(700,c.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1000,c.currentTime+0.07);
+    g.gain.setValueAtTime(0.15,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.12);
+    o.start();o.stop(c.currentTime+0.14);
+  }catch(e){}
+}
+
+// ── Splash animation ──
+var _started=false;
+function runSplash(){
+  if(_started)return;_started=true;
+  // Logo pulse animation
+  var logo=$('sp-logo');
+  if(logo){
+    logo.style.transition='opacity 0.4s ease';
+    logo.style.opacity='1';
+    setTimeout(function(){logo.style.animation='pulseLogo 1.8s ease infinite';},500);
+  }
+  // Stagger text items
+  var ids=['sp-1','sp-2','sp-3','sp-4','sp-5','sp-6','sp-7'];
+  ids.forEach(function(id,i){
+    var el=$(id);
+    if(!el)return;
+    setTimeout(function(){
+      el.style.animation='fadeUp 0.5s ease forwards';
+    },150+i*170);
   });
-  ['btnEN','discBtnEN','loginBtnEN'].forEach(id => {
-    const b = document.getElementById(id);
-    if (b) { b.style.background = lang==='EN'?active:inactive; b.style.color = lang==='EN'?activeText:inactiveText; }
-  });
-  // Translate select dropdown options
-  document.querySelectorAll('#fbRole option').forEach(opt => {
-    const val = opt.getAttribute('data-' + lang.toLowerCase());
-    if (val) opt.innerText = val;
-  });
-  // Translate feedback category buttons
-  document.querySelectorAll('.fb-cat-btn').forEach(btn => {
-    const val = btn.getAttribute('data-' + lang.toLowerCase());
-    if (val) btn.innerText = val;
-  });
+  // Sound
+  playIntro();
+}
+
+// ── Screen transitions ──
+function enterApp(){
+  clickSnd();
+  stopIntro();
+  hide('sp');
+  show('loginScreen','flex');
+}
+function proceedToApp(){
+  if(!_acked)return;
+  hide('disclaimerModal');
+  show('mainApp');
+}
+
+// ── Login ──
+var _acked=false;
+const CREDENTIALS={'W1':'mbw1','W2':'mbw2','W3':'mbw3','W4':'mbw4','W6':'mbw6','W7':'mbw7','W8':'mbw8','ICU MB':'icumb1','HAMB':'hamb1','W8A':'wcc8a','W8B':'wcc8b','W7A':'wcc7a','W7B':'wcc7b','W6A':'wcc6a','W6B':'wcc6b','LB':'lbwcc1','ICUWCC':'icuwcc1','PICU':'picuwcc1','NICU':'nicuwcc1','SCN':'scnwcc1','HAWCC':'hawcc1','UKI':'uki1'};
+function doLogin(){
+  var user=$('loginUser').value.trim().toUpperCase();
+  var pass=$('loginPass').value.trim();
+  var err=$('loginError');
+  if(CREDENTIALS[user]&&CREDENTIALS[user]===pass){
+    err.style.display='none';
+    var rm=$('rememberMe');
+    if(rm&&rm.checked){try{localStorage.setItem('cre_user',user);localStorage.setItem('cre_pass',pass);localStorage.setItem('cre_rem','1');}catch(e){}}
+    else{try{localStorage.removeItem('cre_user');localStorage.removeItem('cre_pass');localStorage.removeItem('cre_rem');}catch(e){}}
+    hide('loginScreen');applyLang();show('disclaimerModal','flex');
+  }else{
+    err.style.display='block';
+    $('loginPass').value='';$('loginPass').focus();
+  }
+}
+function togglePW(){var p=$('loginPass');p.type=p.type==='password'?'text':'password';}
+
+// ── Disclaimer ──
+function renderDisc(){
+  var L=LANG[currentLang],b=$('disclaimerBody');if(!b)return;
+  function li(arr,col){return arr.map(function(t){return '<li style="display:flex;gap:8px;margin-bottom:8px;"><span style="color:'+col+';font-weight:900;">&bull;</span><span>'+t+'</span></li>';}).join('');}
+  b.innerHTML='<div style="background:#fff3cd;border:2px solid #ffc107;border-radius:12px;padding:12px;margin-bottom:14px;display:flex;gap:8px;"><span>&#9888;&#65039;</span><p style="font-size:12px;font-weight:700;color:#856404;">'+L.discWarning+'</p></div>'
+    +'<div style="margin-bottom:12px;"><p style="font-size:12px;font-weight:900;text-transform:uppercase;color:#0C447C;margin-bottom:6px;border-bottom:2px solid #dbeafe;padding-bottom:3px;">'+L.disc1Title+'</p><p style="font-size:12px;color:#334155;line-height:1.6;">'+L.disc1Body+'</p></div>'
+    +'<div style="margin-bottom:12px;"><p style="font-size:12px;font-weight:900;text-transform:uppercase;color:#0C447C;margin-bottom:6px;border-bottom:2px solid #dbeafe;padding-bottom:3px;">'+L.disc2Title+'</p><ul style="font-size:12px;color:#334155;list-style:none;padding:0;">'+li(L.disc2Items,'#dc2626')+'</ul></div>'
+    +'<div><p style="font-size:12px;font-weight:900;text-transform:uppercase;color:#0C447C;margin-bottom:6px;border-bottom:2px solid #dbeafe;padding-bottom:3px;">'+L.disc3Title+'</p><ul style="font-size:12px;color:#334155;list-style:none;padding:0;">'+li(L.disc3Items,'#0C447C')+'</ul></div>';
+  var dt=$('disc-title');if(dt)dt.textContent=L.discTitle;
+  var at=$('ack-text');if(at)at.innerHTML=L.ackText;
+  var pb=$('proceedBtn');if(pb)pb.textContent=_acked?L.proceedBtnOk:L.proceedBtnLocked;
+}
+function toggleAck(){
+  _acked=!_acked;
+  var box=$('ckbox'),btn=$('proceedBtn'),L=LANG[currentLang];
+  if(_acked){box.style.background='#0C447C';box.style.borderColor='#0C447C';box.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';btn.disabled=false;btn.style.background='#0C447C';btn.style.color='#E8A030';btn.style.cursor='pointer';btn.textContent=L.proceedBtnOk;}
+  else{box.style.background='#f8fafc';box.style.borderColor='#cbd5e1';box.innerHTML='';btn.disabled=true;btn.style.background='#e2e8f0';btn.style.color='#94a3b8';btn.style.cursor='not-allowed';btn.textContent=L.proceedBtnLocked;}
+}
+
+// ── Language ──
+var currentLang='BM';
+function setLang(lang){
+  currentLang=lang;
+  var g='#E8A030',n='#0C447C',x='transparent';
+  ['btnBM','discBtnBM','loginBtnBM'].forEach(function(id){var b=$(id);if(b){b.style.background=lang==='BM'?g:x;b.style.color=lang==='BM'?n:g;}});
+  ['btnEN','discBtnEN','loginBtnEN'].forEach(function(id){var b=$(id);if(b){b.style.background=lang==='EN'?g:x;b.style.color=lang==='EN'?n:g;}});
   applyLang();
 }
-function toggleLang() { setLang(currentLang === 'BM' ? 'EN' : 'BM'); }
-
-function applyLang() {
-  const L = LANG[currentLang];
-  const btn = document.getElementById('langToggleBtn');
-  if (btn) btn.innerText = currentLang === 'BM' ? '🌐 BM / EN' : '🌐 EN / BM';
-
-  // Tabs
-  safeText('tab-label-search', L.tabSearch);
-  safeText('tab-label-about', L.tabAbout);
-  safeText('tab-label-feedback', L.tabFeedback);
-
-  // Search tab
-  safeText('search-title', L.searchTitle);
-  safeText('search-desc', L.searchDesc);
-  safeText('search-btn-text', L.searchBtn);
-  safeAttr('icSearch', 'placeholder', L.searchPlaceholder);
-
-  // Feedback tab
-  safeText('fb-title', L.fbTitle);
-  safeText('fb-subtitle', L.fbSubtitle);
-  safeText('fb-role-label', L.fbRoleLabel);
-  safeAttr('fbRole', 'data-placeholder', L.fbRolePlaceholder);
-  const roleOpt = document.querySelector('#fbRole option[value=""]');
-  if (roleOpt) roleOpt.innerText = L.fbRolePlaceholder;
-  safeText('fb-ward-label', L.fbWardLabel);
-  safeAttr('fbWard', 'placeholder', L.fbWardPlaceholder);
-  safeText('fb-rating-label', L.fbRatingLabel);
-  safeText('fb-cat-label', L.fbCatLabel);
-  safeText('fb-msg-label', L.fbMsgLabel);
-  safeAttr('fbMessage', 'placeholder', L.fbMsgPlaceholder);
-  safeText('fb-privacy-text', L.fbPrivacy);
-  safeText('fb-submit-label', L.fbSubmitBtn);
-  safeText('fb-success-title', L.fbSuccessTitle);
-  safeText('fb-success-msg', L.fbSuccessMsg);
-  safeText('fb-send-another', L.fbSendAnother);
-
-  // Rating label update
-  window._ratingLabels = L.ratingLabels;
-  window._ratingDefault = L.ratingDefault;
-  const rl = document.getElementById('ratingLabel');
-  if (rl && selectedRating === 0) rl.innerText = L.ratingDefault;
-  else if (rl && selectedRating > 0) rl.innerText = L.ratingLabels[selectedRating];
-
-  // Login
-  safeText('login-title', L.loginTitle);
-  safeText('login-user-label', L.loginUserLabel);
-  safeText('login-pass-label', L.loginPassLabel);
-  safeText('login-btn-text', L.loginBtn);
-  safeText('login-note', L.loginNote);
-  safeText('login-error-msg', L.loginError);
-  safeAttr('loginUser', 'placeholder', currentLang==='BM' ? 'Masukkan username...' : 'Enter username...');
-  safeAttr('loginPass', 'placeholder', currentLang==='BM' ? 'Masukkan password...' : 'Enter password...');
-
-  // Disclaimer
-  const ackP = document.getElementById('ack-text');
-  if (ackP) ackP.innerHTML = L.disclaimerAck;
-  const procBtn = document.getElementById('proceedBtn');
-  if (procBtn) procBtn.innerText = ackChecked ? L.disclaimerBtnOk : L.disclaimerBtn;
-
-  // Swap all data-bm / data-en elements
-  const attr = currentLang === 'BM' ? 'data-bm' : 'data-en';
-  document.querySelectorAll('[data-bm]').forEach(el => {
-    const val = el.getAttribute(attr);
-    if (val !== null) el.innerHTML = val;
+var FB_CATS=['Staff Unit Hasil','Kebolehgunaan / UI','Ketepatan Data','Bug / Masalah Teknikal','Cadangan Ciri Baru','Pujian','Lain-lain'];
+function renderCats(){
+  var L=LANG[currentLang],c=$('fb-cat-buttons');if(!c)return;
+  while(c.firstChild)c.removeChild(c.firstChild);
+  L.fbCats.forEach(function(label,i){
+    var sel=selectedCat===FB_CATS[i];
+    var btn=document.createElement('button');
+    btn.type='button';btn.textContent=label;
+    btn.style.cssText='padding:8px 14px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer;border:2px solid '+(sel?'#0C447C':'#e2e8f0')+';background:'+(sel?'#0C447C':'#f8fafc')+';color:'+(sel?'#E8A030':'#64748b')+';';
+    (function(v){btn.addEventListener('click',function(){selectedCat=v;renderCats();});})(FB_CATS[i]);
+    c.appendChild(btn);
   });
 }
+function applyLang(){
+  var L=LANG[currentLang];
+  st('tab-label-search',L.tabSearch);st('tab-label-about',L.tabAbout);st('tab-label-feedback',L.tabFeedback);
+  st('search-title',L.searchTitle);st('search-desc',L.searchDesc);st('search-btn-text',L.searchBtn);sa('icSearch','placeholder',L.searchPlaceholder);
+  st('about-title',L.aboutTitle);st('about-app-label',L.aboutAppLabel);st('about-dev-label',L.aboutDevLabel);st('about-fac-label',L.aboutFacLabel);st('about-src-label',L.aboutSrcLabel);
+  st('about-contact-label',L.aboutContactLabel);st('about-contact-text',L.aboutContactText);
+  st('about-purpose-label',L.aboutPurposeLabel);st('about-purpose-text',L.aboutPurposeText);
+  st('about-how-label',L.aboutHowLabel);
+  st('about-status-label',L.aboutStatusLabel);
+  st('about-index-desc',L.aboutIndexDesc);st('about-cc-desc',L.aboutCCDesc);st('about-nf-desc',L.aboutNFDesc);
+  var stepsList=document.getElementById('about-steps-list');
+  if(stepsList&&L.aboutSteps){stepsList.innerHTML=L.aboutSteps.map(function(s,i){return'<li style="display:flex;align-items:flex-start;gap:12px;background:#f8fafc;border-radius:12px;padding:12px 14px;border:1px solid #e2e8f0;"><span style="background:#0C447C;color:#fff;font-size:10px;font-weight:900;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(i+1)+'</span><span style="font-size:13px;color:#334155;line-height:1.6;">'+s+'</span></li>';}).join('');}
+  st('fb-title',L.fbTitle);st('fb-subtitle',L.fbSubtitle);st('fb-role-label',L.fbRoleLabel);st('fb-ward-label',L.fbWardLabel);sa('fbWard','placeholder',L.fbWardPlaceholder||'');
+  st('fb-name-label',L.fbNameLabel);sa('fbName','placeholder',L.fbNamePlaceholder||'Nama penuh anda...');
+  st('fb-email-label',L.fbEmailLabel);sa('fbEmail','placeholder',L.fbEmailPlaceholder||'nama@htpn.gov.my');
+  st('fb-phone-label',L.fbPhoneLabel);sa('fbPhone','placeholder',L.fbPhonePlaceholder||'0123456789');
+  st('fb-rating-label',L.fbRatingLabel);st('fb-cat-label',L.fbCatLabel);
+  st('fb-msg-label',L.fbMsgLabel);sa('fbMessage','placeholder',L.fbMsgPlaceholder||'');
+  st('fb-privacy-text',L.fbPrivacy||'');st('fb-submit-label',L.fbSubmitBtn);
+  st('fb-success-title',L.fbSuccessTitle);st('fb-success-msg',L.fbSuccessMsg);st('fb-send-another',L.fbSendAnother);
+  var ro=document.querySelector('#fbRole option[value=""]');if(ro)ro.textContent=L.fbRolePlaceholder||'-- Pilih --';
+  var rl=$('ratingLabel');if(rl)rl.textContent=selRating===0?(L.ratingDefault||'Pilih penilaian'):L.ratingLabels[selRating];
+  renderCats();
+  st('login-title',L.loginTitle);st('login-user-label',L.loginUserLabel);st('login-pass-label',L.loginPassLabel);
+  st('login-btn-text',L.loginBtn);st('login-note',L.loginNote);st('login-error-msg',L.loginError);
+  st('remember-label',L.rememberLabel||'Ingat kata laluan saya');
+  sa('loginUser','placeholder',currentLang==='BM'?'Masukkan username...':'Enter username...');
+  sa('loginPass','placeholder',currentLang==='BM'?'Masukkan password...':'Enter password...');
+  renderDisc();
+}
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  $('tab-'+name).classList.add('active');btn.classList.add('active');
+}
+var selRating=0,selectedCat='';
+function setRating(n){selRating=n;for(var i=1;i<=5;i++)$('star'+i).classList.toggle('selected',i<=n);var L=LANG[currentLang];var rl=$('ratingLabel');if(rl){rl.textContent=L.ratingLabels[n];rl.style.color=n>=4?'#166534':n===3?'#92400e':'#991b1b';}}
 
-function safeText(id, text) {
-  const el = document.getElementById(id);
-  if (el) el.innerText = text;
+async function submitFeedback(){
+  const role=document.getElementById('fbRole').value.trim(),message=document.getElementById('fbMessage').value.trim(),nama=document.getElementById('fbName').value.trim(),L=LANG[currentLang];
+  if(!nama)return showToast(currentLang==='BM'?'Sila masukkan nama anda!':'Please enter your name!');
+  if(!role)return showToast(currentLang==='BM'?'Sila pilih kategori staf!':'Please select staff category!');
+  if(!selectedRating)return showToast(currentLang==='BM'?'Sila beri penilaian bintang!':'Please give a star rating!');
+  if(!selectedCategory)return showToast(currentLang==='BM'?'Sila pilih kategori!':'Please select category!');
+  if(!message)return showToast(currentLang==='BM'?'Sila isi maklum balas!':'Please fill in feedback!');
+  const btn=document.getElementById('fbSubmitBtn');btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menghantar...':'Sending...');
+  const ward=document.getElementById('fbWard').value.trim(),email=document.getElementById('fbEmail').value.trim(),phone=document.getElementById('fbPhone').value.trim(),ts=new Date().toLocaleString('ms-MY',{timeZone:'Asia/Kuala_Lumpur'});
+  try{
+    await fetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:"feedback",nama,email:email||"—",phone:phone||"—",role,ward:ward||"Tidak dinyatakan",rating:selectedRating,category:selectedCategory,message,timestamp:ts})}`);
+    hide('feedbackForm');show('feedbackSuccess');
+  }catch(err){
+    showToast(currentLang==='BM'?'Gagal hantar!':'Send failed!');btn.disabled=false;btn.style.opacity='1';btn.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> ${L.fbSubmitBtn}`;
+  }
 }
-function safeAttr(id, attr, val) {
-  const el = document.getElementById(id);
-  if (el) el.setAttribute(attr, val);
+function resetFeedback(){
+  ['fbName','fbEmail','fbPhone','fbWard','fbMessage'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('fbRole').value='';selectedRating=0;selectedCategory='';
+  for(let i=1;i<=5;i++)document.getElementById('star'+i).classList.remove('selected');
+  const rl=document.getElementById('ratingLabel');if(rl)rl.textContent=LANG[currentLang].ratingDefault;
+  renderFeedbackCats();show('feedbackForm');hide('feedbackSuccess');
+  const btn=document.getElementById('fbSubmitBtn');btn.disabled=false;btn.style.opacity='1';
+  btn.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> ${LANG[currentLang].fbSubmitBtn}`;
 }
-</script>
-</body>
-</html>
+function getStyle(status,screening){
+  const s=(status||"").toUpperCase().trim(),sc=(screening||"").toUpperCase().trim();
+  if(s==="INDEX")return{headerBg:"#7f1d1d",cardBg:"bg-red-50",border:"border-red-600",badge:"bg-red-700 text-white border-red-800",blink:"animate-blink",bannerBg:"bg-red-100 border-red-300",bannerText:"text-red-900",iconBg:"bg-red-200",icon:"🦠",label:"INDEX CASE",desc:"This patient is a confirmed CRE Index Case. Contact IPC immediately."};
+  if(s.includes("CONTACT")){
+    if(sc.includes("COMPLETE")&&!sc.includes("INCOMPLETE"))return{headerBg:"#991b1b",cardBg:"bg-red-50",border:"border-red-500",badge:"bg-red-600 text-white border-red-700",blink:"animate-blink",bannerBg:"bg-red-100 border-red-300",bannerText:"text-red-900",iconBg:"bg-red-200",icon:"✅",label:"CLOSE CONTACT — COMPLETE SCREENING",desc:"CRE screening completed."};
+    if(sc==="NA"||sc==="N/A"||sc.includes("NOT APPLICABLE"))return{headerBg:"#92400e",cardBg:"bg-yellow-50",border:"border-yellow-500",badge:"bg-yellow-400 text-yellow-900 border-yellow-600",blink:"animate-blink",bannerBg:"bg-yellow-100 border-yellow-300",bannerText:"text-yellow-900",iconBg:"bg-yellow-200",icon:"👥",label:"CLOSE CONTACT",desc:"Patient is a close contact of a CRE case."};
+    return{headerBg:"#92400e",cardBg:"bg-yellow-50",border:"border-yellow-500",badge:"bg-yellow-400 text-yellow-900 border-yellow-600",blink:"animate-blink",bannerBg:"bg-yellow-100 border-yellow-300",bannerText:"text-yellow-900",iconBg:"bg-yellow-200",icon:"⏳",label:"CLOSE CONTACT — INCOMPLETE SCREENING",desc:"CRE screening is still incomplete."};
+  }
+  return{headerBg:"#1e3a5f",cardBg:"bg-white",border:"border-slate-300",badge:"bg-slate-600 text-white border-slate-700",blink:"",bannerBg:"bg-slate-100 border-slate-200",bannerText:"text-slate-800",iconBg:"bg-slate-200",icon:"ℹ️",label:status||"UNKNOWN",desc:""};
+}
+function screeningChip(sc){const s=(sc||"").toUpperCase().trim();if(s.includes("COMPLETE")&&!s.includes("INCOMPLETE"))return{bg:"bg-red-100 border-red-300",text:"text-red-800",icon:"✅"};if(s.includes("INCOMPLETE"))return{bg:"bg-yellow-100 border-yellow-300",text:"text-yellow-800",icon:"⏳"};if(s==="NA"||s.includes("NOT APPLICABLE"))return{bg:"bg-slate-100 border-slate-200",text:"text-slate-500",icon:"—"};return{bg:"bg-slate-100 border-slate-200",text:"text-slate-600",icon:"📋"};}
+function detailRow(label,val){if(!val)return"";return`<div class="bg-slate-50 rounded-2xl px-4 py-3"><p class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">${label}</p><p class="text-sm font-black text-slate-800">${val}</p></div>`;}
+async function searchPatient(){
+  const raw=document.getElementById('icSearch').value.trim(),ic=raw.replace(/-/g,"").toUpperCase(),res=document.getElementById('resultDisplay');
+  if(!ic)return showToast("Sila masukkan nombor KP / IC / Passport!");
+  res.innerHTML=`<div class="p-16 text-center animate-pulse"><p class="text-slate-400 font-black uppercase tracking-widest text-xs">Searching CRE 2026 database...</p></div>`;
+  try{
+    const resp=await fetch(`${APPS_SCRIPT_URL}?ic=${encodeURIComponent(ic)}`),data=await resp.json();
+    if(data.status==="not_found"){res.innerHTML=`<div class="bg-white p-12 rounded-[2.5rem] shadow-xl border-l-[16px] border-slate-300 text-center"><p class="text-5xl mb-4">🔍</p><h3 class="text-2xl font-black text-slate-700 uppercase">No Record Found</h3><p class="text-slate-500 mt-2 text-sm">KP <span class="font-mono font-black">${ic}</span> not found.</p><p class="text-slate-400 mt-1 text-xs uppercase tracking-widest">OFF TAG patients are not displayed.</p></div>`;return;}
+    if(data.status==="found"){
+      const d=data.data,st=getStyle(d.status,d.screening),sc=screeningChip(d.screening);
+      const isContact=(d.status||"").toUpperCase().includes("CONTACT"),isIndex=(d.status||"").toUpperCase()==="INDEX",isIncomplete=(d.screening||"").toUpperCase().includes("INCOMPLETE");
+      const swabAlert=isIncomplete?`<div class="mt-3 bg-yellow-200 border border-yellow-400 rounded-xl px-4 py-2.5 flex items-center gap-2"><span>🧪</span><p class="text-xs font-black text-yellow-900 uppercase">⚠️ Send rectal swab if not yet submitted.</p></div>`:"";
+      const ipcActions=isIndex?["Isolate or cohort patient immediately.","Place Contact Precaution signage and tag BHT / Appointment card.","Strict Hand Hygiene at all WHO 5 Moments.","Don single-use PPE; remove before leaving.","Dedicated equipment; disinfect before and after use.","Notify UKI and treating physician immediately.","Send MDRO Notification Form to UKI."]:["Isolate or cohort patient immediately.","Place Contact Precaution signage and tag BHT / Appointment card.","Strict Hand Hygiene at all WHO 5 Moments.","Don single-use PPE; remove before leaving.","Dedicated equipment; disinfect before and after use.","Notify UKI and treating physician."];
+      const ipcChecklist=(isContact||isIndex)?`<div class="mt-5 ${isIndex?'bg-red-100 border-red-400':'bg-red-50 border-red-200'} border-2 rounded-[1.5rem] p-5"><h4 class="text-[10px] font-black uppercase tracking-widest text-red-700 mb-3">⚠️ Mandatory IPC Actions:</h4><div class="space-y-2">${ipcActions.map(t=>`<div class="flex items-start gap-3"><span class="text-red-500 font-black flex-shrink-0">•</span><span class="text-sm font-bold text-red-900">${t}</span></div>`).join('')}</div></div>`:"";
+      const orgBlock=d.organisma?`<div class="bg-blue-50 border-2 border-blue-200 rounded-[1.5rem] p-5 mb-4"><p class="text-[9px] font-black uppercase tracking-widest text-blue-500 mb-1">Organisma</p><p class="text-base font-black text-blue-900 uppercase">${d.organisma}</p>${d.sample?`<p class="text-xs text-blue-600 mt-1 font-bold uppercase">Sample: ${d.sample}</p>`:""} ${d.positive_date?`<p class="text-xs text-red-600 mt-1 font-bold uppercase">Positive Date: ${d.positive_date}</p>`:""}</div>`:"";
+      const fmtDate=s=>{if(!s)return"—";const dt=new Date(s.toString().trim());if(isNaN(dt))return s;return String(dt.getDate()).padStart(2,"0")+"/"+String(dt.getMonth()+1).padStart(2,"0")+"/"+dt.getFullYear();};
+      res.innerHTML=`<div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};"><p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${fmtDate(d.sample_date)}</p><h3 class="text-lg font-black uppercase opacity-80">Please confirm the identification number entered</h3><p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${d.kp.replace(/./g,(c,i)=>i<4||i>=d.kp.length-2?c:'*')}</p><p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p></div><div class="${st.cardBg} px-8 pt-6 pb-8 border-x-[12px] ${st.border} border-b border-slate-100 shadow-xl rounded-b-[2.5rem]"><div class="flex justify-end mb-5"><span class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase border-2 ${st.badge} ${st.blink} shadow-sm">${d.status||"—"}</span></div><div class="${st.bannerBg} border-2 rounded-[1.5rem] p-4 flex items-center gap-4 mb-4 shadow-inner"><div class="${st.iconBg} rounded-xl w-12 h-12 flex items-center justify-center text-2xl flex-shrink-0">${st.icon}</div><div class="flex-1"><p class="text-[10px] font-black uppercase tracking-widest ${st.bannerText} opacity-60 mb-0.5">Case Status</p><p class="font-black uppercase text-sm ${st.bannerText}">${st.label}</p>${st.desc?`<p class="text-xs ${st.bannerText} opacity-70">${st.desc}</p>`:""} ${swabAlert}</div></div><div class="${sc.bg} border rounded-2xl px-4 py-3 mb-4 flex items-center gap-3"><span class="text-xl">${sc.icon}</span><div><p class="text-[9px] font-black uppercase tracking-widest opacity-50">Screening</p><p class="text-sm font-black uppercase ${sc.text}">${d.screening||"—"}</p></div></div>${orgBlock}<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">${detailRow("Ward / Unit",d.wad)}${detailRow("Bed",d.bed)}${detailRow("RN",d.rn)}${detailRow("Date Admitted",d.doa)}${detailRow("Date Discharged",d.dod)}${detailRow("Ix Sent",d.ix_hantar)}</div>${ipcChecklist}</div>`;
+    }
+  }catch(err){showToast("Connection error.");res.innerHTML=`<div class="bg-white p-10 rounded-[2.5rem] shadow text-center border-l-8 border-red-400"><p class="text-3xl mb-3">⚠️</p><p class="font-black text-red-700 uppercase text-lg">Connection Failed</p><p class="text-slate-500 text-sm mt-1">Check Apps Script URL or internet connection.</p></div>`;}
+}
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded',function(){
+  $('enterBtn').addEventListener('click',function(e){e.stopPropagation();enterApp();});
+  $('ckbox').addEventListener('click',toggleAck);
+  $('proceedBtn').addEventListener('click',proceedToApp);
+  $('eyeBtn').addEventListener('click',togglePW);
+  $('loginBtn').addEventListener('click',doLogin);
+  $('loginPass').addEventListener('keypress',function(e){if(e.key==='Enter')doLogin();});
+  $('loginUser').addEventListener('keypress',function(e){if(e.key==='Enter')$('loginPass').focus();});
+  var ic=$('icSearch');if(ic)ic.addEventListener('keypress',function(e){if(e.key==='Enter')searchPatient();});
+  setTimeout(runSplash,120);
+  setLang('BM');
+  try{
+    if(localStorage.getItem('cre_rem')==='1'){
+      var su=localStorage.getItem('cre_user'),sp=localStorage.getItem('cre_pass');
+      if(su&&sp){$('loginUser').value=su;$('loginPass').value=sp;$('rememberMe').checked=true;}
+    }
+  }catch(e){}
+});
+</script></body></html>
