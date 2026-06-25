@@ -227,9 +227,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
           <div style="background:#E8A030;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div>
           <div><p style="color:#E8A030;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:2px;">CRE Tracker Pro &middot; HTPN</p><h2 id="login-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;">Log Masuk</h2></div>
         </div>
-        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.4);">
-          <button id="loginBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;">BM</button>
-          <button id="loginBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;">EN</button>
+        <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.35);box-shadow:0 2px 8px rgba(0,0,0,0.2);margin-left:auto;">
+          <button id="loginBtnBM" onclick="setLang('BM')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;transition:all 0.2s;">BM</button>
+          <button id="loginBtnEN" onclick="setLang('EN')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;transition:all 0.2s;">EN</button>
         </div>
       </div>
     </div>
@@ -259,9 +259,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
           <div style="background:#E8A030;border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#0C447C" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
           <div><p style="color:#E8A030;font-size:9px;font-weight:800;text-transform:uppercase;opacity:0.8;">CRE Tracker Pro &middot; HTPN</p><h2 id="disc-title" style="color:#fff;font-size:16px;font-weight:900;text-transform:uppercase;line-height:1.2;">Notis Kerahsiaan</h2></div>
         </div>
-        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.4);">
-          <button id="discBtnBM" onclick="setLang('BM')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;">BM</button>
-          <button id="discBtnEN" onclick="setLang('EN')" style="padding:3px 10px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;">EN</button>
+        <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.35);box-shadow:0 2px 8px rgba(0,0,0,0.2);margin-left:auto;">
+          <button id="discBtnBM" onclick="setLang('BM')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;transition:all 0.2s;">BM</button>
+          <button id="discBtnEN" onclick="setLang('EN')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;transition:all 0.2s;">EN</button>
         </div>
       </div>
     </div>
@@ -278,22 +278,43 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
 
 <!-- MAIN APP -->
 <div id="mainApp" style="display:none;">
-<header class="shadow-2xl mb-8" style="background:#0C447C;border-left:8px solid #E8A030;border-bottom:4px solid #E8A030;position:relative;overflow:hidden;">
-  <div class="max-w-4xl mx-auto px-6 py-5 flex items-center gap-4">
-    <div style="width:68px;height:68px;flex-shrink:0;"><svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="68" height="68"><circle cx="34" cy="34" r="30" fill="none" stroke="#E8A030" stroke-width="3.5" stroke-dasharray="4 2"/><circle cx="34" cy="34" r="22" fill="none" stroke="#E8A030" stroke-width="1.5"/><rect x="4" y="25" width="60" height="18" rx="4" fill="#E8A030" transform="rotate(-10 34 34)"/><text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C447C" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text><path id="tA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/><text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#E8A030" letter-spacing="2"><textPath href="#tA" startOffset="20%">C R E</textPath></text></svg></div>
-    <div>
-      <div class="flex items-baseline gap-2 flex-wrap">
-        <h1 class="text-3xl font-black tracking-tight uppercase leading-none" style="color:#E8A030;">CRE</h1>
-        <h1 class="text-3xl font-black tracking-tight uppercase leading-none text-white">Tracker</h1>
-        <span style="background:#E8A030;color:#0C447C;font-size:10px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:0.15em;text-transform:uppercase;">PRO</span>
+<header class="shadow-2xl mb-8" style="background:linear-gradient(135deg,#0d3a6e 0%,#0C447C 60%,#0a3a6b 100%);border-bottom:4px solid #E8A030;position:relative;overflow:hidden;">
+  <!-- Left gold accent bar -->
+  <div style="position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(180deg,#E8A030 0%,#f5c842 50%,#E8A030 100%);"></div>
+  <!-- Gold shimmer line top -->
+  <div style="position:absolute;top:0;left:6px;right:0;height:2px;background:linear-gradient(90deg,rgba(232,160,48,0.8) 0%,rgba(232,160,48,0.2) 60%,transparent 100%);"></div>
+  <!-- Atom decoration (right side) -->
+  <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);opacity:0.12;pointer-events:none;">
+    <svg width="180" height="180" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="80" r="12" fill="#E8A030"/>
+      <ellipse cx="80" cy="80" rx="70" ry="28" fill="none" stroke="#E8A030" stroke-width="2"/>
+      <ellipse cx="80" cy="80" rx="70" ry="28" fill="none" stroke="#E8A030" stroke-width="2" transform="rotate(60 80 80)"/>
+      <ellipse cx="80" cy="80" rx="70" ry="28" fill="none" stroke="#E8A030" stroke-width="2" transform="rotate(120 80 80)"/>
+      <circle cx="150" cy="80" r="5" fill="#E8A030"/>
+      <circle cx="45" cy="28" r="4" fill="#E8A030"/>
+      <circle cx="45" cy="132" r="3" fill="#E8A030"/>
+    </svg>
+  </div>
+  <!-- Subtle grid pattern overlay -->
+  <div style="position:absolute;inset:0;pointer-events:none;opacity:0.03;background-image:repeating-linear-gradient(0deg,#fff 0px,#fff 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,#fff 0px,#fff 1px,transparent 1px,transparent 40px);"></div>
+  <div class="max-w-4xl mx-auto px-8 pt-5 pb-2 flex items-center gap-5" style="padding-left:22px;">
+    <div style="width:72px;height:72px;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(232,160,48,0.4));"><svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="34" cy="34" r="30" fill="none" stroke="#E8A030" stroke-width="3.5" stroke-dasharray="4 2"/><circle cx="34" cy="34" r="22" fill="none" stroke="#E8A030" stroke-width="1.5"/><rect x="4" y="25" width="60" height="18" rx="4" fill="#E8A030" transform="rotate(-10 34 34)"/><text x="34" y="37" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="10" font-weight="900" fill="#0C447C" letter-spacing="1" transform="rotate(-10 34 34)">IPC ALERT</text><path id="tA" d="M 10,34 A 24,24 0 0,1 58,34" fill="none"/><text font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="800" fill="#E8A030" letter-spacing="2"><textPath href="#tA" startOffset="20%">C R E</textPath></text></svg></div>
+    <div style="flex:1;">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <h1 style="font-size:28px;font-weight:900;letter-spacing:-0.02em;text-transform:uppercase;line-height:1;color:#E8A030;margin:0;">CRE</h1>
+        <h1 style="font-size:28px;font-weight:900;letter-spacing:-0.02em;text-transform:uppercase;line-height:1;color:#fff;margin:0;">TRACKER</h1>
+        <span style="background:#E8A030;color:#0C447C;font-size:9px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:0.15em;text-transform:uppercase;box-shadow:0 2px 8px rgba(232,160,48,0.4);">PRO</span>
       </div>
-      <p style="font-size:11px;color:#bfdbfe;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-top:4px;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
+      <!-- Gold divider line -->
+      <div style="width:100%;height:1.5px;background:linear-gradient(90deg,rgba(232,160,48,0.6) 0%,rgba(232,160,48,0.1) 80%,transparent 100%);margin:6px 0 5px 0;"></div>
+      <p style="font-size:11px;color:#bfdbfe;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin:0;">Hospital Tengku Permaisuri Norashikin, Kajang</p>
+      <p style="font-size:9px;color:rgba(147,197,253,0.75);font-weight:600;text-transform:uppercase;letter-spacing:0.18em;margin-top:2px;">Infection Prevention &amp; Control Unit</p>
     </div>
   </div>
-  <div class="flex gap-2 px-6 pb-3 justify-end max-w-4xl mx-auto">
-    <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.4);">
-      <button id="btnBM" onclick="setLang('BM')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;">BM</button>
-      <button id="btnEN" onclick="setLang('EN')" style="padding:3px 12px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;">EN</button>
+  <div style="display:flex;justify-content:flex-end;padding:4px 24px 10px 24px;max-width:64rem;margin:0 auto;">
+    <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.35);box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      <button id="btnBM" onclick="setLang('BM')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;transition:all 0.2s;">BM</button>
+      <button id="btnEN" onclick="setLang('EN')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;transition:all 0.2s;">EN</button>
     </div>
   </div>
 </header>
@@ -301,6 +322,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
   <button class="tab-btn active flex-1 flex items-center justify-center gap-1" onclick="switchTab('search',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span id="tab-label-search">Carian CRE</span></button>
   <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('about',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span id="tab-label-about">Info</span></button>
   <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('feedback',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg><span id="tab-label-feedback">Maklum Balas</span></button>
+  <button id="tab-btn-entry" class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('entry',this)" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Data Entry</span></button>
 </div></div>
 <main class="max-w-3xl mx-auto px-4 space-y-6">
   <div id="tab-search" class="tab-content active">
@@ -375,6 +397,108 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
       </div>
     </div>
   </div>
+  <!-- DATA ENTRY TAB (UKI only) -->
+  <div id="tab-entry" class="tab-content">
+    <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
+      <div style="background:#0C447C;border-bottom:4px solid #E8A030;padding:28px 32px;">
+        <p style="color:#E8A030;font-size:9px;font-weight:900;text-transform:uppercase;margin-bottom:4px;">Unit IPC &middot; HTPN &middot; UKI ONLY</p>
+        <h2 id="entry-title" style="color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;">📝 Data Entry CRE</h2>
+        <p id="entry-subtitle" style="color:#93c5fd;font-size:11px;font-weight:600;margin-top:4px;">Tambah rekod baru ke CRE Surveillance Database 2026</p>
+      </div>
+      <div style="padding:28px 32px;">
+        <!-- Success state -->
+        <div id="entrySuccess" style="display:none;background:#f0fdf4;border:2px solid #86efac;border-radius:20px;padding:32px;text-align:center;">
+          <p style="font-size:40px;margin-bottom:12px;">✅</p>
+          <p id="entry-success-title" style="font-size:18px;font-weight:900;color:#166534;text-transform:uppercase;">Rekod Berjaya Disimpan!</p>
+          <p id="entrySavedIC" style="font-size:13px;color:#15803d;margin-top:4px;"></p>
+          <button onclick="resetEntry()" id="entry-add-more-btn" style="margin-top:16px;background:#0C447C;color:#E8A030;border:none;padding:10px 28px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;cursor:pointer;">+ Tambah Rekod Lain</button>
+        </div>
+        <!-- Entry form -->
+        <div id="entryForm">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div style="grid-column:1/-1;">
+              <label id="entry-nama-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Nama Pesakit *</label>
+              <input type="text" id="en_nama" placeholder="Nama penuh pesakit..." style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div>
+              <label id="entry-ic-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">No. IC / KP / Passport *</label>
+              <input type="text" id="en_ic" placeholder="cth: 900101-01-1234" maxlength="20" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div>
+              <label id="entry-rn-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">No. RN</label>
+              <input type="text" id="en_rn" placeholder="cth: RN123456" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div>
+              <label id="entry-doa-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Tarikh Masuk Wad *</label>
+              <input type="date" id="en_doa" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div>
+              <label id="entry-sample-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Tarikh Sampel Diambil</label>
+              <input type="date" id="en_sample_date" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div>
+              <label id="entry-ward-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Wad / Unit *</label>
+              <select id="en_ward_sel" onchange="toggleWardOther()" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+                <option id="entry-ward-placeholder" value="">-- Pilih Wad --</option>
+                <option>W1</option><option>W2</option><option>W3</option><option>W4</option><option>W6</option><option>W7</option><option>W8</option><option>W8A</option><option>W8B</option><option>W7A</option><option>W7B</option><option>W6A</option><option>W6B</option><option>ICU MB</option><option>HAMB</option><option>LB</option><option>ICUWCC</option><option>PICU</option><option>NICU</option><option>SCN</option><option>HAWCC</option><option id="entry-ward-other-opt" value="other">Lain-lain</option>
+              </select>
+              <div id="ward_other_wrap" style="display:none;margin-top:8px;">
+                <input type="text" id="en_ward_other" placeholder="Taip nama wad / lokasi..." style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+              </div>
+              <input type="hidden" id="en_ward" value="">
+            </div>
+            <div>
+              <label id="entry-bed-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Katil / Bed</label>
+              <input type="text" id="en_bed" placeholder="cth: B3" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div style="grid-column:1/-1;">
+              <label id="entry-org-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Nama Organisma / Kuman *</label>
+              <input type="text" id="en_org" placeholder="cth: Klebsiella pneumoniae NDM, E. coli OXA-48..." style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+            </div>
+            <div style="grid-column:1/-1;">
+              <label id="entry-status-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Status Kes *</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <label id="status-index-lbl" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:#fff1f2;border:2px solid #fecdd3;border-radius:14px;cursor:pointer;transition:all 0.15s;" onclick="selectStatus('INDEX')">
+                  <span style="font-size:20px;">🦠</span>
+                  <div><p style="font-size:11px;font-weight:900;color:#991b1b;text-transform:uppercase;margin:0;">INDEX CASE</p><p id="entry-index-desc" style="font-size:10px;color:#7f1d1d;margin:0;">Positif CRE disahkan</p></div>
+                </label>
+                <label id="status-cc-lbl" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:#fefce8;border:2px solid #fef08a;border-radius:14px;cursor:pointer;transition:all 0.15s;" onclick="selectStatus('CLOSE CONTACT')">
+                  <span style="font-size:20px;">👥</span>
+                  <div><p style="font-size:11px;font-weight:900;color:#854d0e;text-transform:uppercase;margin:0;">CLOSE CONTACT</p><p id="entry-cc-desc" style="font-size:10px;color:#713f12;margin:0;">Berdekatan dengan Index</p></div>
+                </label>
+              </div>
+              <input type="hidden" id="en_status" value="">
+            </div>
+            <div>
+              <label id="entry-hosp-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Hospital Diagnose CRE</label>
+              <select id="en_hospital_sel" onchange="toggleHospOther()" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+                <option id="entry-hosp-placeholder" value="">-- Pilih Hospital --</option>
+                <option value="Hospital Tengku Permaisuri Norashikin, Kajang">HTPN (Hospital Tengku Permaisuri Norashikin)</option>
+                <option id="entry-hosp-other-opt" value="other">Lain-lain</option>
+              </select>
+              <div id="hosp_other_wrap" style="display:none;margin-top:8px;">
+                <input type="text" id="en_hospital_other" placeholder="Nama hospital lain..." style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+              </div>
+              <input type="hidden" id="en_hospital" value="">
+            </div>
+            <div>
+              <label id="entry-date-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:6px;">Tarikh Entry</label>
+              <input type="text" id="en_entrydate" readonly style="width:100%;padding:13px 16px;background:#f0f7ff;border:2px solid #bfdbfe;border-radius:14px;font-size:13px;font-weight:700;color:#475569;outline:none;box-sizing:border-box;cursor:not-allowed;" tabindex="-1">
+            </div>
+          </div>
+          <!-- Entry by (auto) -->
+          <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:16px;">👤</span>
+            <div><p id="entry-by-label" style="font-size:9px;font-weight:900;text-transform:uppercase;color:#64748b;margin:0;">Entry oleh</p><p id="en_entryby" style="font-size:12px;font-weight:900;color:#0C447C;margin:0;"></p></div>
+          </div>
+          <button onclick="submitEntry()" id="entrySubmitBtn" style="width:100%;padding:16px;border-radius:999px;background:#0C447C;color:#E8A030;border:none;font-size:13px;font-weight:900;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <span id="entry-save-btn-label">Simpan Rekod</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 </div>
 <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-full shadow-2xl opacity-0 transition-opacity pointer-events-none z-50 text-xs font-black uppercase tracking-widest border border-white/10"></div>
@@ -406,6 +530,18 @@ const LANG = {
     aboutHowLabel:'📋 Cara Penggunaan',aboutSteps:['Klik tab <strong>Carian CRE</strong> dan masukkan nombor KP / IC / Passport pesakit.','Tekan butang <strong>Carian</strong> atau Enter. Sistem akan semak pangkalan data CRE 2026.','Tag kes pada profil pesakit.','Ikuti <strong>tindakan IPC mandatori</strong> yang dipaparkan.','Hubungi UKI atau gunakan tab <strong>Maklum Balas</strong> untuk isu teknikal.'],
     aboutStatusLabel:'🔴 Status Kes',aboutIndexDesc:'Pesakit positif CRE yang disahkan. Perlu pengasingan segera.',aboutCCDesc:'Pesakit yang berdekatan dengan kes Index. Perlu saringan.',aboutNFDesc:'Tiada rekod — termasuk kes Off-Tag.',
     aboutContactLabel:'Hubungi UKI/IPC HTPN',aboutContactText:'Untuk pertanyaan teknikal, sila hubungi pasukan UKI terus.',
+    entryTabLabel:'Kes Baru',entryTitle:'📝 Kemasukan Data CRE',entrySubtitle:'Tambah rekod baru ke CRE Surveillance Database 2026',
+    entryNamaLabel:'Nama Pesakit *',entryNamaPlaceholder:'Nama penuh pesakit...',
+    entryICLabel:'No. IC / KP / Passport *',entryICPlaceholder:'cth: 900101-01-1234',
+    entryRNLabel:'No. RN',entryRNPlaceholder:'cth: RN123456',
+    entryDOALabel:'Tarikh Masuk Wad *',entrySampleLabel:'Tarikh Sampel Diambil',
+    entryWardLabel:'Wad / Unit *',entryWardPlaceholder:'-- Pilih Wad --',entryWardOther:'Lain-lain',entryWardOtherPlaceholder:'Taip nama wad / lokasi...',
+    entryBedLabel:'Katil / Bed',entryBedPlaceholder:'cth: B3',
+    entryOrgLabel:'Nama Organisma / Kuman *',entryOrgPlaceholder:'cth: Klebsiella pneumoniae NDM, E. coli OXA-48...',
+    entryStatusLabel:'Status Kes *',
+    entryIndexDesc:'Positif CRE disahkan',entryCCDesc:'Berdekatan dengan Index',
+    entryHospLabel:'Hospital Diagnose CRE',entryHospPlaceholder:'-- Pilih Hospital --',entryHospOther:'Lain-lain',entryHospOtherPlaceholder:'Nama hospital lain...',entryEntryDateLabel:'Tarikh Entry',entryEntryByLabel:'Entry oleh',
+    entrySaveBtn:'Simpan Rekod',entrySuccessTitle:'Rekod Berjaya Disimpan!',entryAddMore:'+ Tambah Rekod Lain',
   },
   EN: {
     tabSearch:'CRE Search',tabAbout:'Info',tabFeedback:'Feedback',
@@ -431,6 +567,18 @@ const LANG = {
     aboutHowLabel:'📋 How to Use',aboutSteps:['Click the <strong>CRE Search</strong> tab and enter the patient IC / KP / Passport.','Press <strong>Search</strong> or Enter to check the CRE 2026 database.','Tag the identified case on patient profile.','Follow <strong>mandatory IPC actions</strong> displayed.','Contact UKI or use <strong>Feedback</strong> tab for technical issues.'],
     aboutStatusLabel:'🔴 Case Status',aboutIndexDesc:'Confirmed CRE positive patient. Immediate isolation required.',aboutCCDesc:'Patient exposed to Index case. Screening required.',aboutNFDesc:'No record found — includes Off-Tag cases.',
     aboutContactLabel:'Contact UKI/IPC HTPN',aboutContactText:'For technical enquiries, please contact the UKI team directly.',
+    entryTabLabel:'New Case',entryTitle:'📝 CRE Data Entry',entrySubtitle:'Add new record to CRE Surveillance Database 2026',
+    entryNamaLabel:'Patient Name *',entryNamaPlaceholder:'Full patient name...',
+    entryICLabel:'IC / KP / Passport No. *',entryICPlaceholder:'e.g. 900101-01-1234',
+    entryRNLabel:'RN No.',entryRNPlaceholder:'e.g. RN123456',
+    entryDOALabel:'Date of Admission *',entrySampleLabel:'Date of Sample Taken',
+    entryWardLabel:'Ward / Unit *',entryWardPlaceholder:'-- Select Ward --',entryWardOther:'Others',entryWardOtherPlaceholder:'Type ward / location name...',
+    entryBedLabel:'Bed',entryBedPlaceholder:'e.g. B3',
+    entryOrgLabel:'Organism / Pathogen Name *',entryOrgPlaceholder:'e.g. Klebsiella pneumoniae NDM, E. coli OXA-48...',
+    entryStatusLabel:'Case Status *',
+    entryIndexDesc:'Confirmed CRE positive',entryCCDesc:'Exposed to Index case',
+    entryHospLabel:'Hospital Diagnose CRE',entryHospPlaceholder:'-- Select Hospital --',entryHospOther:'Others',entryHospOtherPlaceholder:'Other hospital name...',entryEntryDateLabel:'Entry Date',entryEntryByLabel:'Entered by',
+    entrySaveBtn:'Save Record',entrySuccessTitle:'Record Saved Successfully!',entryAddMore:'+ Add Another Record',
   }
 };
 
@@ -536,16 +684,23 @@ function proceedToApp(){
   if(!_acked)return;
   hide('disclaimerModal');
   show('mainApp');
+  // Show Data Entry tab only for UKI
+  var entryBtn=document.getElementById('tab-btn-entry');
+  if(entryBtn){entryBtn.style.display=currentUser==='UKI'?'':'none';}
+  // Init entry form dates & user
+  if(currentUser==='UKI')initEntryForm();
 }
 
 // ── Login ──
 var _acked=false;
 const CREDENTIALS={'W1':'mbw1','W2':'mbw2','W3':'mbw3','W4':'mbw4','W6':'mbw6','W7':'mbw7','W8':'mbw8','ICU MB':'icumb1','HAMB':'hamb1','W8A':'wcc8a','W8B':'wcc8b','W7A':'wcc7a','W7B':'wcc7b','W6A':'wcc6a','W6B':'wcc6b','LB':'lbwcc1','ICUWCC':'icuwcc1','PICU':'picuwcc1','NICU':'nicuwcc1','SCN':'scnwcc1','HAWCC':'hawcc1','UKI':'uki1'};
+var currentUser='';
 function doLogin(){
   var user=$('loginUser').value.trim().toUpperCase();
   var pass=$('loginPass').value.trim();
   var err=$('loginError');
   if(CREDENTIALS[user]&&CREDENTIALS[user]===pass){
+    currentUser=user;
     err.style.display='none';
     var rm=$('rememberMe');
     if(rm&&rm.checked){try{localStorage.setItem('cre_user',user);localStorage.setItem('cre_pass',pass);localStorage.setItem('cre_rem','1');}catch(e){}}
@@ -602,6 +757,8 @@ function renderCats(){
 function applyLang(){
   var L=LANG[currentLang];
   st('tab-label-search',L.tabSearch);st('tab-label-about',L.tabAbout);st('tab-label-feedback',L.tabFeedback);
+  // Data Entry tab label
+  var entryTabBtn=document.getElementById('tab-btn-entry');if(entryTabBtn){var entrySpan=entryTabBtn.querySelector('span');if(entrySpan)entrySpan.textContent=L.entryTabLabel||'Data Entry';}
   st('search-title',L.searchTitle);st('search-desc',L.searchDesc);st('search-btn-text',L.searchBtn);sa('icSearch','placeholder',L.searchPlaceholder);
   st('about-title',L.aboutTitle);st('about-app-label',L.aboutAppLabel);st('about-dev-label',L.aboutDevLabel);st('about-fac-label',L.aboutFacLabel);st('about-src-label',L.aboutSrcLabel);
   st('about-contact-label',L.aboutContactLabel);st('about-contact-text',L.aboutContactText);
@@ -611,6 +768,35 @@ function applyLang(){
   st('about-index-desc',L.aboutIndexDesc);st('about-cc-desc',L.aboutCCDesc);st('about-nf-desc',L.aboutNFDesc);
   var stepsList=document.getElementById('about-steps-list');
   if(stepsList&&L.aboutSteps){stepsList.innerHTML=L.aboutSteps.map(function(s,i){return'<li style="display:flex;align-items:flex-start;gap:12px;background:#f8fafc;border-radius:12px;padding:12px 14px;border:1px solid #e2e8f0;"><span style="background:#0C447C;color:#fff;font-size:10px;font-weight:900;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+(i+1)+'</span><span style="font-size:13px;color:#334155;line-height:1.6;">'+s+'</span></li>';}).join('');}
+  // Data Entry labels
+  st('entry-title',L.entryTitle);st('entry-subtitle',L.entrySubtitle);
+  st('entry-nama-label',L.entryNamaLabel);sa('en_nama','placeholder',L.entryNamaPlaceholder);
+  st('entry-ic-label',L.entryICLabel);sa('en_ic','placeholder',L.entryICPlaceholder);
+  st('entry-rn-label',L.entryRNLabel);sa('en_rn','placeholder',L.entryRNPlaceholder);
+  st('entry-doa-label',L.entryDOALabel);st('entry-sample-label',L.entrySampleLabel);
+  st('entry-ward-label',L.entryWardLabel);
+  var wp=document.getElementById('entry-ward-placeholder');if(wp)wp.textContent=L.entryWardPlaceholder;
+  var wo=document.getElementById('entry-ward-other-opt');
+  if(wo){wo.textContent=L.entryWardOther;wo.value='other';}
+  // Force select to re-render displayed text
+  var ws=document.getElementById('en_ward_sel');
+  if(ws){var wv=ws.value;ws.value='';ws.value=wv;}
+  sa('en_ward_other','placeholder',L.entryWardOtherPlaceholder||'');
+  st('entry-bed-label',L.entryBedLabel);sa('en_bed','placeholder',L.entryBedPlaceholder);
+  st('entry-org-label',L.entryOrgLabel);sa('en_org','placeholder',L.entryOrgPlaceholder);
+  st('entry-status-label',L.entryStatusLabel);
+  st('entry-index-desc',L.entryIndexDesc);st('entry-cc-desc',L.entryCCDesc);
+  st('entry-hosp-label',L.entryHospLabel);
+  var hp=document.getElementById('entry-hosp-placeholder');if(hp)hp.textContent=L.entryHospPlaceholder;
+  var ho=document.getElementById('entry-hosp-other-opt');
+  if(ho){ho.textContent=L.entryHospOther;ho.value='other';}
+  // Force hospital select to re-render
+  var hs=document.getElementById('en_hospital_sel');
+  if(hs){var hv=hs.value;hs.value='';hs.value=hv;}
+  sa('en_hospital_other','placeholder',L.entryHospOtherPlaceholder||'');
+  st('entry-date-label',L.entryEntryDateLabel);
+  st('entry-by-label',L.entryEntryByLabel);st('entry-save-btn-label',L.entrySaveBtn);
+  st('entry-success-title',L.entrySuccessTitle);st('entry-add-more-btn',L.entryAddMore);
   st('fb-title',L.fbTitle);st('fb-subtitle',L.fbSubtitle);st('fb-role-label',L.fbRoleLabel);st('fb-ward-label',L.fbWardLabel);sa('fbWard','placeholder',L.fbWardPlaceholder||'');
   st('fb-name-label',L.fbNameLabel);sa('fbName','placeholder',L.fbNamePlaceholder||'Nama penuh anda...');
   st('fb-email-label',L.fbEmailLabel);sa('fbEmail','placeholder',L.fbEmailPlaceholder||'nama@htpn.gov.my');
@@ -692,6 +878,112 @@ async function searchPatient(){
       res.innerHTML=`<div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};"><p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${fmtDate(d.sample_date)}</p><h3 class="text-lg font-black uppercase opacity-80">Please confirm the identification number entered</h3><p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${d.kp.replace(/./g,(c,i)=>i<4||i>=d.kp.length-2?c:'*')}</p><p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p></div><div class="${st.cardBg} px-8 pt-6 pb-8 border-x-[12px] ${st.border} border-b border-slate-100 shadow-xl rounded-b-[2.5rem]"><div class="flex justify-end mb-5"><span class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase border-2 ${st.badge} ${st.blink} shadow-sm">${d.status||"—"}</span></div><div class="${st.bannerBg} border-2 rounded-[1.5rem] p-4 flex items-center gap-4 mb-4 shadow-inner"><div class="${st.iconBg} rounded-xl w-12 h-12 flex items-center justify-center text-2xl flex-shrink-0">${st.icon}</div><div class="flex-1"><p class="text-[10px] font-black uppercase tracking-widest ${st.bannerText} opacity-60 mb-0.5">Case Status</p><p class="font-black uppercase text-sm ${st.bannerText}">${st.label}</p>${st.desc?`<p class="text-xs ${st.bannerText} opacity-70">${st.desc}</p>`:""} ${swabAlert}</div></div><div class="${sc.bg} border rounded-2xl px-4 py-3 mb-4 flex items-center gap-3"><span class="text-xl">${sc.icon}</span><div><p class="text-[9px] font-black uppercase tracking-widest opacity-50">Screening</p><p class="text-sm font-black uppercase ${sc.text}">${d.screening||"—"}</p></div></div>${orgBlock}<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">${detailRow("Ward / Unit",d.wad)}${detailRow("Bed",d.bed)}${detailRow("RN",d.rn)}${detailRow("Date Admitted",d.doa)}${detailRow("Date Discharged",d.dod)}${detailRow("Ix Sent",d.ix_hantar)}</div>${ipcChecklist}</div>`;
     }
   }catch(err){showToast("Connection error.");res.innerHTML=`<div class="bg-white p-10 rounded-[2.5rem] shadow text-center border-l-8 border-red-400"><p class="text-3xl mb-3">⚠️</p><p class="font-black text-red-700 uppercase text-lg">Connection Failed</p><p class="text-slate-500 text-sm mt-1">Check Apps Script URL or internet connection.</p></div>`;}
+}
+
+// ── DATA ENTRY (UKI only) ──
+var selectedStatus='';
+function selectStatus(val){
+  selectedStatus=val;
+  document.getElementById('en_status').value=val;
+  var il=document.getElementById('status-index-lbl'),cl=document.getElementById('status-cc-lbl');
+  if(val==='INDEX'){
+    il.style.borderColor='#dc2626';il.style.background='#fee2e2';il.style.boxShadow='0 0 0 3px rgba(220,38,38,0.15)';
+    cl.style.borderColor='#fef08a';cl.style.background='#fefce8';cl.style.boxShadow='none';
+  }else{
+    cl.style.borderColor='#f59e0b';cl.style.background='#fef3c7';cl.style.boxShadow='0 0 0 3px rgba(245,158,11,0.15)';
+    il.style.borderColor='#fecdd3';il.style.background='#fff1f2';il.style.boxShadow='none';
+  }
+}
+function toggleHospOther(){
+  var sel=document.getElementById('en_hospital_sel');
+  var wrap=document.getElementById('hosp_other_wrap');
+  var hidden=document.getElementById('en_hospital');
+  if(sel.value==='other'){wrap.style.display='block';hidden.value='';}
+  else{wrap.style.display='none';hidden.value=sel.value;}
+}
+function toggleWardOther(){
+  var sel=document.getElementById('en_ward_sel');
+  var wrap=document.getElementById('ward_other_wrap');
+  var hidden=document.getElementById('en_ward');
+  if(sel.value==='other'){wrap.style.display='block';hidden.value='';}
+  else{wrap.style.display='none';hidden.value=sel.value;}
+}
+function initEntryForm(){
+  // Entry date: display dd/mm/yyyy, store ISO, readonly
+  var now=new Date();
+  var dd=String(now.getDate()).padStart(2,'0');
+  var mm=String(now.getMonth()+1).padStart(2,'0');
+  var yyyy=now.getFullYear();
+  var d=document.getElementById('en_entrydate');
+  if(d){d.value=dd+'/'+mm+'/'+yyyy;d._isoVal=yyyy+'-'+mm+'-'+dd;}
+  var eb=document.getElementById('en_entryby');if(eb)eb.textContent='UKI / IPC HTPN ('+currentUser+')';
+}
+async function submitEntry(){
+  var nama=document.getElementById('en_nama').value.trim();
+  var ic=document.getElementById('en_ic').value.trim();
+  var rn=document.getElementById('en_rn').value.trim();
+  var doa=document.getElementById('en_doa').value;
+  var wardSel=document.getElementById('en_ward_sel').value;
+  var ward='';
+  if(wardSel==='other'){
+    ward=document.getElementById('en_ward_other').value.trim();
+    if(!ward)return showToast(currentLang==='BM'?'Sila masukkan nama wad / lokasi!':'Please enter ward / location name!');
+  } else {
+    ward=wardSel;
+  }
+  var bed=document.getElementById('en_bed').value.trim();
+  var org=document.getElementById('en_org').value.trim();
+  var status=document.getElementById('en_status').value;
+  // Resolve hospital
+  var hospSel=document.getElementById('en_hospital_sel').value;
+  var hospital='';
+  if(hospSel==='other'){
+    hospital=document.getElementById('en_hospital_other').value.trim();
+    if(!hospital)return showToast(currentLang==='BM'?'Sila masukkan nama hospital!':'Please enter hospital name!');
+  } else {
+    hospital=hospSel;
+  }
+  // Entry date from display field
+  var ed=document.getElementById('en_entrydate');
+  var entrydate=ed._isoVal||ed.value;
+  if(!nama)return showToast(currentLang==='BM'?'Sila masukkan nama pesakit!':'Please enter patient name!');
+  if(!ic)return showToast(currentLang==='BM'?'Sila masukkan No. IC / KP!':'Please enter IC / KP!');
+  if(!doa)return showToast(currentLang==='BM'?'Sila pilih tarikh masuk wad!':'Please select date of admission!');
+  if(!ward)return showToast(currentLang==='BM'?'Sila pilih wad!':'Please select ward!');
+  if(!org)return showToast(currentLang==='BM'?'Sila masukkan nama organisma!':'Please enter organism name!');
+  if(!status)return showToast(currentLang==='BM'?'Sila pilih status kes!':'Please select case status!');
+  var btn=document.getElementById('entrySubmitBtn');
+  btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menyimpan...':'Saving...');
+  try{
+    await fetch(APPS_SCRIPT_URL+'?'+new URLSearchParams({
+      action:'addEntry',nama,ic,rn:rn||'—',doa,sample_date:document.getElementById('en_sample_date').value||'—',ward,bed:bed||'—',organisma:org,status,hospital:hospital||'—',entrydate,entryby:'UKI ('+currentUser+')'
+    }));
+    document.getElementById('entrySavedIC').textContent='IC: '+ic+' | '+nama+' | '+status;
+    hide('entryForm');show('entrySuccess');
+  }catch(err){
+    showToast(currentLang==='BM'?'Gagal simpan! Cuba semula.':'Save failed! Please try again.');
+    btn.disabled=false;btn.style.opacity='1';
+    btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> '+(currentLang==='BM'?'Simpan Rekod':'Save Record');
+  }
+}
+function resetEntry(){
+  ['en_nama','en_ic','en_rn','en_bed','en_org','en_hospital_other','en_sample_date','en_ward_other'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('en_ward_sel').value='';
+  document.getElementById('en_ward').value='';
+  document.getElementById('ward_other_wrap').style.display='none';
+  document.getElementById('en_doa').value='';
+  document.getElementById('en_status').value='';
+  document.getElementById('en_hospital_sel').value='';
+  document.getElementById('en_hospital').value='';
+  document.getElementById('hosp_other_wrap').style.display='none';
+  selectedStatus='';
+  var il=document.getElementById('status-index-lbl'),cl=document.getElementById('status-cc-lbl');
+  if(il){il.style.borderColor='#fecdd3';il.style.background='#fff1f2';il.style.boxShadow='none';}
+  if(cl){cl.style.borderColor='#fef08a';cl.style.background='#fefce8';cl.style.boxShadow='none';}
+  var btn=document.getElementById('entrySubmitBtn');
+  if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> '+(currentLang==='BM'?'Simpan Rekod':'Save Record');}
+  hide('entrySuccess');show('entryForm');
+  initEntryForm();
 }
 
 // ── Init ──
