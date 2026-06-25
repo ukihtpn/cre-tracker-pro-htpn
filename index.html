@@ -589,6 +589,7 @@ function hide(id){var e=$(id);if(e)e.style.display='none';}
 function st(id,v){var e=$(id);if(e&&v!==undefined)e.textContent=v;}
 function sa(id,a,v){var e=$(id);if(e)e.setAttribute(a,v);}
 function toast(msg){var t=$('toast');t.textContent=msg;t.classList.remove('opacity-0');setTimeout(function(){t.classList.add('opacity-0');},3000);}
+function showToast(msg){toast(msg);}
 
 // ── Professional Intro Sound ──
 // Deep cinematic: sub boom + harmony swell + bright bell
@@ -844,7 +845,7 @@ function resetFeedback(){
   document.getElementById('fbRole').value='';selRating=0;selectedCat='';
   for(let i=1;i<=5;i++)document.getElementById('star'+i).classList.remove('selected');
   const rl=document.getElementById('ratingLabel');if(rl)rl.textContent=LANG[currentLang].ratingDefault;
-  renderFeedbackCats();show('feedbackForm');hide('feedbackSuccess');
+  renderCats();show('feedbackForm');hide('feedbackSuccess');
   const btn=document.getElementById('fbSubmitBtn');btn.disabled=false;btn.style.opacity='1';
   btn.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> ${LANG[currentLang].fbSubmitBtn}`;
 }
