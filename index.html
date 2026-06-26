@@ -319,11 +319,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
     </div>
   </div>
 </header>
-<div class="max-w-3xl mx-auto px-4 mb-6"><div class="bg-white rounded-[2rem] shadow-md p-1.5 flex gap-1">
+<div class="max-w-3xl mx-auto px-4 mb-6"><div class="bg-white rounded-[2rem] shadow-md p-1.5 flex gap-1" style="overflow:hidden;">
   <button class="tab-btn active flex-1 flex items-center justify-center gap-1" onclick="switchTab('search',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span id="tab-label-search">Carian CRE</span></button>
   <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('about',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span id="tab-label-about">Info</span></button>
   <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('feedback',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg><span id="tab-label-feedback">Maklum Balas</span></button>
-  <button id="tab-btn-entry" class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('entry',this)" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Data Entry</span></button>
+  <button id="tab-btn-entry" class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('entry',this)" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Kes Baru</span></button>
 </div></div>
 <main class="max-w-3xl mx-auto px-4 space-y-6">
   <div id="tab-search" class="tab-content active">
@@ -511,7 +511,7 @@ const LANG = {
     tabSearch:'Carian CRE',tabAbout:'Info',tabFeedback:'Maklum Balas',
     searchTitle:'Semak Status CRE',searchDesc:'Masukkan nombor KP / IC / No. Passport anda.',searchBtn:'Carian',searchPlaceholder:'KP / IC / PASSPORT',
     fbTitle:'Maklum Balas & Cadangan',fbSubtitle:'Maklum balas anda membantu kami memperbaiki aplikasi ini.',
-    fbRoleLabel:'Jawatan / Kategori Staf *',fbRolePlaceholder:'-- Pilih Kategori --',fbWardLabel:'Wad / Unit',fbWardPlaceholder:'contoh: Wad Ortopedik...',
+    fbRoleLabel:'Jawatan / Kategori Staf *',fbRolePlaceholder:'-- Pilih Kategori --',fbRoleOptions:['Jururawat (SN/EN)','Pegawai Perubatan (MO/HO)','Pakar Perubatan','Pegawai Unit Hasil','Lain-lain'],fbWardLabel:'Wad / Unit',fbWardPlaceholder:'contoh: Wad Ortopedik...',
     fbNameLabel:'Nama *',fbEmailLabel:'Emel',fbPhoneLabel:'No. Telefon',fbNamePlaceholder:'Nama penuh anda...',fbEmailPlaceholder:'contoh: nama@htpn.gov.my',fbPhonePlaceholder:'contoh: 0123456789',fbRatingLabel:'Penilaian Keseluruhan *',fbCatLabel:'Kategori Maklum Balas *',
     fbMsgLabel:'Maklum Balas / Cadangan *',fbMsgPlaceholder:'Tuliskan maklum balas...',
     fbPrivacy:'Jangan masukkan maklumat pesakit dalam borang ini.',fbSubmitBtn:'Hantar Maklum Balas',
@@ -548,7 +548,7 @@ const LANG = {
     tabSearch:'CRE Search',tabAbout:'Info',tabFeedback:'Feedback',
     searchTitle:'CRE Status Check',searchDesc:'Enter your IC / KP / Passport number.',searchBtn:'Search',searchPlaceholder:'KP / IC / PASSPORT',
     fbTitle:'Feedback & Suggestions',fbSubtitle:'Your feedback helps us improve this application.',
-    fbRoleLabel:'Staff Category *',fbRolePlaceholder:'-- Select Category --',fbWardLabel:'Ward / Unit',fbWardPlaceholder:'e.g. Orthopaedic Ward...',
+    fbRoleLabel:'Staff Category *',fbRolePlaceholder:'-- Select Category --',fbRoleOptions:['Nurse (SN/EN)','Medical Officer (MO/HO)','Specialist','Unit Hasil Staff','Others'],fbWardLabel:'Ward / Unit',fbWardPlaceholder:'e.g. Orthopaedic Ward...',
     fbNameLabel:'Name *',fbEmailLabel:'Email',fbPhoneLabel:'Phone No.',fbNamePlaceholder:'Full name...',fbEmailPlaceholder:'e.g. name@htpn.gov.my',fbPhonePlaceholder:'e.g. 0123456789',fbRatingLabel:'Overall Rating *',fbCatLabel:'Feedback Category *',
     fbMsgLabel:'Feedback / Suggestions *',fbMsgPlaceholder:'Write your feedback here...',
     fbPrivacy:'Do not include patient information in this form.',fbSubmitBtn:'Submit Feedback',
@@ -808,6 +808,8 @@ function applyLang(){
   st('fb-privacy-text',L.fbPrivacy||'');st('fb-submit-label',L.fbSubmitBtn);
   st('fb-success-title',L.fbSuccessTitle);st('fb-success-msg',L.fbSuccessMsg);st('fb-send-another',L.fbSendAnother);
   var ro=document.querySelector('#fbRole option[value=""]');if(ro)ro.textContent=L.fbRolePlaceholder||'-- Pilih --';
+  var roleVals=['Jururawat','MO/HO','Specialist','Unit Hasil','Others'];
+  if(L.fbRoleOptions){L.fbRoleOptions.forEach(function(label,i){var opt=document.querySelector('#fbRole option[value="'+roleVals[i]+'"]');if(opt)opt.textContent=label;});}
   var rl=$('ratingLabel');if(rl)rl.textContent=selRating===0?(L.ratingDefault||'Pilih penilaian'):L.ratingLabels[selRating];
   renderCats();
   st('login-title',L.loginTitle);st('login-user-label',L.loginUserLabel);st('login-pass-label',L.loginPassLabel);
@@ -835,7 +837,7 @@ async function submitFeedback(){
   const btn=document.getElementById('fbSubmitBtn');btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menghantar...':'Sending...');
   const ward=document.getElementById('fbWard').value.trim(),email=document.getElementById('fbEmail').value.trim(),phone=document.getElementById('fbPhone').value.trim(),ts=new Date().toLocaleString('ms-MY',{timeZone:'Asia/Kuala_Lumpur'});
   try{
-    await jsonpFetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:"feedback",nama,email:email||"—",phone:phone||"—",role,ward:ward||"Tidak dinyatakan",rating:selRating,category:selectedCat,message,timestamp:ts})}`);
+    await fetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:"feedback",nama,email:email||"—",phone:phone||"—",role,ward:ward||"Tidak dinyatakan",rating:selRating,category:selectedCat,message,timestamp:ts})}`);
     hide('feedbackForm');show('feedbackSuccess');
   }catch(err){
     showToast(currentLang==='BM'?'Gagal hantar!':'Send failed!');btn.disabled=false;btn.style.opacity='1';btn.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg> ${L.fbSubmitBtn}`;
@@ -886,7 +888,8 @@ async function searchPatient(){
   if(!ic)return showToast("Sila masukkan nombor KP / IC / Passport!");
   res.innerHTML=`<div class="p-16 text-center animate-pulse"><p class="text-slate-400 font-black uppercase tracking-widest text-xs">Searching CRE 2026 database...</p></div>`;
   try{
-    const data=await jsonpFetch(`${APPS_SCRIPT_URL}?action=search&ic=${encodeURIComponent(ic)}`);
+    const resp=await fetch(`${APPS_SCRIPT_URL}?action=search&ic=${encodeURIComponent(ic)}`);
+    const data=await resp.json();
     if(data.status==="not_found"){res.innerHTML=`<div class="bg-white p-12 rounded-[2.5rem] shadow-xl border-l-[16px] border-slate-300 text-center"><p class="text-5xl mb-4">🔍</p><h3 class="text-2xl font-black text-slate-700 uppercase">No Record Found</h3><p class="text-slate-500 mt-2 text-sm">KP <span class="font-mono font-black">${ic}</span> not found.</p><p class="text-slate-400 mt-1 text-xs uppercase tracking-widest">OFF TAG patients are not displayed.</p></div>`;return;}
     if(data.status==="found"){
       const d=data.data,st=getStyle(d['status pesakit']||d.status,d.screening),sc=screeningChip(d.screening);
@@ -976,7 +979,7 @@ async function submitEntry(){
   var btn=document.getElementById('entrySubmitBtn');
   btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menyimpan...':'Saving...');
   try{
-    const data=await jsonpFetch(APPS_SCRIPT_URL+'?'+new URLSearchParams({
+    const data=await fetch(APPS_SCRIPT_URL+'?'+new URLSearchParams({
       action:'addEntry',nama,ic,rn:rn||'—',doa,sample_date:document.getElementById('en_sample_date').value||'—',ward,bed:bed||'—',organisma:org,status,hospital:hospital||'—',entrydate,entryby:'UKI ('+currentUser+')'
     }));
     document.getElementById('entrySavedIC').textContent='IC: '+ic+' | '+nama+' | '+status;
