@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0C447C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CRE Tracker">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIkNSRSBUcmFja2VyIFBybyIsICJzaG9ydF9uYW1lIjogIkNSRSBUcmFja2VyIiwgImRlc2NyaXB0aW9uIjogIkNSRSBTdXJ2ZWlsbGFuY2UgLSBIVFBOIElQQyBVbml0IiwgInN0YXJ0X3VybCI6ICIvIiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTJkNWUiLCAidGhlbWVfY29sb3IiOiAiIzBDNDQ3QyIsICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsICJpY29ucyI6IFt7InNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIyYVdWM1FtOTRQU0l3SURBZ01qQXdJREl3TUNJZ2VHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0S1BISmxZM1FnZDJsa2RHZzlJakl3TUNJZ2FHVnBaMmgwUFNJeU1EQWlJSEo0UFNJME1DSWdabWxzYkQwaUl6QkRNekEyTUNJdlBnbzhZMmx5WTJ4bElHTjRQU0l4TURBaUlHTjVQU0l4TURBaUlISTlJamN3SWlCbWFXeHNQU0p1YjI1bElpQnpkSEp2YTJVOUlpTkZPRUV3TXpBaUlITjBjbTlyWlMxM2FXUjBhRDBpTmlJZ2MzUnliMnRsTFdSaGMyaGhjbkpoZVQwaU9DQXpJaTgrQ2p4amFYSmpiR1VnWTNnOUlqRXdNQ0lnWTNrOUlqRXdNQ0lnY2owaU5UVWlJR1pwYkd3OUltNXZibVVpSUhOMGNtOXJaVDBpSTBVNFFUQXpNQ0lnYzNSeWIydGxMWGRwWkhSb1BTSXpJaTgrQ2p4eVpXTjBJSGc5SWpJd0lpQjVQU0k0TkNJZ2QybGtkR2c5SWpFMk1DSWdhR1ZwWjJoMFBTSXpNaUlnY25nOUlqWWlJR1pwYkd3OUlpTkZPRUV3TXpBaUlIUnlZVzV6Wm05eWJUMGljbTkwWVhSbEtDMHhNQ0F4TURBZ01UQXdLU0l2UGdvOGRHVjRkQ0I0UFNJeE1EQWlJSGs5SWpFd05pSWdkR1Y0ZEMxaGJtTm9iM0k5SW0xcFpHUnNaU0lnWm05dWRDMW1ZVzFwYkhrOUlrbHRjR0ZqZEN4QmNtbGhiQ0JDYkdGamF5eHpZVzV6TFhObGNtbG1JaUJtYjI1MExYTnBlbVU5SWpJeUlpQm1iMjUwTFhkbGFXZG9kRDBpT1RBd0lpQm1hV3hzUFNJak1FTXpNRFl3SWlCMGNtRnVjMlp2Y20wOUluSnZkR0YwWlNndE1UQWdNVEF3SURFd01Da2lQa2xRUXlCQlRFVlNWRHd2ZEdWNGRENEtQQzl6ZG1jKyIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9LCB7InNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIyYVdWM1FtOTRQU0l3SURBZ01qQXdJREl3TUNJZ2VHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0S1BISmxZM1FnZDJsa2RHZzlJakl3TUNJZ2FHVnBaMmgwUFNJeU1EQWlJSEo0UFNJME1DSWdabWxzYkQwaUl6QkRNekEyTUNJdlBnbzhZMmx5WTJ4bElHTjRQU0l4TURBaUlHTjVQU0l4TURBaUlISTlJamN3SWlCbWFXeHNQU0p1YjI1bElpQnpkSEp2YTJVOUlpTkZPRUV3TXpBaUlITjBjbTlyWlMxM2FXUjBhRDBpTmlJZ2MzUnliMnRsTFdSaGMyaGhjbkpoZVQwaU9DQXpJaTgrQ2p4amFYSmpiR1VnWTNnOUlqRXdNQ0lnWTNrOUlqRXdNQ0lnY2owaU5UVWlJR1pwYkd3OUltNXZibVVpSUhOMGNtOXJaVDBpSTBVNFFUQXpNQ0lnYzNSeWIydGxMWGRwWkhSb1BTSXpJaTgrQ2p4eVpXTjBJSGc5SWpJd0lpQjVQU0k0TkNJZ2QybGtkR2c5SWpFMk1DSWdhR1ZwWjJoMFBTSXpNaUlnY25nOUlqWWlJR1pwYkd3OUlpTkZPRUV3TXpBaUlIUnlZVzV6Wm05eWJUMGljbTkwWVhSbEtDMHhNQ0F4TURBZ01UQXdLU0l2UGdvOGRHVjRkQ0I0UFNJeE1EQWlJSGs5SWpFd05pSWdkR1Y0ZEMxaGJtTm9iM0k5SW0xcFpHUnNaU0lnWm05dWRDMW1ZVzFwYkhrOUlrbHRjR0ZqZEN4QmNtbGhiQ0JDYkdGamF5eHpZVzV6TFhObGNtbG1JaUJtYjI1MExYTnBlbVU5SWpJeUlpQm1iMjUwTFhkbGFXZG9kRDBpT1RBd0lpQm1hV3hzUFNJak1FTXpNRFl3SWlCMGNtRnVjMlp2Y20wOUluSnZkR0YwWlNndE1UQWdNVEF3SURFd01Da2lQa2xRUXlCQlRFVlNWRHd2ZEdWNGRENEtQQzl6ZG1jKyIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0MCIgZmlsbD0iIzBDMzA2MCIvPgo8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNFOEEwMzAiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWRhc2hhcnJheT0iOCAzIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNTUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0U4QTAzMCIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxyZWN0IHg9IjIwIiB5PSI4NCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIzMiIgcng9IjYiIGZpbGw9IiNFOEEwMzAiIHRyYW5zZm9ybT0icm90YXRlKC0xMCAxMDAgMTAwKSIvPgo8dGV4dCB4PSIxMDAiIHk9IjEwNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkltcGFjdCxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjMEMzMDYwIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTAgMTAwIDEwMCkiPklQQyBBTEVSVDwvdGV4dD4KPC9zdmc+">
 <title>CRE Tracker Pro - HTPN</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 68 68' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='68' height='68' rx='12' fill='%230C3060'/%3E%3Ccircle cx='34' cy='34' r='30' fill='none' stroke='%23E8A030' stroke-width='3.5' stroke-dasharray='4 2'/%3E%3Ccircle cx='34' cy='34' r='22' fill='none' stroke='%23E8A030' stroke-width='1.5'/%3E%3Crect x='4' y='25' width='60' height='18' rx='4' fill='%23E8A030' transform='rotate(-10 34 34)'/%3E%3Ctext x='34' y='37' text-anchor='middle' font-family='Impact,Arial Black,sans-serif' font-size='10' font-weight='900' fill='%230C3060' transform='rotate(-10 34 34)'%3EIPC ALERT%3C/text%3E%3C/svg%3E">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
@@ -26,6 +34,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
 @keyframes pulseLogo{0%{transform:scale(0.96);box-shadow:0 0 0 0 rgba(232,160,48,0.5);}70%{transform:scale(1);box-shadow:0 0 0 20px rgba(232,160,48,0);}100%{transform:scale(0.96);box-shadow:0 0 0 0 rgba(232,160,48,0);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 .sp{opacity:0;}
+@keyframes dashSpin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body class="min-h-screen pb-16">
@@ -313,9 +322,22 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
     </div>
   </div>
   <div style="display:flex;justify-content:flex-end;padding:4px 24px 10px 24px;max-width:64rem;margin:0 auto;">
-    <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.35);box-shadow:0 2px 8px rgba(0,0,0,0.2);">
-      <button id="btnBM" onclick="setLang('BM')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;transition:all 0.2s;">BM</button>
-      <button id="btnEN" onclick="setLang('EN')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;transition:all 0.2s;">EN</button>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <!-- Logged in user badge -->
+        <div id="user-badge" style="display:none;background:rgba(232,160,48,0.15);border:1.5px solid rgba(232,160,48,0.4);border-radius:999px;padding:3px 10px;align-items:center;gap:5px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="#E8A030" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span id="user-badge-name" style="font-size:9px;font-weight:900;color:#E8A030;text-transform:uppercase;letter-spacing:0.06em;"></span>
+        </div>
+        <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:999px;padding:2px;border:1.5px solid rgba(232,160,48,0.35);box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+          <button id="btnBM" onclick="setLang('BM')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:#E8A030;color:#0C447C;transition:all 0.2s;">BM</button>
+          <button id="btnEN" onclick="setLang('EN')" style="padding:4px 14px;border-radius:999px;font-size:10px;font-weight:900;border:none;cursor:pointer;background:transparent;color:#E8A030;transition:all 0.2s;">EN</button>
+        </div>
+      </div>
+      <button id="logout-btn" onclick="doLogout()" style="padding:4px 12px;border-radius:999px;font-size:9px;font-weight:900;border:1.5px solid rgba(255,100,100,0.4);cursor:pointer;background:rgba(220,38,38,0.15);color:rgba(255,180,180,0.9);display:none;align-items:center;gap:4px;transition:all 0.2s;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        <span id="logout-lbl">Log Keluar</span>
+      </button>
     </div>
   </div>
 </header>
@@ -323,7 +345,10 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
   <button class="tab-btn active flex-1 flex items-center justify-center gap-1" onclick="switchTab('search',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span id="tab-label-search">Carian CRE</span></button>
   <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('about',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span id="tab-label-about">Info</span></button>
   <button class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('feedback',this)"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg><span id="tab-label-feedback">Maklum Balas</span></button>
-  <button id="tab-btn-entry" class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('entry',this)" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span>Kes Baru</span></button>
+  <button id="tab-btn-entry" class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('entry',this)" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg><span id="tab-label-entry">Kes Baru</span></button>
+  <button id="tab-btn-dashboard" class="tab-btn flex-1 flex items-center justify-center gap-1" onclick="switchTab('dashboard',this)" style="display:none;"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg><span id="tab-label-dashboard">Dashboard</span></button>
+
+
 </div></div>
 <main class="max-w-3xl mx-auto px-4 space-y-6">
   <div id="tab-search" class="tab-content active">
@@ -335,7 +360,32 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
         <button onclick="searchPatient()" class="bg-blue-800 hover:bg-blue-900 text-white py-6 rounded-3xl font-black text-lg uppercase tracking-widest shadow-xl active:scale-95 transition-all flex justify-center items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span id="search-btn-text">Carian</span></button>
       </div>
     </div>
+    <!-- Unit Hasil: Patient Admission Helper (HASIL login only) -->
+    <div id="hasil-admission-box" style="display:none;margin-bottom:16px;" data-hasil-box="1">
+      <div style="background:#f0f7ff;border:2px solid #bfdbfe;border-radius:20px;padding:16px 18px;">
+        <p id="hasil-box-title" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#1e40af;letter-spacing:0.08em;margin-bottom:10px;">&#128300; Unit Hasil — Patient Admission</p>
+        <label onclick="toggleAdmission()" style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;background:#fff;border:2px solid #bfdbfe;border-radius:14px;padding:14px 16px;margin-bottom:0;">
+          <div id="admit-ckbox" style="width:24px;height:24px;border:2.5px solid #93c5fd;border-radius:7px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;background:#fff;transition:all 0.2s;"></div>
+          <div>
+            <p id="hasil-need-admit" style="font-size:13px;font-weight:900;color:#1e293b;margin:0;">Notify UKI — Patient Admitted to Ward</p>
+            <p id="hasil-tick-hint" style="font-size:11px;color:#3b82f6;font-weight:600;margin:3px 0 0;">Tick untuk update Patient Location → <strong>In Ward</strong></p>
+          </div>
+        </label>
+        <!-- Status: shown after tick — confirm with save button -->
+        <div id="hasil-confirm-wrap" style="display:none;margin-top:10px;">
+          <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <span style="font-size:16px;">&#9888;&#65039;</span>
+            <p id="hasil-confirm-msg" style="font-size:12px;font-weight:700;color:#92400e;margin:0;">Patient Location akan diset ke <strong>In Ward</strong>. Tekan Simpan untuk sahkan.</p>
+          </div>
+          <button onclick="submitHasilAdmission((window._lastSearchIC||document.getElementById('icSearch').value.trim().replace(/-/g,'')))" id="hasil-save-btn" style="width:100%;padding:13px;border-radius:999px;background:#0C447C;color:#E8A030;border:none;font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+            <span id="hasil-save-lbl">Simpan Rekod</span>
+          </button>
+        </div>
+      </div>
+    </div>
     <div id="resultDisplay"></div>
+
   </div>
   <div id="tab-about" class="tab-content">
     <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
@@ -399,7 +449,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
     </div>
   </div>
   <!-- DATA ENTRY TAB (UKI only) -->
-  <div id="tab-entry" class="tab-content">
+  
+<div id="tab-entry" class="tab-content">
     <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden">
       <div style="background:#0C447C;border-bottom:4px solid #E8A030;padding:28px 32px;">
         <p style="color:#E8A030;font-size:9px;font-weight:900;text-transform:uppercase;margin-bottom:4px;">Unit IPC &middot; HTPN &middot; UKI ONLY</p>
@@ -492,6 +543,49 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
             <span style="font-size:16px;">👤</span>
             <div><p id="entry-by-label" style="font-size:9px;font-weight:900;text-transform:uppercase;color:#64748b;margin:0;">Entry oleh</p><p id="en_entryby" style="font-size:12px;font-weight:900;color:#0C447C;margin:0;"></p></div>
           </div>
+
+          <!-- ── PATIENT LOCATION ── -->
+          <div style="margin-bottom:16px;">
+            <label style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">
+              <span id="entry-ploc-label">Patient Location</span>
+              <span id="entry-ploc-optional" style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:none;margin-left:4px;">(optional)</span>
+            </label>
+            <select id="en_ploc_status" onchange="onPlocStatusChange()" style="width:100%;padding:13px 16px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:13px;font-weight:700;color:#334155;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#0C447C'" onblur="this.style.borderColor='#e2e8f0'">
+              <option id="entry-ploc-placeholder" value="">-- Pilih Status --</option>
+              <option id="entry-ploc-inward" value="In Ward (Currently)">🏥 In Ward (Currently)</option>
+              <option id="entry-ploc-discharged" value="Discharged">🚶 Discharged</option>
+              <option id="entry-ploc-death" value="Death">🕊️ Death</option>
+              <option id="entry-ploc-transfer" value="Transfer">🚑 Transfer</option>
+              <option id="entry-ploc-unsure" value="Unsure">❓ Unsure</option>
+            </select>
+            <div id="ploc-state-detail" style="display:none;margin-top:8px;">
+              <div id="ploc-disc-wrap" style="display:none;">
+                <label style="font-size:9px;font-weight:800;text-transform:uppercase;color:#0369a1;display:block;margin-bottom:5px;">Date of Discharge *</label>
+                <input type="date" id="ploc-date-disc" style="width:100%;padding:11px 14px;background:#f8fafc;border:2px solid #60a5fa;border-radius:12px;font-size:13px;font-weight:700;color:#334155;box-sizing:border-box;">
+              </div>
+              <div id="ploc-death-wrap" style="display:none;">
+                <label style="font-size:9px;font-weight:800;text-transform:uppercase;color:#374151;display:block;margin-bottom:5px;">Date of Death *</label>
+                <input type="date" id="ploc-date-death" style="width:100%;padding:11px 14px;background:#f8fafc;border:2px solid #94a3b8;border-radius:12px;font-size:13px;font-weight:700;color:#334155;box-sizing:border-box;">
+              </div>
+              <div id="ploc-transfer-wrap" style="display:none;">
+                <label style="font-size:9px;font-weight:800;text-transform:uppercase;color:#5b21b6;display:block;margin-bottom:5px;">Transfer to (Hospital / Ward)</label>
+                <input type="text" id="ploc-text-transfer" placeholder="e.g. Hospital Kuala Lumpur, Ward 5..." style="width:100%;padding:11px 14px;background:#f8fafc;border:2px solid #a78bfa;border-radius:12px;font-size:12px;font-weight:600;color:#334155;box-sizing:border-box;">
+              </div>
+              <input type="hidden" id="ploc-detail-input" value="">
+            </div>
+            <input type="hidden" id="en_ploc" value="">
+            <input type="hidden" id="en_ploc_detail" value="">
+          </div>
+
+          <!-- ── ADDITIONAL INFO / COMMENT ── -->
+          <div style="margin-bottom:18px;">
+            <label style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;display:block;margin-bottom:8px;">
+              <span id="entry-comment-label">Additional Info / Comment</span>
+              <span id="entry-comment-optional" style="font-size:9px;font-weight:600;color:#94a3b8;text-transform:none;margin-left:4px;">(optional)</span>
+            </label>
+            <textarea id="en_comment" rows="3" placeholder="Tambahan maklumat, nota klinikal, dll..." style="width:100%;padding:12px 14px;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;font-size:12px;font-weight:600;color:#334155;resize:vertical;font-family:inherit;line-height:1.6;box-sizing:border-box;"></textarea>
+          </div>
+
           <button onclick="submitEntry()" id="entrySubmitBtn" style="width:100%;padding:16px;border-radius:999px;background:#0C447C;color:#E8A030;border:none;font-size:13px;font-weight:900;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             <span id="entry-save-btn-label">Simpan Rekod</span>
@@ -502,6 +596,94 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#f1f5f9;}
   </div>
 </main>
 </div>
+<!-- RESULT MODAL -->
+<div id="resultModal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(4,14,36,0.88);align-items:center;justify-content:center;padding:16px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);" onclick="closeResultModal(event)">
+  <div id="resultModalBox" style="width:100%;max-width:480px;max-height:90vh;overflow-y:auto;border-radius:2rem;position:relative;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;" onclick="event.stopPropagation()">
+    <!-- Close button -->
+    <button onclick="closeResultModal()" style="position:sticky;top:8px;float:right;margin:8px 8px 0 0;z-index:10;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:999px;width:32px;height:32px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+    <div id="resultModalContent" style="clear:both;"></div>
+  </div>
+</div>
+
+<div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-full shadow-2xl opacity-0 transition-opacity pointer-events-none z-50 text-xs font-black uppercase tracking-widest border border-white/10"></div>
+
+
+  <!-- DASHBOARD TAB (UKI only) -->
+  <div id="tab-dashboard" class="tab-content">
+    <div class="glass-card rounded-[2.5rem] shadow-2xl overflow-hidden" style="max-width:48rem;margin:0 auto;">
+      <div style="background:linear-gradient(135deg,#0C447C 0%,#0d3a6e 100%);border-bottom:4px solid #E8A030;padding:22px 28px;">
+        <p style="color:#E8A030;font-size:9px;font-weight:900;text-transform:uppercase;margin-bottom:4px;">UKI / IPC &middot; HTPN</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div>
+            <h2 id="dash-title-h2" style="color:#fff;font-size:20px;font-weight:900;text-transform:uppercase;margin:0;">&#128202; Dashboard CRE 2026</h2>
+            <p id="dash-login-date" style="color:#93c5fd;font-size:10px;font-weight:600;margin:4px 0 0;"></p>
+          </div>
+          <button onclick="loadDashboard()" style="background:#E8A030;color:#0C447C;border:none;padding:9px 18px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span id="dash-refresh-lbl">Refresh</span>
+          </button>
+        </div>
+      </div>
+      <div style="padding:20px 24px;">
+        <div id="dash-loading" style="display:none;text-align:center;padding:50px;">
+          <div style="width:40px;height:40px;border:4px solid #e2e8f0;border-top-color:#0C447C;border-radius:50%;animation:dashSpin 0.8s linear infinite;margin:0 auto 14px;"></div>
+          <p id="dash-loading-txt" style="color:#94a3b8;font-size:12px;font-weight:600;">Memuatkan data...</p>
+        </div>
+        <div id="dash-error" style="display:none;background:#fff1f2;border:2px solid #fecdd3;border-radius:18px;padding:24px;text-align:center;margin-bottom:14px;">
+          <p style="font-size:28px;margin-bottom:8px;">&#9888;&#65039;</p>
+          <p id="dash-error-txt" style="font-size:13px;font-weight:700;color:#991b1b;">Gagal muatkan data. Sila cuba lagi.</p>
+          <button onclick="loadDashboard()" style="margin-top:10px;background:#0C447C;color:#E8A030;border:none;padding:9px 20px;border-radius:999px;font-size:11px;font-weight:900;cursor:pointer;"><span id="dash-retry-lbl">Cuba Lagi</span></button>
+        </div>
+        <div id="dash-body" style="display:none;">
+          <p id="dash-exec-label" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;letter-spacing:0.1em;margin-bottom:12px;">Ringkasan Eksekutif</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+            <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:20px;padding:20px 14px;text-align:center;">
+              <div style="font-size:36px;margin-bottom:6px;">&#127973;</div>
+              <div style="font-size:40px;font-weight:900;color:#166534;line-height:1;margin:4px 0;" id="dc-inward">0</div>
+              <div id="dc-inward-lbl" style="font-size:9px;font-weight:900;text-transform:uppercase;color:#16a34a;letter-spacing:0.08em;margin-top:6px;">In Ward Hari Ini</div>
+            </div>
+            <div style="background:#eff6ff;border:2px solid #93c5fd;border-radius:20px;padding:20px 14px;text-align:center;">
+              <div style="font-size:36px;margin-bottom:6px;">&#128203;</div>
+              <div style="font-size:40px;font-weight:900;color:#1e40af;line-height:1;margin:4px 0;" id="dc-total">0</div>
+              <div id="dc-total-lbl" style="font-size:9px;font-weight:900;text-transform:uppercase;color:#1e40af;letter-spacing:0.08em;margin-top:6px;">Jumlah 2026</div>
+            </div>
+            <div style="background:#fff1f2;border:2px solid #fecdd3;border-radius:20px;padding:20px 14px;text-align:center;">
+              <div style="font-size:36px;margin-bottom:6px;">&#129440;</div>
+              <div style="font-size:40px;font-weight:900;color:#991b1b;line-height:1;margin:4px 0;" id="dc-index">0</div>
+              <div id="dc-index-lbl" style="font-size:9px;font-weight:900;text-transform:uppercase;color:#991b1b;letter-spacing:0.08em;margin-top:6px;">Index Cases</div>
+            </div>
+            <div style="background:#fefce8;border:2px solid #fef08a;border-radius:20px;padding:20px 14px;text-align:center;">
+              <div style="font-size:36px;margin-bottom:6px;">&#128101;</div>
+              <div style="font-size:40px;font-weight:900;color:#854d0e;line-height:1;margin:4px 0;" id="dc-screen">0</div>
+              <div id="dc-screen-lbl" style="font-size:9px;font-weight:900;text-transform:uppercase;color:#854d0e;letter-spacing:0.08em;margin-top:6px;">Close Contacts</div>
+            </div>
+          </div>
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:18px;padding:16px;margin-bottom:14px;">
+            <p id="dash-ward-bar-lbl" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;letter-spacing:0.08em;margin-bottom:12px;">&#128205; Kes In Ward Mengikut Wad</p>
+            <div id="dash-loading-bars" style="text-align:center;padding:20px;"><div style="width:28px;height:28px;border:3px solid #e2e8f0;border-top-color:#0C447C;border-radius:50%;animation:dashSpin 0.8s linear infinite;margin:0 auto;"></div></div>
+            <div id="dash-ward-bars" style="display:none;"></div>
+            <div id="dash-ward-empty" style="display:none;text-align:center;padding:16px 0;"><p id="dash-ward-empty-txt" style="font-size:12px;color:#94a3b8;font-weight:600;">Tiada kes aktif (In Ward) pada masa ini.</p></div>
+          </div>
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:18px;padding:16px;margin-bottom:14px;">
+            <p id="dc-ptn-lbl" style="font-size:10px;font-weight:900;text-transform:uppercase;color:#0C447C;letter-spacing:0.08em;margin-bottom:12px;">&#128101; Senarai Pesakit CRE Di Wad</p>
+            <div id="dash-ptn-list"><div style="text-align:center;padding:20px 0;"><p id="dash-ptn-hint" style="font-size:12px;color:#94a3b8;font-weight:600;">Tekan Refresh untuk muatkan data.</p></div></div>
+          </div>
+          <p id="dash-updated" style="text-align:center;font-size:10px;color:#94a3b8;font-weight:600;margin-top:4px;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+<!-- RESULT MODAL -->
+<div id="resultModal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(4,14,36,0.88);align-items:center;justify-content:center;padding:16px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);" onclick="closeResultModal(event)">
+  <div id="resultModalBox" style="width:100%;max-width:480px;max-height:90vh;overflow-y:auto;border-radius:2rem;position:relative;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;" onclick="event.stopPropagation()">
+    <!-- Close button -->
+    <button onclick="closeResultModal()" style="position:sticky;top:8px;float:right;margin:8px 8px 0 0;z-index:10;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:999px;width:32px;height:32px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+    <div id="resultModalContent" style="clear:both;"></div>
+  </div>
+</div>
+
 <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-full shadow-2xl opacity-0 transition-opacity pointer-events-none z-50 text-xs font-black uppercase tracking-widest border border-white/10"></div>
 
 <script>
@@ -543,6 +725,27 @@ const LANG = {
     entryIndexDesc:'Positif CRE disahkan',entryCCDesc:'Berdekatan dengan Index',
     entryHospLabel:'Hospital Diagnose CRE',entryHospPlaceholder:'-- Pilih Hospital --',entryHospOther:'Lain-lain',entryHospOtherPlaceholder:'Nama hospital lain...',entryEntryDateLabel:'Tarikh Entry',entryEntryByLabel:'Entry oleh',
     entrySaveBtn:'Simpan Rekod',entrySuccessTitle:'Rekod Berjaya Disimpan!',entryAddMore:'+ Tambah Rekod Lain',
+    entryPlocLabel:'Lokasi Pesakit',entryPlocOptional:'(pilihan)',
+    entryPlocPlaceholder:'-- Pilih Status --',
+    entryPlocInWard:'🏥 In Ward (Sekarang)',entryPlocDischarged:'🚶 Discaj',
+    entryPlocDeath:'🕊️ Kematian',entryPlocTransfer:'🚑 Pindahan',entryPlocUnsure:'❓ Tidak Pasti',
+    entryPlocWardPlaceholder:'-- Pilih Wad --',
+    entryPlocDetailDischarged:'Nyatakan: tarikh discaj / destinasi...',
+    entryPlocDetailDeath:'Nyatakan: tarikh kematian / sebab...',
+    entryPlocDetailTransfer:'Nyatakan: pindah ke hospital / wad...',
+    entryCommentLabel:'Maklumat Tambahan / Komen',entryCommentOptional:'(pilihan)',
+    entryCommentPlaceholder:'Tambahan maklumat, nota klinikal, dll...',
+    entryPlocGroup1:'🏥 In Ward (Sekarang)',entryPlocGroup2:'── Status Lain',
+    dashTitle:'📊 Dashboard CRE 2026',dashLoginPrefix:'Log masuk: ',
+    dashRefresh:'Refresh',dashLoading:'Memuatkan data...',dashError:'Gagal muatkan data. Sila cuba lagi.',dashRetry:'Cuba Lagi',
+    dashExecTitle:'Ringkasan Eksekutif',
+    dashCard1:'In Ward Hari Ini',dashCard2:'Jumlah 2026',dashCard3:'Index Cases',dashCard4:'Close Contacts',
+    dashWardTitle:'📍 Kes In Ward Mengikut Wad',dashWardSub:'Hari log masuk',
+    dashWardEmpty:'Tiada kes aktif (In Ward) pada masa ini.',
+    dashPtnTitle:'👥 Senarai Pesakit CRE Di Wad',dashPtnEmpty:'Tiada pesakit CRE di wad.',
+    dashByWadTitle:'📊 Total CRE Mengikut Wad (2026)',
+    dashUpdatedPrefix:'Dikemaskini: ',
+    dashNoPtn:'Tekan Refresh untuk muatkan data.',
   },
   EN: {
     tabSearch:'CRE Search',tabAbout:'Info',tabFeedback:'Feedback',
@@ -580,6 +783,27 @@ const LANG = {
     entryIndexDesc:'Confirmed CRE positive',entryCCDesc:'Exposed to Index case',
     entryHospLabel:'Hospital Diagnose CRE',entryHospPlaceholder:'-- Select Hospital --',entryHospOther:'Others',entryHospOtherPlaceholder:'Other hospital name...',entryEntryDateLabel:'Entry Date',entryEntryByLabel:'Entered by',
     entrySaveBtn:'Save Record',entrySuccessTitle:'Record Saved Successfully!',entryAddMore:'+ Add Another Record',
+    entryPlocLabel:'Patient Location',entryPlocOptional:'(optional)',
+    entryPlocPlaceholder:'-- Select Status --',
+    entryPlocInWard:'🏥 In Ward (Currently)',entryPlocDischarged:'🚶 Discharged',
+    entryPlocDeath:'🕊️ Death',entryPlocTransfer:'🚑 Transfer',entryPlocUnsure:'❓ Unsure',
+    entryPlocWardPlaceholder:'-- Select Ward --',
+    entryPlocDetailDischarged:'Please state: discharge date / destination...',
+    entryPlocDetailDeath:'Please state: date of death / cause...',
+    entryPlocDetailTransfer:'Please state: transfer to hospital / ward...',
+    entryCommentLabel:'Additional Info / Comment',entryCommentOptional:'(optional)',
+    entryCommentPlaceholder:'Additional information, clinical notes, etc...',
+    entryPlocGroup1:'🏥 In Ward (Currently)',entryPlocGroup2:'── Other Status',
+    dashTitle:'📊 CRE Dashboard 2026',dashLoginPrefix:'Logged in: ',
+    dashRefresh:'Refresh',dashLoading:'Loading data...',dashError:'Failed to load data. Please try again.',dashRetry:'Try Again',
+    dashExecTitle:'Executive Summary',
+    dashCard1:'In Ward Today',dashCard2:'Total 2026',dashCard3:'Index Cases',dashCard4:'Close Contacts',
+    dashWardTitle:'📍 In Ward Cases by Ward',dashWardSub:'Login date',
+    dashWardEmpty:'No active (In Ward) cases at this time.',
+    dashPtnTitle:'👥 CRE Patients Currently in Ward',dashPtnEmpty:'No CRE patients in ward.',
+    dashByWadTitle:'📊 Total CRE by Ward (2026)',
+    dashUpdatedPrefix:'Updated: ',
+    dashNoPtn:'Click Refresh to load data.',
   }
 };
 
@@ -588,6 +812,8 @@ function $(id){return document.getElementById(id);}
 function show(id,flex){var e=$(id);if(e)e.style.display=flex||'block';}
 function hide(id){var e=$(id);if(e)e.style.display='none';}
 function st(id,v){var e=$(id);if(e&&v!==undefined)e.textContent=v;}
+function si(id,v){var e=$(id);if(e&&v!==undefined)e.innerHTML=v;}
+function sv(id,v){var e=$(id);if(e)e.style.display=v;}
 function sa(id,a,v){var e=$(id);if(e)e.setAttribute(a,v);}
 function toast(msg){var t=$('toast');t.textContent=msg;t.classList.remove('opacity-0');setTimeout(function(){t.classList.add('opacity-0');},3000);}
 function showToast(msg){toast(msg);}
@@ -689,13 +915,22 @@ function proceedToApp(){
   // Show Data Entry tab only for UKI
   var entryBtn=document.getElementById('tab-btn-entry');
   if(entryBtn){entryBtn.style.display=currentUser==='UKI'?'':'none';}
-  // Init entry form dates & user
-  if(currentUser==='UKI')initEntryForm();
+  var dashBtn=document.getElementById('tab-btn-dashboard');
+  if(dashBtn){dashBtn.style.display=currentUser==='UKI'?'':'none';}
+  if(currentUser==='UKI'){initEntryForm();setDashDate();}
+  var logoutBtn=document.getElementById('logout-btn');
+  if(logoutBtn) logoutBtn.style.display='flex';
+  // Show user badge
+  var badge=document.getElementById('user-badge');
+  var badgeName=document.getElementById('user-badge-name');
+  if(badge){badge.style.display='flex';}
+  if(badgeName){badgeName.textContent=currentUser;}
+
 }
 
 // ── Login ──
 var _acked=false;
-const CREDENTIALS={'W1':'mbw1','W2':'mbw2','W3':'mbw3','W4':'mbw4','W6':'mbw6','W7':'mbw7','W8':'mbw8','ICU MB':'icumb1','HAMB':'hamb1','W8A':'wcc8a','W8B':'wcc8b','W7A':'wcc7a','W7B':'wcc7b','W6A':'wcc6a','W6B':'wcc6b','LB':'lbwcc1','ICUWCC':'icuwcc1','PICU':'picuwcc1','NICU':'nicuwcc1','SCN':'scnwcc1','HAWCC':'hawcc1','UKI':'uki1'};
+const CREDENTIALS={'W1':'mbw1','W2':'mbw2','W3':'mbw3','W4':'mbw4','W6':'mbw6','W7':'mbw7','W8':'mbw8','ICU MB':'icumb1','HAMB':'hamb1','W8A':'wcc8a','W8B':'wcc8b','W7A':'wcc7a','W7B':'wcc7b','W6A':'wcc6a','W6B':'wcc6b','LB':'lbwcc1','ICUWCC':'icuwcc1','PICU':'picuwcc1','NICU':'nicuwcc1','SCN':'scnwcc1','HAWCC':'hawcc1','UKI':'uki1','HASIL':'hasil1'};
 var currentUser='';
 function doLogin(){
   var user=$('loginUser').value.trim().toUpperCase();
@@ -799,6 +1034,17 @@ function applyLang(){
   st('entry-date-label',L.entryEntryDateLabel);
   st('entry-by-label',L.entryEntryByLabel);st('entry-save-btn-label',L.entrySaveBtn);
   st('entry-success-title',L.entrySuccessTitle);st('entry-add-more-btn',L.entryAddMore);
+  var eplph=document.getElementById('entry-ploc-placeholder');if(eplph)eplph.textContent=L.entryPlocPlaceholder||'-- Select Status --';
+  var epliw=document.getElementById('entry-ploc-inward');if(epliw)epliw.textContent=L.entryPlocInWard||'In Ward (Currently)';
+  var epldi=document.getElementById('entry-ploc-discharged');if(epldi)epldi.textContent=L.entryPlocDischarged||'Discharged';
+  var epldth=document.getElementById('entry-ploc-death');if(epldth)epldth.textContent=L.entryPlocDeath||'Death';
+  var epltr=document.getElementById('entry-ploc-transfer');if(epltr)epltr.textContent=L.entryPlocTransfer||'Transfer';
+  var eplun=document.getElementById('entry-ploc-unsure');if(eplun)eplun.textContent=L.entryPlocUnsure||'Unsure';
+  st('entry-ploc-label',L.entryPlocLabel||'Patient Location');
+  st('entry-ploc-optional','('+( L.entryPlocOptional||'optional')+')');
+  st('entry-comment-label',L.entryCommentLabel||'Additional Info / Comment');
+  st('entry-comment-optional','('+(L.entryCommentOptional||'optional')+')');
+  sa('en_comment','placeholder',L.entryCommentPlaceholder||'Additional information...');
   st('fb-title',L.fbTitle);st('fb-subtitle',L.fbSubtitle);st('fb-role-label',L.fbRoleLabel);st('fb-ward-label',L.fbWardLabel);sa('fbWard','placeholder',L.fbWardPlaceholder||'');
   st('fb-name-label',L.fbNameLabel);sa('fbName','placeholder',L.fbNamePlaceholder||'Nama penuh anda...');
   st('fb-email-label',L.fbEmailLabel);sa('fbEmail','placeholder',L.fbEmailPlaceholder||'nama@htpn.gov.my');
@@ -816,13 +1062,84 @@ function applyLang(){
   st('login-btn-text',L.loginBtn);st('login-note',L.loginNote);st('login-error-msg',L.loginError);
   st('remember-label',L.rememberLabel||'Ingat kata laluan saya');
   sa('loginUser','placeholder',currentLang==='BM'?'Masukkan username...':'Enter username...');
+  st('logout-lbl',currentLang==='BM'?'Log Keluar':'Log Out');
+  sa('loginPass','placeholder',currentLang==='BM'?'Masukkan username...':'Enter username...');
   sa('loginPass','placeholder',currentLang==='BM'?'Masukkan password...':'Enter password...');
   renderDisc();
+  // ── Dashboard labels ──
+  st('dash-title-h2', L.dashTitle||'📊 Dashboard CRE 2026');
+  st('dash-refresh-lbl', L.dashRefresh||'Refresh');
+  st('dash-loading-txt', L.dashLoading||'Memuatkan...');
+  st('dash-error-txt', L.dashError||'Gagal muatkan data.');
+  st('dash-retry-lbl', L.dashRetry||'Cuba Lagi');
+  st('dash-exec-label', L.dashExecTitle||'Ringkasan Eksekutif');
+  st('dash-ward-bar-lbl', L.dashWardTitle||'📍 Kes In Ward Mengikut Wad');
+  st('dc-ward-bar-sub', L.dashWardSub||'Hari log masuk');
+  st('dc-ptn-lbl', L.dashPtnTitle||'👥 Senarai Pesakit CRE Di Wad');
+  st('dc-bywad-lbl', L.dashByWadTitle||'📊 Total CRE Mengikut Wad (2026)');
+  st('dc-inward-lbl', L.dashCard1||'In Ward Hari Ini');
+  st('dc-total-lbl', L.dashCard2||'Jumlah 2026');
+  st('dc-index-lbl', L.dashCard3||'Index Cases');
+  st('dc-screen-lbl', L.dashCard4||'Close Contacts');
+  st('dc-inward-sub', currentLang==='BM'?'Kes aktif hari ini':'Active cases today');
+  st('dc-total-sub', currentLang==='BM'?'Semua rekod':'All records');
+  st('dash-ptn-hint', currentLang==='BM'?'Tekan Refresh untuk muatkan data.':'Click Refresh to load data.');
+  st('dash-ward-empty-txt', currentLang==='BM'?'Tiada kes aktif (In Ward) pada masa ini.':'No active (In Ward) cases at this time.');
+  st('hasil-save-lbl', currentLang==='BM'?'Simpan Rekod':'Save Record');
+  st('logout-lbl', currentLang==='BM'?'Log Keluar':'Log Out');
+  if(currentUser==='HASIL'){
+    st('hasil-box-title', '🔬 Unit Hasil — Patient Admission');
+  } else {
+    st('hasil-box-title', currentLang==='BM'?'🏥 Pengesahan Lokasi Pesakit':'🏥 Patient Location Confirmation');
+  }
+  st('hasil-need-admit', currentLang==='BM'?'Notify UKI — Pesakit Dimasukkan ke Wad':'Notify UKI — Patient Admitted to Ward');
+  si('hasil-tick-hint', currentLang==='BM'?'Tick untuk update Patient Location → <strong>In Ward</strong>':'Tick to update Patient Location → <strong>In Ward</strong>');
+  setDashDate();
+  // Re-render dashboard content if already loaded
+  if(typeof _lastDashData !== 'undefined' && _lastDashData){
+    var body=document.getElementById('dash-body');
+    if(body && body.style.display!=='none') renderDashboard(_lastDashData);
+  }
+}
+function doLogout(){
+  currentUser=null;
+  // Hide app
+  hide('mainApp');
+  // Reset logout btn
+  var lb=document.getElementById('logout-btn');
+  if(lb) lb.style.display='none';
+  var ub=document.getElementById('user-badge');
+  if(ub) ub.style.display='none';
+  var ubn=document.getElementById('user-badge-name');
+  if(ubn) ubn.textContent='';
+  // Reset bottom nav
+  var bn=document.getElementById('bottomNav');
+  if(bn) bn.classList.remove('show');
+  // Reset UKI-only tabs
+  var te=document.getElementById('tab-btn-entry');if(te)te.style.display='none';
+  var td=document.getElementById('tab-btn-dashboard');if(td)td.style.display='none';
+  // Reset disclaimer
+  _acked=false;
+  var box=document.getElementById('ckbox');
+  if(box){box.style.background='#f8fafc';box.style.borderColor='#cbd5e1';box.innerHTML='';}
+  var pb=document.getElementById('proceedBtn');
+  if(pb){pb.disabled=true;pb.style.background='#e2e8f0';pb.style.color='#94a3b8';pb.style.cursor='not-allowed';}
+  // Clear search result and IC field
+  var rd=document.getElementById('resultDisplay');if(rd)rd.innerHTML='';
+  var ic=document.getElementById('icSearch');if(ic)ic.value='';
+  var hb=document.getElementById('hasil-admission-box');if(hb)hb.style.display='none';
+  var cw=document.getElementById('hasil-confirm-wrap');if(cw)cw.style.display='none';
+  // Clear login fields
+  var lu=document.getElementById('loginUser');if(lu)lu.value='';
+  var lp=document.getElementById('loginPass');if(lp)lp.value='';
+  // Show login screen
+  show('loginScreen','flex');
 }
 function switchTab(name,btn){
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   $('tab-'+name).classList.add('active');btn.classList.add('active');
+  if(name==='dashboard')loadDashboard();
 }
 var selRating=0,selectedCat='';
 function setRating(n){selRating=n;for(var i=1;i<=5;i++)$('star'+i).classList.toggle('selected',i<=n);var L=LANG[currentLang];var rl=$('ratingLabel');if(rl){rl.textContent=L.ratingLabels[n];rl.style.color=n>=4?'#166534':n===3?'#92400e':'#991b1b';}}
@@ -854,13 +1171,17 @@ function resetFeedback(){
 }
 function getStyle(status,screening){
   const s=(status||"").toUpperCase().trim(),sc=(screening||"").toUpperCase().trim();
-  if(s==="INDEX")return{headerBg:"#7f1d1d",cardBg:"bg-red-50",border:"border-red-600",badge:"bg-red-700 text-white border-red-800",blink:"animate-blink",bannerBg:"bg-red-100 border-red-300",bannerText:"text-red-900",iconBg:"bg-red-200",icon:"🦠",label:"INDEX CASE",desc:"This patient is a confirmed CRE Index Case. Contact IPC immediately."};
-  if(s.includes("CONTACT")){
+  // INDEX — match "INDEX", "INDEX CASE", "INDEX CASE (CRE)" etc
+  const isIdx = s==='INDEX' || s.startsWith('INDEX');
+  // CONTACT — match "CLOSE CONTACT", "CONTACT", "CC" etc
+  const isCc  = s.includes('CONTACT') || s==='CC' || s.startsWith('CLOSE CONTACT');
+  if(isIdx)return{headerBg:"#7f1d1d",cardBg:"bg-red-50",border:"border-red-600",badge:"bg-red-700 text-white border-red-800",blink:"animate-blink",bannerBg:"bg-red-100 border-red-300",bannerText:"text-red-900",iconBg:"bg-red-200",icon:"🦠",label:"INDEX CASE",desc:"This patient is a confirmed CRE Index Case. Contact IPC immediately."};
+  if(isCc){
     if(sc.includes("COMPLETE")&&!sc.includes("INCOMPLETE"))return{headerBg:"#991b1b",cardBg:"bg-red-50",border:"border-red-500",badge:"bg-red-600 text-white border-red-700",blink:"animate-blink",bannerBg:"bg-red-100 border-red-300",bannerText:"text-red-900",iconBg:"bg-red-200",icon:"✅",label:"CLOSE CONTACT — COMPLETE SCREENING",desc:"CRE screening completed."};
-    if(sc==="NA"||sc==="N/A"||sc.includes("NOT APPLICABLE"))return{headerBg:"#92400e",cardBg:"bg-yellow-50",border:"border-yellow-500",badge:"bg-yellow-400 text-yellow-900 border-yellow-600",blink:"animate-blink",bannerBg:"bg-yellow-100 border-yellow-300",bannerText:"text-yellow-900",iconBg:"bg-yellow-200",icon:"👥",label:"CLOSE CONTACT",desc:"Patient is a close contact of a CRE case."};
+    if(sc==="NA"||sc==="N/A"||sc.includes("NOT APPLICABLE")||sc==="")return{headerBg:"#92400e",cardBg:"bg-yellow-50",border:"border-yellow-500",badge:"bg-yellow-400 text-yellow-900 border-yellow-600",blink:"animate-blink",bannerBg:"bg-yellow-100 border-yellow-300",bannerText:"text-yellow-900",iconBg:"bg-yellow-200",icon:"👥",label:"CLOSE CONTACT",desc:"Patient is a close contact of a CRE case."};
     return{headerBg:"#92400e",cardBg:"bg-yellow-50",border:"border-yellow-500",badge:"bg-yellow-400 text-yellow-900 border-yellow-600",blink:"animate-blink",bannerBg:"bg-yellow-100 border-yellow-300",bannerText:"text-yellow-900",iconBg:"bg-yellow-200",icon:"⏳",label:"CLOSE CONTACT — INCOMPLETE SCREENING",desc:"CRE screening is still incomplete."};
   }
-  return{headerBg:"#1e3a5f",cardBg:"bg-white",border:"border-slate-300",badge:"bg-slate-600 text-white border-slate-700",blink:"",bannerBg:"bg-slate-100 border-slate-200",bannerText:"text-slate-800",iconBg:"bg-slate-200",icon:"ℹ️",label:status||"UNKNOWN",desc:""};
+  return{headerBg:"#7f1d1d",cardBg:"bg-red-50",border:"border-red-600",badge:"bg-red-700 text-white border-red-800",blink:"animate-blink",bannerBg:"bg-red-100 border-red-300",bannerText:"text-red-900",iconBg:"bg-red-200",icon:"🦠",label:status||"CRE RECORD",desc:"This patient has a CRE record. Contact IPC for details."};
 }
 function screeningChip(sc){const s=(sc||"").toUpperCase().trim();if(s.includes("COMPLETE")&&!s.includes("INCOMPLETE"))return{bg:"bg-red-100 border-red-300",text:"text-red-800",icon:"✅"};if(s.includes("INCOMPLETE"))return{bg:"bg-yellow-100 border-yellow-300",text:"text-yellow-800",icon:"⏳"};if(s==="NA"||s.includes("NOT APPLICABLE"))return{bg:"bg-slate-100 border-slate-200",text:"text-slate-500",icon:"—"};return{bg:"bg-slate-100 border-slate-200",text:"text-slate-600",icon:"📋"};}
 function detailRow(label,val){if(!val)return"";return`<div class="bg-slate-50 rounded-2xl px-4 py-3"><p class="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">${label}</p><p class="text-sm font-black text-slate-800">${val}</p></div>`;}
@@ -883,26 +1204,85 @@ function jsonpFetch(url){
     document.head.appendChild(script);
   });
 }
+function closeResultModal(e){
+  if(e&&e.target!==document.getElementById('resultModal'))return;
+  var m=document.getElementById('resultModal');
+  if(m){m.style.display='none';m.style.opacity='0';}
+  setAdmitCheck(false);_admitChecked=false;
+  window._lastSearchIC='';
+}
+function openResultModal(html){
+  var m=document.getElementById('resultModal');
+  var mc=document.getElementById('resultModalContent');
+  if(!m||!mc)return;
+  mc.innerHTML=html;
+  m.style.display='flex';
+  m.style.opacity='0';
+  setTimeout(function(){m.style.transition='opacity 0.2s ease';m.style.opacity='1';},10);
+}
 async function searchPatient(){
-  const raw=document.getElementById('icSearch').value.trim(),ic=raw.replace(/-/g,"").toUpperCase(),res=document.getElementById('resultDisplay');
-  if(!ic)return showToast("Sila masukkan nombor KP / IC / Passport!");
-  res.innerHTML=`<div class="p-16 text-center animate-pulse"><p class="text-slate-400 font-black uppercase tracking-widest text-xs">Searching CRE 2026 database...</p></div>`;
+  const raw=document.getElementById('icSearch').value.trim(),ic=raw.replace(/-/g,"").toUpperCase();
+  var res=document.getElementById('resultDisplay');
+  if(!ic)return showToast(currentLang==='BM'?'Sila masukkan nombor KP / IC / Passport!':'Please enter IC / KP / Passport!');
+  // Show loading in modal
+  openResultModal('<div style="padding:40px;text-align:center;background:#fff;border-radius:2rem;"><div style="width:36px;height:36px;border:4px solid #e2e8f0;border-top-color:#0C447C;border-radius:50%;animation:dashSpin 0.8s linear infinite;margin:0 auto 14px;"></div><p style="color:#94a3b8;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">'+(currentLang==='BM'?'Mencari...':'Searching...')+'</p></div>');
+  // Clear IC field for privacy
+  document.getElementById('icSearch').value='';
+  var hbL=document.getElementById('hasil-admission-box');if(hbL)hbL.style.display='none';
+  var cw=document.getElementById('hasil-confirm-wrap');if(cw)cw.style.display='none';
+  setAdmitCheck(false);_admitChecked=false;
   try{
     const resp=await fetch(`${APPS_SCRIPT_URL}?action=search&ic=${encodeURIComponent(ic)}`);
     const data=await resp.json();
-    if(data.status==="not_found"){res.innerHTML=`<div class="bg-white p-12 rounded-[2.5rem] shadow-xl border-l-[16px] border-slate-300 text-center"><p class="text-5xl mb-4">🔍</p><h3 class="text-2xl font-black text-slate-700 uppercase">No Record Found</h3><p class="text-slate-500 mt-2 text-sm">KP <span class="font-mono font-black">${ic}</span> not found.</p><p class="text-slate-400 mt-1 text-xs uppercase tracking-widest">OFF TAG patients are not displayed.</p></div>`;return;}
+    if(data.status==="not_found"){
+      openResultModal('<div style="background:#fff;padding:40px 32px;border-radius:2rem;text-align:center;"><p style="font-size:48px;margin-bottom:12px;">🔍</p><h3 style="font-size:20px;font-weight:900;color:#334155;text-transform:uppercase;">No Record Found</h3><p style="color:#64748b;margin-top:8px;font-size:13px;">IC not found in CRE 2026 database.</p><p style="color:#94a3b8;margin-top:4px;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;">OFF TAG patients are not displayed.</p></div>');
+      var hb2=document.getElementById('hasil-admission-box');if(hb2)hb2.style.display='none';return;}
     if(data.status==="found"){
-      const d=data.data,st=getStyle(d['status pesakit']||d.status,d.screening),sc=screeningChip(d.screening);
-      const isContact=(d['status pesakit']||d.status||"").toUpperCase().includes("CONTACT"),isIndex=(d['status pesakit']||d.status||"").toUpperCase()==="INDEX",isIncomplete=(d.screening||"").toUpperCase().includes("INCOMPLETE");
+      const d=data.data;
+      // Normalise keys — GAS may return 'Status Pesakit' or 'status pesakit'
+      const statusVal=d['Status Pesakit']||d['status pesakit']||d['status']||d['Status']||'';
+      const screenVal=d['Screening']||d['screening']||'';
+      const st=getStyle(statusVal,screenVal),sc=screeningChip(screenVal);
+      const isContact=statusVal.toUpperCase().includes("CONTACT"),isIndex=statusVal.toUpperCase()==="INDEX"||statusVal.toUpperCase().startsWith("INDEX"),isIncomplete=(screenVal||"").toUpperCase().includes("INCOMPLETE");
       const swabAlert=isIncomplete?`<div class="mt-3 bg-yellow-200 border border-yellow-400 rounded-xl px-4 py-2.5 flex items-center gap-2"><span>🧪</span><p class="text-xs font-black text-yellow-900 uppercase">⚠️ Send rectal swab if not yet submitted.</p></div>`:"";
       const ipcActions=isIndex?["Isolate or cohort patient immediately.","Place Contact Precaution signage and tag BHT / Appointment card.","Strict Hand Hygiene at all WHO 5 Moments.","Don single-use PPE; remove before leaving.","Dedicated equipment; disinfect before and after use.","Notify UKI and treating physician immediately.","Send MDRO Notification Form to UKI."]:["Isolate or cohort patient immediately.","Place Contact Precaution signage and tag BHT / Appointment card.","Strict Hand Hygiene at all WHO 5 Moments.","Don single-use PPE; remove before leaving.","Dedicated equipment; disinfect before and after use.","Notify UKI and treating physician."];
       const ipcChecklist=(isContact||isIndex)?`<div class="mt-5 ${isIndex?'bg-red-100 border-red-400':'bg-red-50 border-red-200'} border-2 rounded-[1.5rem] p-5"><h4 class="text-[10px] font-black uppercase tracking-widest text-red-700 mb-3">⚠️ Mandatory IPC Actions:</h4><div class="space-y-2">${ipcActions.map(t=>`<div class="flex items-start gap-3"><span class="text-red-500 font-black flex-shrink-0">•</span><span class="text-sm font-bold text-red-900">${t}</span></div>`).join('')}</div></div>`:"";
-      const orgBlock=d.organism?`<div class="bg-blue-50 border-2 border-blue-200 rounded-[1.5rem] p-5 mb-4"><p class="text-[9px] font-black uppercase tracking-widest text-blue-500 mb-1">Organisma</p><p class="text-base font-black text-blue-900 uppercase">${d.organism}</p>${d.sample?`<p class="text-xs text-blue-600 mt-1 font-bold uppercase">Sample: ${d.sample}</p>`:""}</div>`:"";
+      const orgBlock=(d.Organisma||d.organisma||d.organism||d.Organism)?`<div class="bg-blue-50 border-2 border-blue-200 rounded-[1.5rem] p-5 mb-4"><p class="text-[9px] font-black uppercase tracking-widest text-blue-500 mb-1">Organisma</p><p class="text-base font-black text-blue-900 uppercase">${d.Organisma||d.organisma||d.organism||''}</p>${d.sample?`<p class="text-xs text-blue-600 mt-1 font-bold uppercase">Sample: ${d.sample}</p>`:""}</div>`:"";
       const fmtDate=s=>{if(!s)return"—";const dt=new Date(s.toString().trim());if(isNaN(dt))return s;return String(dt.getDate()).padStart(2,"0")+"/"+String(dt.getMonth()+1).padStart(2,"0")+"/"+dt.getFullYear();};
-      const statusDisplay=d['status pesakit']||d.status||"—";
-      res.innerHTML=`<div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};"><p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${fmtDate(d['date sample taken'])}</p><h3 class="text-lg font-black uppercase opacity-80">Please confirm the identification number entered</h3><p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${d.kp?String(d.kp).replace(/./g,(c,i)=>i<4||i>=String(d.kp).length-2?c:'*'):ic}</p><p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p></div><div class="${st.cardBg} px-8 pt-6 pb-8 border-x-[12px] ${st.border} border-b border-slate-100 shadow-xl rounded-b-[2.5rem]"><div class="flex justify-end mb-5"><span class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase border-2 ${st.badge} ${st.blink} shadow-sm">${statusDisplay}</span></div><div class="${st.bannerBg} border-2 rounded-[1.5rem] p-4 flex items-center gap-4 mb-4 shadow-inner"><div class="${st.iconBg} rounded-xl w-12 h-12 flex items-center justify-center text-2xl flex-shrink-0">${st.icon}</div><div class="flex-1"><p class="text-[10px] font-black uppercase tracking-widest ${st.bannerText} opacity-60 mb-0.5">Case Status</p><p class="font-black uppercase text-sm ${st.bannerText}">${st.label}</p>${st.desc?`<p class="text-xs ${st.bannerText} opacity-70">${st.desc}</p>`:""} ${swabAlert}</div></div><div class="${sc.bg} border rounded-2xl px-4 py-3 mb-4 flex items-center gap-3"><span class="text-xl">${sc.icon}</span><div><p class="text-[9px] font-black uppercase tracking-widest opacity-50">Screening</p><p class="text-sm font-black uppercase ${sc.text}">${d.screening||"—"}</p></div></div>${orgBlock}${ipcChecklist}</div>`;
+      const statusDisplay=statusVal||"—";
+      var _modalHtml=`<div class="rounded-t-[2.5rem] text-white shadow-2xl px-8 pt-8 pb-6" style="background:${st.headerBg};"><p class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-1">Date Sample Taken · ${fmtDate(d['Tarikh Notifikasi']||d['date sample taken']||d['tarikh notifikasi'])}</p><h3 class="text-lg font-black uppercase opacity-80">Please confirm the identification number entered</h3><p class="font-mono mt-2 opacity-60 tracking-widest text-sm">${ic.replace(/./g,(c,i)=>i<4||i>=ic.length-2?c:'*')}</p><p class="text-[10px] opacity-40 mt-1 uppercase tracking-widest">Latest record displayed</p></div><div class="${st.cardBg} px-8 pt-6 pb-8 border-x-[12px] ${st.border} border-b border-slate-100 shadow-xl rounded-b-[2.5rem]"><div class="flex justify-end mb-5"><span class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase border-2 ${st.badge} ${st.blink} shadow-sm">${statusDisplay}</span></div><div class="${st.bannerBg} border-2 rounded-[1.5rem] p-4 flex items-center gap-4 mb-4 shadow-inner"><div class="${st.iconBg} rounded-xl w-12 h-12 flex items-center justify-center text-2xl flex-shrink-0">${st.icon}</div><div class="flex-1"><p class="text-[10px] font-black uppercase tracking-widest ${st.bannerText} opacity-60 mb-0.5">Case Status</p><p class="font-black uppercase text-sm ${st.bannerText}">${st.label}</p>${st.desc?`<p class="text-xs ${st.bannerText} opacity-70">${st.desc}</p>`:""} ${swabAlert}</div></div><div class="${sc.bg} border rounded-2xl px-4 py-3 mb-4 flex items-center gap-3"><span class="text-xl">${sc.icon}</span><div><p class="text-[9px] font-black uppercase tracking-widest opacity-50">Screening</p><p class="text-sm font-black uppercase ${sc.text}">${screenVal||"—"}</p></div></div>${orgBlock}${ipcChecklist}</div>`;
+      // Build admission box HTML for ward users (at top of modal)
+      var admitBoxHtml='';
+      if(isHasilOrWard()){
+        var boxTitle=currentLang==='BM'?'🏥 Pengesahan Lokasi Pesakit':'🏥 Patient Location Confirmation';
+        var notifyLabel=currentLang==='BM'?'Notify UKI — Pesakit Dimasukkan ke Wad':'Notify UKI — Patient Admitted to Ward';
+        var hintLabel=currentLang==='BM'?'Tick untuk update Patient Location → <strong>In Ward</strong>':'Tick to update Patient Location → <strong>In Ward</strong>';
+        admitBoxHtml='<div style="position:sticky;top:0;z-index:5;background:#f0f7ff;border:2px solid #bfdbfe;border-radius:0 0 16px 16px;padding:14px 16px;margin-bottom:0;">'
+          +'<p style="font-size:10px;font-weight:900;text-transform:uppercase;color:#1e40af;letter-spacing:0.08em;margin-bottom:10px;">'+boxTitle+'</p>'
+          +'<label onclick="toggleModalAdmission()" style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;background:#fff;border:2px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin-bottom:0;">'
+          +'<div id="modal-admit-ckbox" style="width:24px;height:24px;border:2.5px solid #93c5fd;border-radius:7px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;background:#fff;transition:all 0.2s;"></div>'
+          +'<div><p style="font-size:13px;font-weight:900;color:#1e293b;margin:0;">'+notifyLabel+'</p>'
+          +'<p style="font-size:11px;color:#3b82f6;font-weight:600;margin:3px 0 0;">'+hintLabel+'</p></div>'
+          +'</label>'
+          +'<div id="modal-confirm-wrap" style="display:none;margin-top:10px;">'
+          +'<div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:8px;margin-bottom:10px;">'
+          +'<span style="font-size:16px;">⚠️</span>'
+          +'<p style="font-size:12px;font-weight:700;color:#92400e;margin:0;">'+(currentLang==='BM'?'Patient Location akan diset ke <strong>In Ward</strong>. Tekan Simpan untuk sahkan.':'Patient Location will be set to <strong>In Ward</strong>. Press Save to confirm.')+'</p>'
+          +'</div>'
+          +'<button id="modal-save-btn" onclick="doWardSave()" style="width:100%;padding:13px;border-radius:999px;background:#0C447C;color:#E8A030;border:none;font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">'
+          +'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>'
+          +'<span id="modal-save-lbl">'+(currentLang==='BM'?'Simpan Rekod':'Save Record')+'</span>'
+          +'</button>'
+          +'</div>'
+          +'</div>';
+        window._lastSearchIC=ic;
+        setAdmitCheck(false);_admitChecked=false;
+      }
+      // Open modal with admit box AT TOP, then result
+      openResultModal(admitBoxHtml+_modalHtml);
+      if(res)res.innerHTML='';
     }
-  }catch(err){showToast("Connection error.");res.innerHTML=`<div class="bg-white p-10 rounded-[2.5rem] shadow text-center border-l-8 border-red-400"><p class="text-3xl mb-3">⚠️</p><p class="font-black text-red-700 uppercase text-lg">Connection Failed</p><p class="text-slate-500 text-sm mt-1">Check Apps Script URL or internet connection.</p></div>`;}
+  }catch(err){showToast(currentLang==='BM'?'Gagal sambung. Cuba semula.':'Connection failed. Please retry.');openResultModal('<div style="background:#fff;padding:40px 32px;border-radius:2rem;text-align:center;"><p style="font-size:40px;margin-bottom:12px;">⚠️</p><p style="font-weight:900;color:#991b1b;text-transform:uppercase;font-size:16px;">Connection Failed</p><p style="color:#64748b;font-size:12px;margin-top:8px;">Check your internet connection and try again.</p></div>');}
 }
 
 // ── DATA ENTRY (UKI only) ──
@@ -980,9 +1360,18 @@ async function submitEntry(){
   btn.disabled=true;btn.style.opacity='0.6';btn.innerHTML='⏳ '+(currentLang==='BM'?'Menyimpan...':'Saving...');
   try{
     const data=await fetch(APPS_SCRIPT_URL+'?'+new URLSearchParams({
-      action:'addEntry',nama,ic,rn:rn||'—',doa,sample_date:document.getElementById('en_sample_date').value||'—',ward,bed:bed||'—',organisma:org,status,hospital:hospital||'—',entrydate,entryby:'UKI ('+currentUser+')'
+      action:'addEntry',nama,ic,rn:rn||'—',doa,sample_date:document.getElementById('en_sample_date').value||'—',ward:ward,wad:ward,bed:bed||'—',organisma:org,status,hospital:hospital||'—',entrydate,entryby:'UKI ('+currentUser+')',
+      patientLocation:document.getElementById('en_ploc').value||'',
+      plocDetail:(function(){
+        var v=document.getElementById('en_ploc').value;
+        if(v==='Discharged'){var d=document.getElementById('ploc-date-disc');return d?d.value:'';}
+        if(v==='Death'){var d=document.getElementById('ploc-date-death');return d?d.value:'';}
+        if(v==='Transfer'){var d=document.getElementById('ploc-text-transfer');return d?d.value.trim():'';}
+        return '';
+      })(),
+      comment:document.getElementById('en_comment')?document.getElementById('en_comment').value.trim()||'':''
     }));
-    document.getElementById('entrySavedIC').textContent='IC: '+ic+' | '+nama+' | '+status;
+    var plocVal=document.getElementById('en_ploc')?document.getElementById('en_ploc').value:''; document.getElementById('entrySavedIC').textContent='IC: '+ic+' | '+nama+' | '+status+(plocVal?' | '+plocVal:'');
     hide('entryForm');show('entrySuccess');
   }catch(err){
     showToast(currentLang==='BM'?'Gagal simpan! Cuba semula.':'Save failed! Please try again.');
@@ -1008,6 +1397,21 @@ function resetEntry(){
   if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> '+(currentLang==='BM'?'Simpan Rekod':'Save Record');}
   hide('entrySuccess');show('entryForm');
   initEntryForm();
+  // Reset Patient Location
+  var plocSel=document.getElementById('en_ploc_sel');if(plocSel)plocSel.value='';
+  var plocHidden=document.getElementById('en_ploc');if(plocHidden)plocHidden.value='';
+  var detailWrap=document.getElementById('ploc-state-detail');if(detailWrap)detailWrap.style.display='none';
+  var dd=document.getElementById('ploc-date-disc');if(dd)dd.value='';
+  var dd2=document.getElementById('ploc-date-death');if(dd2)dd2.value='';
+  var tt=document.getElementById('ploc-text-transfer');if(tt)tt.value='';
+  var hi=document.getElementById('ploc-detail-input');if(hi)hi.value='';
+  ['ploc-disc-wrap','ploc-death-wrap','ploc-transfer-wrap'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.display='none';});
+  if(typeof setAdmitCheck==='function')setAdmitCheck(false);
+  var comment=document.getElementById('en_comment');
+  if(comment){
+    comment.value='';
+    comment.placeholder=currentLang==='BM'?'Tambahan maklumat, nota klinikal, dll...':'Additional information, clinical notes, etc...';
+  }
 }
 
 // ── Init ──
@@ -1025,8 +1429,317 @@ document.addEventListener('DOMContentLoaded',function(){
   try{
     if(localStorage.getItem('cre_rem')==='1'){
       var su=localStorage.getItem('cre_user'),sp=localStorage.getItem('cre_pass');
-      if(su&&sp){$('loginUser').value=su;$('loginPass').value=sp;$('rememberMe').checked=true;}
+      if(su&&sp){
+        // Small delay to ensure DOM is ready
+        setTimeout(function(){
+          var lu=$('loginUser'),lp=$('loginPass'),rm=$('rememberMe');
+          if(lu)lu.value=su;
+          if(lp)lp.value=sp;
+          if(rm)rm.checked=true;
+        },300);
+      }
     }
   }catch(e){}
 });
+// ── Patient Location dropdown ──
+function onPlocChange(){ onPlocStatusChange(); }
+function onPlocStatusChange(){
+  var sel = document.getElementById('en_ploc_status') || document.getElementById('en_ploc_sel');
+  var val = sel ? sel.value : '';
+  var bm = currentLang === 'BM';
+  var L = LANG[currentLang];
+  // Set hidden value
+  var hidden = document.getElementById('en_ploc');
+  if(hidden) hidden.value = val;
+  // Show/hide detail fields
+  var needDetail = (val==='Discharged'||val==='Death'||val==='Transfer');
+  var detailWrap = document.getElementById('ploc-state-detail');
+  if(detailWrap) detailWrap.style.display = needDetail ? 'block' : 'none';
+  // Show specific sub-field
+  var discWrap = document.getElementById('ploc-disc-wrap');
+  var deathWrap = document.getElementById('ploc-death-wrap');
+  var transferWrap = document.getElementById('ploc-transfer-wrap');
+  if(discWrap)     discWrap.style.display     = (val==='Discharged') ? 'block' : 'none';
+  if(deathWrap)    deathWrap.style.display    = (val==='Death')      ? 'block' : 'none';
+  if(transferWrap) transferWrap.style.display = (val==='Transfer')   ? 'block' : 'none';
+  // Clear hidden detail when switching
+  var hiddenDetail = document.getElementById('ploc-detail-input');
+  if(!needDetail && hiddenDetail) hiddenDetail.value = '';
+  // In Ward (Currently) — auto-set comment placeholder as prompt
+  var commentBox = document.getElementById('en_comment');
+  if(val === 'In Ward (Currently)'){
+    if(commentBox && !commentBox.value.trim()){
+      commentBox.placeholder = bm
+        ? 'Sila nyatakan lokasi pesakit terkini (cth: Wad 7, Katil B3)...'
+        : 'Please state current patient location (e.g. Ward 7, Bed B3)...';
+    }
+    setTimeout(function(){ if(commentBox) commentBox.scrollIntoView({behavior:'smooth',block:'center'}); }, 200);
+  } else {
+    if(commentBox && !commentBox.value.trim()){
+      commentBox.placeholder = bm
+        ? 'Tambahan maklumat, nota klinikal, dll...'
+        : 'Additional information, clinical notes, etc...';
+    }
+  }
+}
+
+// ── Unit Hasil: show admission checkbox when positive ──
+function isWardUser(){
+  return currentUser!=='' && currentUser!=='UKI' && currentUser!=='HASIL';
+}
+function isHasilOrWard(){
+  return isWardUser();
+}
+var _admitChecked=false;
+function toggleAdmission(){
+  _admitChecked=!_admitChecked;
+  setAdmitCheck(_admitChecked);
+  // Use _lastSearchIC (IC field cleared after search for privacy)
+  var ic=window._lastSearchIC||'';
+  if(_admitChecked){
+    if(!ic){showToast(currentLang==='BM'?'Sila cari pesakit dahulu.':'Please search patient first.');setAdmitCheck(false);_admitChecked=false;return;}
+    var cw=document.getElementById('hasil-confirm-wrap');
+    if(cw){
+      cw.style.display='block';
+      var saveLbl=document.getElementById('hasil-save-lbl');
+      if(saveLbl)saveLbl.textContent=currentLang==='BM'?'Simpan Rekod':'Save Record';
+      var saveBtn=document.getElementById('hasil-save-btn');
+      if(saveBtn){saveBtn.disabled=false;saveBtn.style.opacity='1';saveBtn.style.display='flex';}
+      var msg=document.getElementById('hasil-confirm-msg');
+      if(msg)msg.innerHTML=currentLang==='BM'
+        ?'Patient Location akan diset ke <strong>In Ward</strong>. Tekan Simpan untuk sahkan.'
+        :'Patient Location will be set to <strong>In Ward</strong>. Press Save to confirm.';
+    }
+  } else {
+    var cw=document.getElementById('hasil-confirm-wrap');
+    if(cw)cw.style.display='none';
+  }
+}
+function setAdmitCheck(checked){
+  var box=document.getElementById('admit-ckbox');
+  if(!box)return;
+  if(checked){
+    box.style.background='#0C447C';box.style.borderColor='#0C447C';
+    box.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+  }else{
+    box.style.background='#fff';box.style.borderColor='#93c5fd';box.innerHTML='';
+  }
+}
+function doWardSave(){
+  var ic=window._lastSearchIC||'';
+  if(!ic){showToast(currentLang==='BM'?'Tiada IC. Sila cari pesakit dahulu.':'No IC found.');return;}
+  var btn=document.getElementById('modal-save-btn');
+  if(btn){btn.disabled=true;btn.style.opacity='0.7';}
+  submitHasilAdmission(ic);
+}
+var _modalAdmitChecked=false;
+function toggleModalAdmission(){
+  _modalAdmitChecked=!_modalAdmitChecked;
+  var box=document.getElementById('modal-admit-ckbox');
+  var cw=document.getElementById('modal-confirm-wrap');
+  if(!box)return;
+  if(_modalAdmitChecked){
+    box.style.background='#0C447C';box.style.borderColor='#0C447C';
+    box.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+    if(cw)cw.style.display='block';
+  }else{
+    box.style.background='#fff';box.style.borderColor='#93c5fd';box.innerHTML='';
+    if(cw)cw.style.display='none';
+  }
+}
+async function submitHasilAdmission(ic){
+  if(!ic){showToast(currentLang==='BM'?'Tiada IC. Sila cari pesakit dahulu.':'No IC. Please search patient first.');setAdmitCheck(false);_admitChecked=false;return;}
+  var btn=document.getElementById('hasil-save-btn');
+  if(btn){btn.disabled=true;btn.style.opacity='0.7';}
+  try{
+    var params=new URLSearchParams({action:'updateLocation',ic:ic,patientLocation:'In Ward (Currently)',updatedBy:currentUser});
+    var r=await fetch(APPS_SCRIPT_URL+'?'+params);
+    var data=await r.json();
+    if(data.status==='success'||data.result==='success'){
+      // Show success state
+      // Update modal confirm wrap
+      var cw=document.getElementById('modal-confirm-wrap')||document.getElementById('hasil-confirm-wrap');
+      if(cw){
+        cw.innerHTML='<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:10px;">'
+          +'<span style="font-size:20px;">&#9989;</span>'
+          +'<p style="font-size:12px;font-weight:900;color:#166534;margin:0;">'+(currentLang==='BM'?'Berjaya! Patient Location dikemaskini: In Ward':'Success! Patient Location updated: In Ward')+'</p></div>';
+      }
+      setAdmitCheck(true);
+    }else{
+      showToast(currentLang==='BM'?'Gagal kemaskini. Cuba semula.':'Update failed. Please try again.');
+      if(btn){btn.disabled=false;btn.style.opacity='1';}
+      setAdmitCheck(false);_admitChecked=false;
+    }
+  }catch(e){
+    showToast(currentLang==='BM'?'Ralat sambungan.':'Connection error.');
+    if(btn){btn.disabled=false;btn.style.opacity='1';}
+    setAdmitCheck(false);_admitChecked=false;
+  }
+}
+function setAdmitCheck(checked){
+  _admitChecked=checked;
+  var box=document.getElementById('admit-ckbox');
+  if(!box)return;
+  if(checked){
+    box.style.background='#0C447C';box.style.borderColor='#0C447C';
+    box.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+  }else{
+    box.style.background='#fff';box.style.borderColor='#93c5fd';box.innerHTML='';
+  }
+}
+
+
+// ── Dashboard functions ──
+function setDashDate(){
+  var now=new Date();
+  var bmDays=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'];
+  var bmMonths=['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogs','Sep','Okt','Nov','Dis'];
+  var enDays=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var enMonths=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var bm=currentLang==='BM';
+  var days=bm?bmDays:enDays;
+  var months=bm?bmMonths:enMonths;
+  var L=LANG[currentLang];
+  var prefix=L.dashLoginPrefix||(bm?'Log masuk: ':'Logged in: ');
+  var el=document.getElementById('dash-login-date');
+  if(el)el.textContent=prefix+days[now.getDay()]+', '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear();
+}
+var _dashLoading=false;
+var _lastDashData = null;
+function loadDashboard(){
+  if(_dashLoading)return;
+  _dashLoading=true;
+  var loading=document.getElementById('dash-loading');
+  var error=document.getElementById('dash-error');
+  var body=document.getElementById('dash-body');
+  if(loading)loading.style.display='block';
+  if(error)error.style.display='none';
+  if(body)body.style.display='none';
+  fetch(APPS_SCRIPT_URL+'?action=dashboard')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      _dashLoading=false;
+      if(loading)loading.style.display='none';
+      if(data.error){if(error)error.style.display='block';return;}
+      _lastDashData=data;
+      renderDashboard(data);
+      if(body)body.style.display='block';
+    })
+    .catch(function(){
+      _dashLoading=false;
+      if(loading)loading.style.display='none';
+      if(error)error.style.display='block';
+    });
+}
+function renderDashboard(d){
+  var bm=currentLang==='BM';
+  var L=LANG[currentLang];
+  var inWard=d.inWard||0,total=d.total||0,totalIndex=d.totalIndex||0,incScr=d.incompleteScreening||0;
+  // Stat cards
+  function setEl(id,val){var e=document.getElementById(id);if(e)e.textContent=val;}
+  setEl('dc-inward',inWard);setEl('dc-total',total);setEl('dc-index',totalIndex);setEl('dc-screen',d.totalContact||0);
+
+  // Ward horizontal bars
+  var byWard=d.byWard||[];
+  var active=byWard.filter(function(w){return(w.inWard||0)>0;});
+  active.sort(function(a,b){return b.inWard-a.inWard;});
+  var wardBars=document.getElementById('dash-ward-bars');
+  var wardEmpty=document.getElementById('dash-ward-empty');
+  var loadBars=document.getElementById('dash-loading-bars');
+  if(loadBars)loadBars.style.display='none';
+  if(!active.length){
+    if(wardBars)wardBars.style.display='none';
+    if(wardEmpty)wardEmpty.style.display='block';
+  }else{
+    if(wardEmpty)wardEmpty.style.display='none';
+    if(wardBars){
+      wardBars.style.display='block';
+      var maxW=active[0].inWard||1;
+      var wh='';
+      for(var i=0;i<active.length;i++){
+        var w=active[i];
+        var pct=Math.round((w.inWard/maxW)*100);
+        var hasIdx=(w.indexCount||0)>0;
+        var wardColors=['#dc2626','#0C447C','#16a34a','#9333ea','#ea580c','#0891b2','#ca8a04','#db2777','#4f46e5','#65a30d'];
+        var barColor=wardColors[i % wardColors.length];
+        wh+='<div style="margin-bottom:10px;">'
+          +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">'
+          +'<span style="font-size:12px;font-weight:900;color:#1e293b;">'+w.ward+'</span>'
+          +'<div style="display:flex;align-items:center;gap:5px;">'
+          +(hasIdx?'<span style="font-size:9px;font-weight:900;background:#fef2f2;border:1px solid #fecdd3;color:#991b1b;padding:1px 7px;border-radius:999px;">INDEX: '+w.indexCount+'</span>':'')
+          +((w.contactCount||0)>0?'<span style="font-size:9px;font-weight:900;background:#fefce8;border:1px solid #fef08a;color:#854d0e;padding:1px 7px;border-radius:999px;">CC: '+w.contactCount+'</span>':'')
+          +'<span style="font-size:14px;font-weight:900;color:'+barColor+';">'+w.inWard+'</span>'
+          +'</div></div>'
+          +'<div style="background:#e2e8f0;border-radius:999px;height:10px;overflow:hidden;">'
+          +'<div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:999px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);"></div>'
+          +'</div></div>';
+      }
+      wardBars.innerHTML=wh;
+    }
+  }
+
+  // Patient list
+  var ptnList=document.getElementById('dash-ptn-list');
+  if(ptnList){
+    var patients=d.patientsInWard||[];
+    if(!patients.length){
+      ptnList.innerHTML='<p style="text-align:center;font-size:12px;color:#94a3b8;font-weight:600;padding:12px 0;">'+( L.dashPtnEmpty||(bm?'Tiada pesakit CRE di wad.':'No CRE patients in ward.'))+'</p>';
+    }else{
+      var ph='';
+      for(var pi=0;pi<patients.length;pi++){
+        var p=patients[pi];
+        var isIdx=(p.status||'').toUpperCase()==='INDEX';
+        var dotC=isIdx?'#dc2626':'#f59e0b';
+        var badge=isIdx
+          ?'<span style="font-size:9px;font-weight:900;background:#fef2f2;border:1px solid #fecdd3;color:#991b1b;padding:2px 8px;border-radius:999px;">INDEX</span>'
+          :'<span style="font-size:9px;font-weight:900;background:#fefce8;border:1px solid #fef08a;color:#854d0e;padding:2px 8px;border-radius:999px;">CONTACT</span>';
+        ph+='<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;margin-bottom:7px;">'
+          +'<div style="width:8px;height:8px;border-radius:50%;background:'+dotC+';flex-shrink:0;"></div>'
+          +'<div style="flex:1;min-width:0;">'
+          +'<p style="font-size:12px;font-weight:900;color:#1e293b;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+(p.nama||p.name||'-')+'</p>'
+          +'<p style="font-size:10px;color:#64748b;font-weight:600;margin:1px 0 0;font-family:monospace;">'+(p.ic||'-')+' &middot; '+(p.updatedBy||p.wad||p.ward||'-')+(p.updatedAt?' &middot; Updated: '+p.updatedAt:'')+'</p>'
+          +'</div>'+badge+'</div>';
+      }
+      ptnList.innerHTML=ph;
+    }
+  }
+
+  // Bar chart: Total CRE by ward
+  var byWadChart=document.getElementById('dash-bywad-chart');
+  if(byWadChart){
+    var allWards=d.allWards||[];
+    allWards.sort(function(a,b){return b.total-a.total;});
+    if(!allWards.length){
+      byWadChart.innerHTML='<p style="font-size:11px;color:#94a3b8;font-weight:600;">—</p>';
+    }else{
+      var maxT=allWards[0].total||1;
+      var ch='';
+      for(var ci=0;ci<allWards.length;ci++){
+        var aw=allWards[ci];
+        var bh=Math.max(8,Math.round((aw.total/maxT)*92));
+        var hasIdx2=(aw.indexCount||0)>0;
+        ch+='<div style="flex:1;min-width:28px;max-width:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;">'
+          +'<div style="font-size:9px;font-weight:900;color:#334155;margin-bottom:2px;">'+aw.total+'</div>'
+          +'<div style="width:100%;height:'+bh+'px;background:'+(hasIdx2?'#dc2626':'#0C447C')+';border-radius:5px 5px 0 0;"></div>'
+          +'<div style="position:absolute;bottom:-20px;font-size:7.5px;font-weight:700;color:#64748b;text-transform:uppercase;white-space:nowrap;">'+aw.ward+'</div>'
+          +'</div>';
+      }
+      byWadChart.innerHTML=ch;
+    }
+  }
+
+  var upd=document.getElementById('dash-updated');
+  if(upd)upd.textContent=(L.dashUpdatedPrefix||(bm?'Dikemaskini: ':'Updated: '))+(d.lastUpdated||'-');
+}
+function maskIC(ic){
+  if(!ic||ic==='-')return'-';
+  var s=String(ic).replace(/-/g,'');
+  return s.length<=6?s:s.substring(0,6)+'****';
+}
+function maskName(name){
+  if(!name||name==='-')return'-';
+  var parts=name.trim().split(' ');
+  return parts[0]+(parts.length>1?' '+parts[1].charAt(0)+'.':'');
+}
+
 </script></body></html>
