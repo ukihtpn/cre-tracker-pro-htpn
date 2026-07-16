@@ -1747,12 +1747,25 @@ function renderDashboard(d){
   if(upd)upd.textContent=(L.dashUpdatedPrefix||(bm?'Dikemaskini: ':'Updated: '))+(d.lastUpdated||'-');
 }
 function zoomImg(src){
-  var m=document.getElementById("resultModal");
-  var mc=document.getElementById("resultModalContent");
-  if(!m||!mc)return;
-  mc.innerHTML='<div style="background:#fff;padding:10px;border-radius:1.5rem;"><img src="'+src+'" style="width:100%;border-radius:1rem;display:block;"></div>';
-  m.style.display="flex";m.style.opacity="0";
-  setTimeout(function(){m.style.transition="opacity 0.2s ease";m.style.opacity="1";},10);
+  var ov=document.getElementById("imgZoomOverlay");
+  if(!ov){
+    ov=document.createElement("div");
+    ov.id="imgZoomOverlay";
+    ov.style.cssText="position:fixed;inset:0;z-index:9999;background:rgba(4,14,36,0.92);display:flex;align-items:center;justify-content:center;padding:2vw;cursor:zoom-out;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);";
+    ov.onclick=function(){ov.style.display="none";};
+    var img=document.createElement("img");
+    img.id="imgZoomTarget";
+    img.style.cssText="max-width:95vw;max-height:92vh;width:auto;height:auto;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:block;";
+    img.onclick=function(e){e.stopPropagation();};
+    var btn=document.createElement("button");
+    btn.innerHTML="&times;";
+    btn.style.cssText="position:fixed;top:16px;right:20px;z-index:10000;background:rgba(0,0,0,0.5);border:1.5px solid rgba(255,255,255,0.3);color:#fff;border-radius:999px;width:44px;height:44px;font-size:26px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;";
+    btn.onclick=function(){ov.style.display="none";};
+    ov.appendChild(img);ov.appendChild(btn);
+    document.body.appendChild(ov);
+  }
+  document.getElementById("imgZoomTarget").src=src;
+  ov.style.display="flex";
 }
 function maskIC(ic){
   var s=String(ic||'').replace(/[-\s]/g,'').trim();
