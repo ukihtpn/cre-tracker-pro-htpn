@@ -1273,11 +1273,11 @@ async function searchPatient(){
         var notifyLabel=currentLang==='BM'?'Notify UKI — Pesakit Dimasukkan ke Wad':'Notify UKI — Patient Admitted to Ward';
         var hintLabel=currentLang==='BM'?'Tick untuk update Patient Location → <strong>In Ward</strong>':'Tick to update Patient Location → <strong>In Ward</strong>';
         admitBoxHtml='<div style="position:sticky;top:0;z-index:5;background:#f0f7ff;border:2px solid #bfdbfe;border-radius:0 0 16px 16px;padding:14px 16px;margin-bottom:0;">'
-          +'<p style="font-size:10px;font-weight:900;text-transform:uppercase;color:#1e40af;letter-spacing:0.08em;margin-bottom:10px;">'+boxTitle+'</p>'
+          +'<p style="font-size:10px;font-weight:900;text-transform:uppercase;color:#1e40af;letter-spacing:0.08em;margin-bottom:8px;">'+boxTitle+'</p>'
+          +'<p style="font-size:12px;font-weight:900;color:#dc2626;margin:0 0 10px;line-height:1.4;">'+(currentLang==="BM"?"➤ Sila tick kotak di bawah untuk notify UKI":"➤ Please tick the box below to notify UKI")+'</p>'
           +'<label onclick="toggleModalAdmission()" style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;background:#fff;border:2px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin-bottom:0;">'
           +'<div id="modal-admit-ckbox" style="width:24px;height:24px;border:2.5px solid #93c5fd;border-radius:7px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;background:#fff;transition:all 0.2s;"></div>'
-          +'<div><p style="font-size:13px;font-weight:900;color:#1e293b;margin:0;">'+notifyLabel+'</p>'
-          +'<p style="font-size:11px;color:#3b82f6;font-weight:600;margin:3px 0 0;">'+hintLabel+'</p></div>'
+          +'<div><p style="font-size:13px;font-weight:900;color:#1e293b;margin:0;">'+notifyLabel+'</p></div>'
           +'</label>'
           +'<div id="modal-confirm-wrap" style="display:none;margin-top:10px;">'
           +'<div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:8px;margin-bottom:10px;">'
@@ -1289,6 +1289,13 @@ async function searchPatient(){
           +'<span id="modal-save-lbl">'+(currentLang==='BM'?'Simpan Rekod':'Save Record')+'</span>'
           +'</button>'
           +'</div>'
+          +'<a href="https://drive.google.com/file/d/1I167ygVcHnGgQfWwFiONMZm3LE97pfmU/view?usp=sharing" target="_blank" rel="noopener" style="display:block;text-decoration:none;margin-top:12px;background:#fff7ed;border:2px solid #fdba74;border-radius:12px;padding:12px 14px;">'
+          +'<div style="display:flex;align-items:flex-start;gap:10px;">'
+          +'<span style="font-size:20px;line-height:1;flex-shrink:0;">📋</span>'
+          +'<div style="flex:1;min-width:0;">'
+          +'<p style="font-size:12px;font-weight:900;color:#9a3412;margin:0;text-transform:uppercase;letter-spacing:0.03em;">'+(currentLang==="BM"?"Senarai Semak MDRO":"MDRO Checklist")+'</p>'
+          +'<p style="font-size:11px;color:#dc2626;font-weight:900;margin:6px 0 0;display:flex;align-items:center;gap:5px;text-transform:uppercase;letter-spacing:0.02em;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>'+(currentLang==="BM"?"Cetak Senarai Semak Untuk Pesakit":"Print Checklist For Patient")+'</p>'
+          +'</div></div></a>'
           +'</div>';
         window._lastSearchIC=ic;
         setAdmitCheck(false);_admitChecked=false;
