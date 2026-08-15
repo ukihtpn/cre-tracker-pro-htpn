@@ -961,7 +961,7 @@ function doLogin(){
     var rm=$('rememberMe');
     if(rm&&rm.checked){try{localStorage.setItem('cre_user',user);localStorage.setItem('cre_pass',pass);localStorage.setItem('cre_rem','1');}catch(e){}}
     else{try{localStorage.removeItem('cre_user');localStorage.removeItem('cre_pass');localStorage.removeItem('cre_rem');}catch(e){}}
-    try{fetch(APPS_SCRIPT_URL+'?'+new URLSearchParams({action:'logUsage',user:user,timestamp:new Date().toISOString()}));}catch(e){}
+    try{fetch(APPS_SCRIPT_URL+'?'+new URLSearchParams({action:'logUsage',user:user}));}catch(e){}
     hide('loginScreen');applyLang();show('disclaimerModal','flex');
   }else{
     err.style.display='block';
