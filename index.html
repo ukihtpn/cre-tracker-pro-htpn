@@ -761,6 +761,7 @@ const LANG = {
     dashWardEmpty:'Tiada kes aktif (In Ward) pada masa ini.',
     dashPtnTitle:'👥 Senarai Pesakit CRE Di Wad',dashPtnEmpty:'Tiada pesakit CRE di wad.',
     dashByWadTitle:'📊 Total CRE Mengikut Wad (2026)',
+    dashUsageTitle:'🔒 Penggunaan App (UKI Sahaja)',dashUsageSub:'Bilangan kali log masuk mengikut ward/user',dashUsageEmpty:'Belum ada rekod penggunaan.',
     dashUpdatedPrefix:'Dikemaskini: ',
     dashNoPtn:'Tekan Refresh untuk muatkan data.',
   },
@@ -819,6 +820,7 @@ const LANG = {
     dashWardEmpty:'No active (In Ward) cases at this time.',
     dashPtnTitle:'👥 CRE Patients Currently in Ward',dashPtnEmpty:'No CRE patients in ward.',
     dashByWadTitle:'📊 Total CRE by Ward (2026)',
+    dashUsageTitle:'🔒 App Usage (UKI Only)',dashUsageSub:'Login count by ward/user',dashUsageEmpty:'No usage records yet.',
     dashUpdatedPrefix:'Updated: ',
     dashNoPtn:'Click Refresh to load data.',
   }
@@ -1095,6 +1097,8 @@ function applyLang(){
   st('dash-retry-lbl', L.dashRetry||'Cuba Lagi');
   st('dash-exec-label', L.dashExecTitle||'Ringkasan Eksekutif');
   st('dash-ward-bar-lbl', L.dashWardTitle||'📍 Kes In Ward Mengikut Wad');
+  st('dash-usage-lbl', L.dashUsageTitle||'🔒 Penggunaan App (UKI Sahaja)');
+  st('dash-usage-sub', L.dashUsageSub||'Bilangan kali log masuk mengikut ward/user');
   st('dc-ward-bar-sub', L.dashWardSub||'Hari log masuk');
   st('dc-ptn-lbl', L.dashPtnTitle||'👥 Senarai Pesakit CRE Di Wad');
   st('dc-bywad-lbl', L.dashByWadTitle||'📊 Total CRE Mengikut Wad (2026)');
@@ -1781,7 +1785,7 @@ function renderDashboard(d){
         }
         document.getElementById('dash-usage-list').innerHTML=uh;
       }else{
-        document.getElementById('dash-usage-list').innerHTML='<p style="font-size:11px;color:#b45309;font-weight:600;text-align:center;padding:8px 0;">'+(bm?'Belum ada rekod penggunaan.':'No usage records yet.')+'</p>';
+        document.getElementById('dash-usage-list').innerHTML='<p style="font-size:11px;color:#b45309;font-weight:600;text-align:center;padding:8px 0;">'+(L.dashUsageEmpty||(bm?'Belum ada rekod penggunaan.':'No usage records yet.'))+'</p>';
       }
     }else{
       usageCard.style.display='none';
